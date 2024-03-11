@@ -17,4 +17,5 @@ public class QuestionDTO {
     private String questionTo;
     private String questionContent;
     private int answered;
+    private int anonymous;
 }

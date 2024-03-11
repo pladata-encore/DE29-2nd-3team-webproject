@@ -29,4 +29,5 @@ public class QuestionEntity extends BaseTimeEntity{
     private String questionContent;
     @ColumnDefault(value = "0")
     private int answered;
+    private int anonymous;
 }
