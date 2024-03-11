@@ -2,10 +2,10 @@ package com.example.askproject.Service;
 
 import java.util.List;
 
-import com.example.askproject.Model.Entity.AnswerEntity;
+import com.example.askproject.Model.DTO.AnswerDTO;
 
 public interface AnswerService {
-    public List<AnswerEntity> findAllByAnswerFrom(String answerFrom);
-    public AnswerEntity findByAnswerQuestionId(Long answerQuestionId);
+    public List<AnswerDTO> findAllByAnswerFrom(String answerFrom);
+    public AnswerDTO findByAnswerQuestionId(Long answerQuestionId);
     public void deleteByAnswerId(Long AnswerId);
 }
