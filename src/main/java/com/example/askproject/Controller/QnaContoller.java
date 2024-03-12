@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.askproject.Model.DTO.AnswerDTO;
 import com.example.askproject.Model.DTO.PageDTO;
 import com.example.askproject.Model.DTO.QuestionDTO;
 import com.example.askproject.Model.DTO.joindQnaDTO;
@@ -42,7 +43,7 @@ public class QnaContoller {
         questionModel.addAttribute("pageComment", pageDTO.getPageComment());
         int questionCount = qdtos.size();
         int answerCount = answerService.findAllByAnswerFrom(id).size();
-        boolean isEquals = id.equals("to1"); //to1을 세션 아이디로 바꿔야댐
+        boolean isEquals = id.equals("to2"); //to1을 세션 아이디로 바꿔야댐
         questionModel.addAttribute("questionCount", questionCount);
         questionModel.addAttribute("answerCount", answerCount);
         questionModel.addAttribute("noAnswerCount", questionCount-answerCount);
@@ -58,5 +59,15 @@ public class QnaContoller {
         questionDTO.setQuestionFrom("세션아이디가될예정");
         questionService.insertQuestion(questionDTO);
         return "redirect:/v1/qna/page?id="+id;
+    }
+
+    @PostMapping("/senda")
+    public String postAnswer(@ModelAttribute AnswerDTO answerDTO, @RequestParam String pageid, @RequestParam("questionid") Long questionid, @RequestParam("from") String from){
+        answerDTO.setAnswerTo(from);
+        answerDTO.setAnswerQuestionId(questionid);
+        answerDTO.setAnswerFrom("to2");//세션아이디가 될 예정
+        answerService.insertAnswer(answerDTO);
+        questionService.changeAnswered(questionid);
+        return "redirect:/v1/qna/page?id="+pageid;
     }
 }

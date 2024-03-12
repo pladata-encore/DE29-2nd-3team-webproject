@@ -10,4 +10,5 @@ public interface QuestionService {
     public void deleteByQuestionId(Long questionId);
     public void insertQuestion(QuestionDTO questionDTO);
     public List<joindQnaDTO> joinQuestionAnswerByQuestionTo(String questionTo);
+    public void changeAnswered(Long questionId);
 }

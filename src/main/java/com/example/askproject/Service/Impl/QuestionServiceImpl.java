@@ -58,7 +58,7 @@ public class QuestionServiceImpl implements QuestionService{
         return dtos; 
     }
 
-    public void changeAnswerd(Long questionId){ //답변 입력상태가 변경되면 Answered True->False 또는 반대로 변경
+    public void changeAnswered(Long questionId){ //답변 입력상태가 변경되면 Answered True->False 또는 반대로 변경
         QuestionEntity questionEntity = questionDAO.findByQuestionId(questionId);
         questionEntity.setAnswered(!questionEntity.isAnswered());
         questionDAO.updateQuestion(questionEntity);
