@@ -70,6 +70,7 @@
       h1.logo a {
         font-family: "Pacifico", cursive;
         font-weight: 400;
+        letter-spacing: -1px;
         font-style: normal;
       }
       #header,
@@ -123,6 +124,7 @@
       #recommenduser {
         padding-top: 0;
       }
+
     </style>
 
     <!-- =======================================================
@@ -153,8 +155,8 @@
 
         <nav id="navbar" class="navbar order-last order-lg-0">
           <ul>
-            <li><a class="active" href="index.html">Home</a></li>
-            <li><a href="main.html">Main</a></li>
+            <!-- <li><a class="active" href="index.html">Home</a></li> -->
+            <li><a href="main.html">Home</a></li>
             <li><a href="mypage.html">MyPage</a></li>
             <li><a href="pagesetting.html">PageSetting</a></li>
             <li><a href="myaccount.html">MyAccount</a></li>
@@ -172,7 +174,7 @@
         <div class="container" data-aos="fade-up">
           <div class="section-title">
             <h2>사용자 검색</h2>
-            <form class="justify-content-center" action="/search" method="GET">
+            <form class="justify-content-center" action="/search" method="GET"  data-aos="none">
               <input
                 type="text"
                 name="query"
@@ -211,7 +213,7 @@
                   <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
                     <h5 class="card-title" id="user-id1">UserId</h5>
                     <p class="card-text" id="page-title1">PageTitle</p>
-                  </div>
+              </div>
                 </a>
               </div>
 
@@ -354,8 +356,7 @@
     <footer id="footer">
       <div class="container">
         <div class="copyright">
-          &copy; Copyright <strong><span>Team 3</span></strong
-          >. All Rights Reserved
+          &copy; Copyright Team 3. All Rights Reserved
         </div>
         </div>
       </div>

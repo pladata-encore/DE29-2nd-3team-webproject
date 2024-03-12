@@ -129,7 +129,7 @@ h6 {
   font-family: "Pacifico", cursive;
   font-weight: 400;
   font-style: normal; 
-  font-size: 32px;
+  font-size: 25px;
   margin: 0;
   padding: 0;
   line-height: 1;
@@ -641,10 +641,6 @@ section {
   margin: 0 0 20px 0;
   font-family: "Raleway", sans-serif;
   font-size: 14px;
-}
-
-about.purecounter {
-  font-family: "Pacifico", sans-serif; /* 변경하고자 하는 폰트로 변경 */
 }
 
 /*--------------------------------------------------------------
