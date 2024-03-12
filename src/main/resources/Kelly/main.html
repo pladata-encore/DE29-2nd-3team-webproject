@@ -52,12 +52,21 @@
     <link href="assets/css/style.css" rel="stylesheet" />
 
     <style>
-      * {
+      h5 {
         font-family: "Nanum Gothic", sans-serif;
         font-weight: 400;
         font-style: normal;
-        letter-spacing: -1px;
+        letter-spacing: -2px;
       }
+
+      h2 {
+        font-family: "Nanum Gothic", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        letter-spacing: -2px;
+        margin-top: 20px;
+      }
+
       h1.logo a {
         font-family: "Pacifico", cursive;
         font-weight: 400;
@@ -80,6 +89,10 @@
       }
 
       input[type="text"] {
+        font-family: "Nanum Gothic", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        letter-spacing: -1px;
         width: 300px; /* 너비 조절 */
         padding: 8px; /* 내부 여백 조절 */
         border-radius: 5px; /* 테두리 둥글게 만듦 */
@@ -98,6 +111,17 @@
 
       button[type="submit"]:hover {
         background-color: #0056b3; /* 호버 시 배경색 변경 */
+      }
+
+      .card {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+        background-color: #f8f9fa; /* 배경색 변경 */
+        border-radius: 10px; /* 카드 테두리 둥글게 */
+        margin-bottom: 10px;
+      }
+
+      #recommenduser {
+        padding-top: 0;
       }
     </style>
 
@@ -147,7 +171,7 @@
       <section id="portfolio" class="portfolio">
         <div class="container" data-aos="fade-up">
           <div class="section-title">
-            <!-- <h2>사용자 검색</h2> -->
+            <h2>사용자 검색</h2>
             <form class="justify-content-center" action="/search" method="GET">
               <input
                 type="text"
@@ -157,296 +181,172 @@
               <button type="submit">검색</button>
             </form>
           </div>
-
-          <div class="row" data-aos="fade-up" data-aos-delay="100">
-            <div class="col-lg-12 d-flex justify-content-center">
-              <ul id="portfolio-flters">
-                <li data-filter="*" class="filter-active">All</li>
-                <li data-filter=".filter-app">App</li>
-                <li data-filter=".filter-card">Card</li>
-                <li data-filter=".filter-web">Web</li>
-              </ul>
-            </div>
+          <hr class="my-5">
           </div>
 
-          <div
-            class="row portfolio-container"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-1.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>App 1</h4>
-                  <p>App</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-1.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 1"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="section-title" data-aos="fade-up">
+            <h2>사용자 탐색하기</h2>
+          </div>
+      </section>
+      <!-- End Portfolio Section -->
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-2.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>Web 3</h4>
-                  <p>Web</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-2.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Web 3"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
+      <!-- ==== recommend user section ==== -->
+      <section id="recommenduser" class="recommenduser">
+        <div class="container" data-aos="fade-up">
+          <div class="row">
+            <!-- 첫 번째 세로 줄 -->
+            <div class="col-lg-4">
+              <h5>추천 사용자</h5>
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
                   </div>
-                </div>
+                </a>
               </div>
-            </div>
+      
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
+                  </div>
+                </a>
+              </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-3.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>App 2</h4>
-                  <p>App</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-3.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 2"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
                   </div>
-                </div>
+                </a>
               </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-4.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>Card 2</h4>
-                  <p>Card</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-4.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Card 2"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
                   </div>
-                </div>
+                </a>
               </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-5.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>Web 2</h4>
-                  <p>Web</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-5.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Web 2"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
                   </div>
-                </div>
+                </a>
               </div>
+      
             </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-6.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>App 3</h4>
-                  <p>App</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-6.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 3"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
+            
+            <!-- 두 번째 세로 줄 -->
+            <div class="col-lg-4">
+              <h5>질문을 많이 받은 사용자 top 5</h5>
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
                   </div>
-                </div>
+                </a>
               </div>
+      
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
+                  </div>
+                </a>
+              </div>
+
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
+                  </div>
+                </a>
+              </div>
+
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
+                  </div>
+                </a>
+              </div>
+
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
+                  </div>
+                </a>
+              </div>
+      
             </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-7.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>Card 1</h4>
-                  <p>Card</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-7.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Card 1"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
+      
+            <!-- 세 번째 세로 줄 -->
+            <div class="col-lg-4">
+              <h5>답변이 많은 사용자 top 5</h5>
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
                   </div>
-                </div>
+                </a>
               </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-8.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>Card 3</h4>
-                  <p>Card</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-8.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Card 3"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
+      
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
                   </div>
-                </div>
+                </a>
               </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-9.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>Web 3</h4>
-                  <p>Web</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-9.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Web 3"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
                   </div>
-                </div>
+                </a>
               </div>
+
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
+                  </div>
+                </a>
+              </div>
+
+              <div class="card">
+                <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+                  <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
+                    <h5 class="card-title" id="user-id1">UserId</h5>
+                    <p class="card-text" id="page-title1">PageTitle</p>
+                  </div>
+                </a>
+              </div>
+      
             </div>
           </div>
         </div>
       </section>
-      <!-- End Portfolio Section -->
+      
     </main>
     <!-- End #main -->
 
@@ -454,15 +354,9 @@
     <footer id="footer">
       <div class="container">
         <div class="copyright">
-          &copy; Copyright <strong><span>Kelly</span></strong
+          &copy; Copyright <strong><span>Team 3</span></strong
           >. All Rights Reserved
         </div>
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/kelly-free-bootstrap-cv-resume-html-template/ -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
         </div>
       </div>
     </footer>

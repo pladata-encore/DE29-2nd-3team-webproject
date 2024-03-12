@@ -484,7 +484,7 @@ h6 {
 # Sections General
 --------------------------------------------------------------*/
 section {
-  padding: 60px 0;
+  padding: 60px 0 0 ;
 }
 
 .section-bg {
@@ -641,6 +641,10 @@ section {
   margin: 0 0 20px 0;
   font-family: "Raleway", sans-serif;
   font-size: 14px;
+}
+
+about.purecounter {
+  font-family: "Pacifico", sans-serif; /* 변경하고자 하는 폰트로 변경 */
 }
 
 /*--------------------------------------------------------------
