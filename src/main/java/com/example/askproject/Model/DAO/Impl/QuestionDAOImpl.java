@@ -16,6 +16,12 @@ public class QuestionDAOImpl implements QuestionDAO{
     private QuestionRepository questionRepository;
 
     @Override
+    public void insertQuestion(QuestionEntity questionEntity) {
+        // TODO Auto-generated method stub
+        questionRepository.save(questionEntity);
+    }
+
+    @Override
     public void deleteByQuestionId(Long questionId) {
         // TODO Auto-generated method stub
         questionRepository.deleteByQuestionId(questionId);
@@ -25,6 +31,18 @@ public class QuestionDAOImpl implements QuestionDAO{
     public List<QuestionEntity> findAllByQuestionTo(String questionTo) {
         // TODO Auto-generated method stub
         return questionRepository.findAllByQuestionTo(questionTo);
+    }
+
+    @Override
+    public QuestionEntity findByQuestionId(Long questionId) {
+        // TODO Auto-generated method stub
+        return questionRepository.findByQuestionId(questionId);
+    }
+
+    @Override
+    public void updateQuestion(QuestionEntity questionEntity) {
+        // TODO Auto-generated method stub
+        questionRepository.save(questionEntity);
     }
 
 }

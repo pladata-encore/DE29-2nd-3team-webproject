@@ -10,8 +10,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="/static/assets/img/favicon.png" rel="icon">
+  <link href="/static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -24,16 +24,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Pacifico&display=swap" rel="stylesheet">
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="/static/assets/css/style.css" rel="stylesheet">
   <style>
     *{
       font-family: "Nanum Gothic", sans-serif;
@@ -77,9 +77,9 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
 }
 
-.question-list {
+/* .question-list {
   list-style-type: none;
-}
+} */
 
 
 .btn-custom {
@@ -129,7 +129,7 @@
         <ul>
           <li><a class="active" href="index.html">Home</a></li>
           <li><a href="main.html">Main</a></li>
-          <li><a href="mypage.html">MyPage</a></li>
+          <li><a href="page?id={{pageId}}">MyPage</a></li>
           <li><a href="pagesetting.html">PageSetting</a></li>
           <li><a href="portfolio.html">MyAccount</a></li>
         </ul>
@@ -143,25 +143,25 @@
     <section id="about" class="about">
       <div class="container" data-aos="fade-up">
         <div class="section-title">
-          <h2>Page Title</h2>
-          <p>page comment page comment page comment page comment page comment page comment</p>
+          <h2>{{pageTitle}}</h2>
+          <p>{{pageComment}}</p>
         </div>
       </div>
 
       <div class="row counters">
     
         <div class="col-lg-3 col-6 text-center">
-          <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+          <span data-purecounter-start="0" data-purecounter-end="{{questionCount}}" data-purecounter-duration="1" class="purecounter"></span>
           <p>Total Question</p>
         </div>
 
         <div class="col-lg-3 col-6 text-center">
-          <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+          <span data-purecounter-start="0" data-purecounter-end="{{answerCount}}" data-purecounter-duration="1" class="purecounter"></span>
           <p>Question Answered</p>
         </div>
 
         <div class="col-lg-3 col-6 text-center">
-          <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
+          <span data-purecounter-start="0" data-purecounter-end="{{noAnswerCount}}" data-purecounter-duration="1" class="purecounter"></span>
           <p>Question Not Answered</p>
         </div>
 
@@ -182,30 +182,37 @@
             </div>
                         
           <!-- 질문 목록 표시 -->
-          <ul class="question-list">
+          <div class="question-list">
             <!-- 각 질문은 li 요소 안에 포함됩니다 -->
-            <li>
+            {{#questions}}
               <!-- 질문 내용을 별도의 흰색 박스에 담아서 표시합니다 -->
               <div class="question-content-box">
                 <div class="question-content">
-                  <p>질문입니다. </p>
+                  <p>{{questionContent}}</p>
                 </div>
               </div>
-            </li>
+              {{^answered}}
+                {{#idCheck}}
+                <form id="answer-form" class="answer-form" action="submit_answer.php" method="post">
+                  <div class="d-flex"> <!-- 행 내 요소로 정렬하기 위한 클래스 추가 -->
+                    <div class="form-group flex-grow-1 mr-2"> <!-- 오른쪽 버튼과의 간격을 위해 추가한 클래스 -->
+                      <textarea id="answer" name="answer" class="form-control answer-textarea" rows="2" placeholder="답변을 입력해주세요."></textarea>
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-custom">답변 제출</button>
+                    </div>
+                  </div>
+                </form>
+                {{/idCheck}}
+              {{/answered}}
+            {{/questions}}
             <!-- 추가 질문들도 같은 방식으로 추가합니다 -->
-          </ul>
-          
-      <!-- 답변 양식 -->
-      <form id="answer-form" class="answer-form" action="submit_answer.php" method="post">
-        <div class="d-flex"> <!-- 행 내 요소로 정렬하기 위한 클래스 추가 -->
-          <div class="form-group flex-grow-1 mr-2"> <!-- 오른쪽 버튼과의 간격을 위해 추가한 클래스 -->
-            <textarea id="answer" name="answer" class="form-control answer-textarea" rows="2" placeholder="답변을 입력해주세요."></textarea>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-custom">답변 제출</button>
           </div>
         </div>
-      </form> 
+          
+      <!-- 답변 양식 -->
+      
+       
     </section><!-- End Skill Section -->
 
 
@@ -225,17 +232,17 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/static/assets/vendor/aos/aos.js"></script>
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/static/assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="/static/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="/static/assets/js/main.js"></script>
 
 </body>
 

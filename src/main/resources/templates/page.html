@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{pageId}}'s Page</h1>
+    {{#questions}}
+        <p>From: {{questionFrom}}</p>
+        <p>질문: {{questionContent}}</p>
+        {{#answered}}
+        <p>답변 : {{answerContent}}</p>
+        {{/answered}}
+
+        {{^answered}}
+            {{#idCheck}}
+            <form id="answerinput" method="post" action = "/v1/qna/senda?id={{pageId}}">
+                답변 입력: <input type="text" name="answerContent"/>
+                <input type="submit" value="답변 보내기"/>
+            </form>
+            {{/idCheck}}
+        {{/answered}}
+        <hr> <!-- 선 그리기 -->
+    {{/questions}}
+    {{^idCheck}}
+    <form id="questioninput" method="post" action = "/v1/qna/sendq?id={{pageId}}">
+        질문 입력: <input type="text" name="questionContent"/>
+        <input type="submit" value="질문 보내기"/>
+    </form>
+    {{/idCheck}}
+</body>
+</html>

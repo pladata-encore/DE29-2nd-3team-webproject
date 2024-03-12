@@ -27,6 +27,13 @@ public class AnswerDAOImpl implements AnswerDAO{
     }
 
     @Override
+    public void insertAnswer(AnswerEntity answerEntity) {
+        // TODO Auto-generated method stub
+        answerRepository.save(answerEntity);
+        
+    }
+
+    @Override
     public AnswerEntity findByAnswerQuestionId(Long answerQuestionId) {
         // TODO Auto-generated method stub
         return answerRepository.findByAnswerQuestionId(answerQuestionId);
