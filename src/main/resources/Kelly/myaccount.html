@@ -33,7 +33,6 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-
   <style>
     *{
       font-family: "Nanum Gothic", sans-serif;
@@ -55,8 +54,9 @@
   #navbar ul li a:hover {
       color: #ccc;
   }
-
   </style>
+
+
 
   <!-- =======================================================
   * Template Name: Kelly
@@ -65,9 +65,10 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<</head>
+</head>
 
-<body style="background-color: rgb(215, 214, 214)">
+<body style="background-color: rgb(215, 214, 214)"  >
+
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
     <div class="container-fluid d-flex justify-content-between align-items-center">
@@ -90,36 +91,38 @@
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
     </div>
-  </header>
-  <!-- End Header -->
+  </header><!-- End Header -->
 
   <main id="main">
-
-    <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio">
-   <!-- 카드 섹션 : 회원가입 -->
+    <!-- ======= Modify Section ======= -->
+    <section id="contact" class="contact">
+      <div class="section-title">
+        <h2>비밀번호 수정</h2>   <!-- 카드 섹션 : 회원가입 -->
+        </div>
    <div class="container d-flex justify-content-center"  data-aos="fade-up" style="height: 70vh;">
-    <div class="card mx-auto" style="width: 20rem; height: 20rem; font-size: 12px;">
+    <div class="card mx-auto" style="width: 20rem; height: 21rem; font-size: 12px;">
         <div class="card-body">
-            <h4 class="card-title text-center mt-3">로그인</h4>
-            <form action="/v1/user/regist" method="post">
-                <div class="mb-3">  
-                    <label for="formGroupExampleInput" class="form-label mt-4">아이디</label>
-                    <input type="text" class="form-control" name="userId" placeholder="아이디를 입력하세요" style="font-size: 11px;">
-                </div>
-                <div class="mb-3">
-                    <label for="formGroupExampleInput2" class="form-label">비밀번호</label>
-                    <input type="text" class="form-control" name="userPassword" placeholder="비밀번호를 입력하세요" style="font-size: 11px;">
-                </div>
-                <input type="submit" class="btn btn-primary d-block mx-auto" value="완료" style="font-size: 12px;"/>
+            <form action="/update_password" method="POST">
+              <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label mt-2">현재 비밀번호</label>
+                <input type="password " class="form-control" name="current_password" placeholder="현재 비밀번호를 입력하세요." style="font-size: 11px;" required>
+              </div>
+              <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label mt-2">새로운 비밀번호</label>
+                <input type="password " class="form-control" name="current_password" placeholder="새 비밀번호를 입력하세요." style="font-size: 11px;" required>
+              </div>
+              <div class="mb-3 ">
+                <label for="formGroupExampleInput" class="form-label mt-2">비밀번호 확인</label>
+                <input type="password " class="form-control" name="current_password" placeholder="비밀번호를 다시 입력하세요." style="font-size: 11px;" required>
+              </div>
+              <button type="submit"  class="btn btn-primary d-block mx-auto" style="font-size: 12px;"/>완료</button>
+              <p class="text-center mt-3" style="font-size: 10px;"><a href="#" onclick="logout()">로그아웃</a></p>
             </form>
-            <p class="text-center mt-4" style="font-size: 10px;">AnonyQ가 처음이라면? <a href="regist.html" style="font-size: 10px;">회원가입</a></p> 
         </div>
       </div>
     </div>
-</div>
-    </section><!-- End Portfolio Section -->
-
+      </div>
+    </section><!-- End Contact Section -->
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -127,8 +130,6 @@
     <div class="container">
       <div class="copyright">
         &copy; Copyright <strong><span>Team 3</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
       </div>
     </div>
   </footer><!-- End  Footer -->

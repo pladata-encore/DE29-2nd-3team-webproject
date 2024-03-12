@@ -9,4 +9,5 @@ public interface PageService {
     public void deletePage(String pageId);
     public void updatePage(PageDTO pageDTO);
     public List<PageDTO> findAllPage();
+    public PageDTO getPageById(Long pageId);
 }
