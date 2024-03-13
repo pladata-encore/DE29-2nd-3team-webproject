@@ -9,8 +9,8 @@ spring:
 
   output:
     ansi:
-      enabled: always 
-
+      enabled: always
+  
   # 데이터 베이스 
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/askproject?userSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
@@ -25,7 +25,12 @@ spring:
     properties:
       hibernate:
         show_sql: true 
-        format_sql: true 
+        format_sql: true
+
+  # 2024-03-13T19:48:26.348+09:00  WARN 21416 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+  # 이 오류때문에     
+  # yang 추가  
+    open-in-view: false
 
   # mustache (1. 루트폴더 변경, 2. 타임리프 캐시 설정 변경)
   mustache:
