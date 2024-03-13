@@ -1,11 +1,13 @@
 package com.example.askproject.Service.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.askproject.Model.DAO.AnswerDAO;
+import com.example.askproject.Model.DTO.AnswerDTO;
 import com.example.askproject.Model.Entity.AnswerEntity;
 import com.example.askproject.Service.AnswerService;
 
@@ -21,15 +23,47 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public List<AnswerEntity> findAllByAnswerFrom(String answerFrom) {
+    public List<AnswerDTO> findAllByAnswerFrom(String answerFrom) {
         // TODO Auto-generated method stub
-        return answerDAO.findAllByAnswerFrom(answerFrom);
+        List<AnswerEntity> entities = answerDAO.findAllByAnswerFrom(answerFrom);
+        List<AnswerDTO> dtos = new ArrayList<>();
+        for (AnswerEntity answerEntity : entities) {
+            AnswerDTO answerDTO = new AnswerDTO();
+            answerDTO.setAnswerContent(answerEntity.getAnswerContent());
+            answerDTO.setAnswerFrom(answerEntity.getAnswerFrom());
+            answerDTO.setAnswerId(answerEntity.getAnswerId());
+            answerDTO.setAnswerQuestionId(answerEntity.getAnswerQuestionId());
+            answerDTO.setAnswerTo(answerEntity.getAnswerTo());
+            dtos.add(answerDTO);
+        }
+        return dtos;
     }
 
     @Override
-    public AnswerEntity findByAnswerQuestionId(Long answerQuestionId) {
+    public AnswerDTO findByAnswerQuestionId(Long answerQuestionId) {
         // TODO Auto-generated method stub
-        return answerDAO.findByAnswerQuestionId(answerQuestionId);
+        AnswerEntity answerEntity = answerDAO.findByAnswerQuestionId(answerQuestionId);
+        if (answerEntity == null) {
+            return new AnswerDTO();
+        }
+        AnswerDTO answerDTO = new AnswerDTO();
+        answerDTO.setAnswerContent(answerEntity.getAnswerContent());
+        answerDTO.setAnswerFrom(answerEntity.getAnswerFrom());
+        answerDTO.setAnswerId(answerEntity.getAnswerId());
+        answerDTO.setAnswerQuestionId(answerEntity.getAnswerQuestionId());
+        answerDTO.setAnswerTo(answerEntity.getAnswerTo());
+        return answerDTO;
+    }
+
+    @Override
+    public void insertAnswer(AnswerDTO answerDTO) {
+        // TODO Auto-generated method stub
+        AnswerEntity answerEntity = new AnswerEntity();
+        answerEntity.setAnswerContent(answerDTO.getAnswerContent());
+        answerEntity.setAnswerFrom(answerDTO.getAnswerFrom());
+        answerEntity.setAnswerQuestionId(answerDTO.getAnswerQuestionId());
+        answerEntity.setAnswerTo(answerDTO.getAnswerTo());
+        answerDAO.insertAnswer(answerEntity);
     }
     
 }

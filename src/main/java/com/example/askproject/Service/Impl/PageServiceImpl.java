@@ -1,11 +1,13 @@
 package com.example.askproject.Service.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.askproject.Model.DAO.PageDAO;
+import com.example.askproject.Model.DTO.PageDTO;
 import com.example.askproject.Model.Entity.PageEntity;
 import com.example.askproject.Service.PageService;
 
@@ -14,6 +16,19 @@ public class PageServiceImpl implements PageService{
 
     @Autowired
     private PageDAO pageDAO;
+
+    @Override
+    public PageDTO findByPageId(String pageId) {
+        // TODO Auto-generated method stub
+        PageDTO pageDTO = new PageDTO();
+        PageEntity pageEntity = pageDAO.findByPageId(pageId);
+        pageDTO.setPageComment(pageEntity.getPageComment());
+        pageDTO.setPageId(pageEntity.getPageId());
+        pageDTO.setPageTitle(pageEntity.getPageTitle());
+        return pageDTO;
+    }
+
+    
     @Override
     public void deletePage(String pageId) {
         // TODO Auto-generated method stub
@@ -22,21 +37,38 @@ public class PageServiceImpl implements PageService{
     }
 
     @Override
-    public List<PageEntity> findAllPage() {
+    public List<PageDTO> findAllPage() {
         // TODO Auto-generated method stub
-        return pageDAO.findAllPage();
+        List<PageEntity> entities = pageDAO.findAllPage();
+        List<PageDTO> dtos = new ArrayList<>();
+        for (PageEntity pageEntity : entities) {
+            PageDTO pageDTO = new PageDTO();
+            pageDTO.setPageComment(pageEntity.getPageComment());
+            pageDTO.setPageId(pageEntity.getPageId());
+            pageDTO.setPageTitle(pageEntity.getPageTitle());
+            dtos.add(pageDTO);
+        }
+        return dtos;
     }
 
     @Override
-    public void insertPage(PageEntity pageEntity) {
+    public void insertPage(PageDTO pageDTO) {
         // TODO Auto-generated method stub
+        PageEntity pageEntity = new PageEntity();
+        pageEntity.setPageComment(pageDTO.getPageComment());
+        pageEntity.setPageId(pageDTO.getPageId());
+        pageEntity.setPageTitle(pageDTO.getPageTitle());
         pageDAO.insertPage(pageEntity);
     }
 
     @Override
-    public void updatePage(PageEntity pageEntity) {
+    public void updatePage(PageDTO pageDTO) {
         // TODO Auto-generated method stub
-        pageDAO.updatePage(pageEntity);
+        PageEntity pageEntity = new PageEntity();
+        pageEntity.setPageComment(pageDTO.getPageComment());
+        pageEntity.setPageId(pageDTO.getPageId());
+        pageEntity.setPageTitle(pageDTO.getPageTitle());
+        pageDAO.insertPage(pageEntity);
     }
     
 }

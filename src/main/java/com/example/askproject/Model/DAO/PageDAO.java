@@ -8,4 +8,5 @@ public interface PageDAO {
     public void deletePage(String pageId);
     public void updatePage(PageEntity pageEntity);
     public List<PageEntity> findAllPage();
+    public PageEntity findByPageId(String pageId);
 }
