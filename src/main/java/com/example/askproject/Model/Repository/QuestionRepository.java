@@ -1,9 +1,9 @@
 package com.example.askproject.Model.Repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
-import com.example.askproject.Model.DTO.joindQnaDTO;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.example.askproject.Model.Entity.QuestionEntity;
 
 public interface QuestionRepository extends JpaRepository<QuestionEntity, Long>{
