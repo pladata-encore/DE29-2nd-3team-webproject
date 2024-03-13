@@ -11,7 +11,7 @@ import com.example.askproject.Model.Entity.UserEntity;
 import com.example.askproject.Service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAO userDAO;
 
@@ -60,5 +60,5 @@ public class UserServiceImpl implements UserService{
         entity.setUserPassword(userDTO.getUserPassword());
         userDAO.updateUser(entity);
     }
-    
+
 }
