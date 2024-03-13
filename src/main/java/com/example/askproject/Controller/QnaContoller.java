@@ -43,7 +43,7 @@ public class QnaContoller {
         questionModel.addAttribute("pageComment", pageDTO.getPageComment());
         int questionCount = qdtos.size();
         int answerCount = answerService.findAllByAnswerFrom(id).size();
-        boolean isEquals = id.equals("to2"); //to1을 세션 아이디로 바꿔야댐
+        boolean isEquals = id.equals("to2"); //to2을 세션 아이디로 바꿔야댐
         questionModel.addAttribute("questionCount", questionCount);
         questionModel.addAttribute("answerCount", answerCount);
         questionModel.addAttribute("noAnswerCount", questionCount-answerCount);
