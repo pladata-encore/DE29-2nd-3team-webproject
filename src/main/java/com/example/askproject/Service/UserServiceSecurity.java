@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.askproject.Model.DAO.PageDAO;
 import com.example.askproject.Model.DAO.UserDAO;
 import com.example.askproject.Model.DTO.UserDTO;
+import com.example.askproject.Model.Entity.PageEntity;
 import com.example.askproject.Model.Entity.UserEntity;
 
 @Service
@@ -15,6 +17,8 @@ public class UserServiceSecurity {
 
     @Autowired
     private UserDAO userDAO;
+    @Autowired
+    private PageDAO pageDAO;
 
     public void updateIsLoginByName(String name, Boolean isLogin) {
         UserEntity entity = userDAO.findByUserId(name);
@@ -36,12 +40,16 @@ public class UserServiceSecurity {
 
         dto.setIsLogin(false);
         UserEntity entity = new UserEntity();
+        PageEntity pageEntity = new PageEntity();
+        pageEntity.setPageId(dto.getUserId());
+        pageEntity.setPageTitle(dto.getUserId()+"'s Page");
+        pageEntity.setPageComment("");
         entity.setUserEmail(dto.getUserEmail());
         entity.setUserNickname(dto.getUserNickname());
         entity.setUserPassword(dto.getUserPassword());
         entity.setUserRole(dto.getUserRole());
         entity.setUserId(dto.getUserId());
-
+        pageDAO.insertPage(pageEntity);
         userDAO.updateUser(entity);
     }
 }
