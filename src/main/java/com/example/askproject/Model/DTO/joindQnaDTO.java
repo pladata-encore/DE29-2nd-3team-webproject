@@ -8,14 +8,20 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
-public class QuestionDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class joindQnaDTO {
     private Long questionId;
     private String questionFrom;
     private String questionTo;
     private String questionContent;
     private boolean answered;
     private boolean anonymous;
+    private Long answerId;
+    private String answerFrom;
+    private String answerTo;
+    private String answerContent;
+    private Long answerQuestionId;
+    
 }

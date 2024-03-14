@@ -1,5 +1,7 @@
 package com.example.askproject.Model.DTO;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +19,6 @@ public class UserDTO {
     private String userEmail;
     private String userRole;
     private String userNickname;
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
 }

@@ -9,5 +9,9 @@ public interface PageService {
     public void deletePage(String pageId);
     public void updatePage(PageDTO pageDTO);
     public List<PageDTO> findAllPage();
+<<<<<<< HEAD
     public PageDTO getPageById(Long pageId);
+=======
+    public PageDTO findByPageId(String pageId);
+>>>>>>> 11b305363e8b78cf8f80edec82c3488e07b2ac3c
 }

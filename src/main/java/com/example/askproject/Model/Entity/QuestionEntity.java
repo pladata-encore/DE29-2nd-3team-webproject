@@ -27,7 +27,7 @@ public class QuestionEntity extends BaseTimeEntity{
     private String questionFrom;
     private String questionTo;
     private String questionContent;
-    @ColumnDefault(value = "0")
-    private int answered;
-    private int anonymous;
+    @ColumnDefault(value = "false")
+    private boolean answered;
+    private boolean anonymous;
 }

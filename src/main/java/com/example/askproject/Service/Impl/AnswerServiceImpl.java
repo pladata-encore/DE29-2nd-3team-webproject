@@ -43,6 +43,9 @@ public class AnswerServiceImpl implements AnswerService{
     public AnswerDTO findByAnswerQuestionId(Long answerQuestionId) {
         // TODO Auto-generated method stub
         AnswerEntity answerEntity = answerDAO.findByAnswerQuestionId(answerQuestionId);
+        if (answerEntity == null) {
+            return new AnswerDTO();
+        }
         AnswerDTO answerDTO = new AnswerDTO();
         answerDTO.setAnswerContent(answerEntity.getAnswerContent());
         answerDTO.setAnswerFrom(answerEntity.getAnswerFrom());
@@ -50,6 +53,17 @@ public class AnswerServiceImpl implements AnswerService{
         answerDTO.setAnswerQuestionId(answerEntity.getAnswerQuestionId());
         answerDTO.setAnswerTo(answerEntity.getAnswerTo());
         return answerDTO;
+    }
+
+    @Override
+    public void insertAnswer(AnswerDTO answerDTO) {
+        // TODO Auto-generated method stub
+        AnswerEntity answerEntity = new AnswerEntity();
+        answerEntity.setAnswerContent(answerDTO.getAnswerContent());
+        answerEntity.setAnswerFrom(answerDTO.getAnswerFrom());
+        answerEntity.setAnswerQuestionId(answerDTO.getAnswerQuestionId());
+        answerEntity.setAnswerTo(answerDTO.getAnswerTo());
+        answerDAO.insertAnswer(answerEntity);
     }
     
 }

@@ -16,6 +16,19 @@ public class PageServiceImpl implements PageService{
 
     @Autowired
     private PageDAO pageDAO;
+
+    @Override
+    public PageDTO findByPageId(String pageId) {
+        // TODO Auto-generated method stub
+        PageDTO pageDTO = new PageDTO();
+        PageEntity pageEntity = pageDAO.findByPageId(pageId);
+        pageDTO.setPageComment(pageEntity.getPageComment());
+        pageDTO.setPageId(pageEntity.getPageId());
+        pageDTO.setPageTitle(pageEntity.getPageTitle());
+        return pageDTO;
+    }
+
+    
     @Override
     public void deletePage(String pageId) {
         // TODO Auto-generated method stub
