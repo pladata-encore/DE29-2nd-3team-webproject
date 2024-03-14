@@ -1,11 +1,17 @@
 package com.example.askproject.Controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.askproject.Model.DTO.PageDTO;
 import com.example.askproject.Service.AnswerService;
 import com.example.askproject.Service.PageService;
 import com.example.askproject.Service.QuestionService;
@@ -26,10 +32,22 @@ public class MainController {
     @Autowired
     private QuestionService questionService;
 
-    @GetMapping("/index")
-    public String getMainPage(Authentication authentication){
-        log.info("[MainController][getMainPage] Start");
+    @GetMapping("/main")
+    public String getMainPage(Model model, Authentication authentication){
+        List<PageDTO> pageDTOs = pageService.findAllPage();
+        List<PageDTO> selectedPages = pageDTOs.size() <= 5
+                ? pageDTOs
+                : getRandomPages(pageDTOs, 5);
+        model.addAttribute("pages", selectedPages);
         return "main";
+    }
+
+    private List<PageDTO> getRandomPages(List<PageDTO> allPages, int count) {
+        List<PageDTO> shuffledPages = new ArrayList<>(allPages);
+        Collections.shuffle(shuffledPages);
+
+        // count만큼 선택
+        return shuffledPages.subList(0, count);
     }
 
     @GetMapping("/")
