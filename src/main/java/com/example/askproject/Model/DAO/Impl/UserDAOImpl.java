@@ -43,5 +43,13 @@ public class UserDAOImpl implements UserDAO{
         // TODO Auto-generated method stub
         userRepository.save(userEntity);
     }
+
+    @Override
+    public boolean existsByUserId(String userId) {
+        // TODO Auto-generated method stub
+        return userRepository.existsByUserId(userId);
+    }
+
+
     
 }

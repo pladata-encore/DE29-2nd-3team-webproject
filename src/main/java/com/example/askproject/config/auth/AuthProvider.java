@@ -27,7 +27,7 @@ public class AuthProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         // TODO Auto-generated method stub
         log.info("[AuthProvider][authenticate] Start");
-
+        log.info(authentication.toString());
         String name = authentication.getName();
         String pwd = (String)authentication.getCredentials();
         log.info("name: "+name+" / pwd: "+pwd);
@@ -41,7 +41,7 @@ public class AuthProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Your password is incorrect.");
         
         }
-        return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword());
+        return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
     }
 
     @Override

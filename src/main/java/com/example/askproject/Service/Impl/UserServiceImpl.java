@@ -40,16 +40,6 @@ public class UserServiceImpl implements UserService {
         return dto;
     }
 
-    @Override
-    public void registUser(UserDTO userDTO) {
-        // TODO Auto-generated method stub
-        UserEntity entity = new UserEntity();
-        entity.setUserId(userDTO.getUserId());
-        entity.setUserEmail(userDTO.getUserEmail());
-        entity.setUserNickname(userDTO.getUserId());
-        entity.setUserPassword(userDTO.getUserPassword());
-        userDAO.registUser(entity);
-    }
 
     @Override
     public void updateUser(UserDTO userDTO) {
@@ -59,6 +49,12 @@ public class UserServiceImpl implements UserService {
         entity.setUserNickname(userDTO.getUserNickname());
         entity.setUserPassword(userDTO.getUserPassword());
         userDAO.updateUser(entity);
+    }
+
+    @Override
+    public boolean existsByUserId(String userId) {
+        // TODO Auto-generated method stub
+        return userDAO.existsByUserId(userId);
     }
 
 }

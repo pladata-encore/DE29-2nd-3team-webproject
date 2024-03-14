@@ -60,23 +60,26 @@ public class SecurityConfig {
                 // http request 요청에 대한 화면 접근(url path) 권한 설정
                 .authorizeHttpRequests(authorize -> authorize
                         // "/user" 와 같은 url path로 접근할 경우...
-                        .requestMatchers("/main/**")
+                        .requestMatchers("/v1/main/**")
+                        // 인증(로그인)만 접근 가능
+                        .authenticated()
+                        .requestMatchers("/v1/qna/**")
                         // 인증(로그인)만 접근 가능
                         .authenticated()
                         // "/manager" 와 같은 url path로 접근할 경우...
-                        .requestMatchers("/manager/**")
-                        // ADMIN, MANAGER이라는 권한을 갖은 사용자만 접근 가능
-                        .hasAnyAuthority("MANAGER", "ADMIN")
-                        // "/admin" 와 같은 url path로 접근할 경우...
-                        .requestMatchers("/admin/**")
-                        // ADMIN이라는 권한을 갖은 사용자만 접근 가능
-                        .hasAnyAuthority("ADMIN")
-                        // 그외의 모든 url path는 누구나 접근 가능
+                        // .requestMatchers("/manager/**")
+                        // // ADMIN, MANAGER이라는 권한을 갖은 사용자만 접근 가능
+                        // .hasAnyAuthority("MANAGER", "ADMIN")
+                        // // "/admin" 와 같은 url path로 접근할 경우...
+                        // .requestMatchers("/admin/**")
+                        // // ADMIN이라는 권한을 갖은 사용자만 접근 가능
+                        // .hasAnyAuthority("ADMIN")
+                        // // 그외의 모든 url path는 누구나 접근 가능
                         .anyRequest().permitAll())
                 // 인증(로그인)에 대한 설정
                 .formLogin(formLogin -> formLogin
                         // Controller에서 로그인 페이지 url path
-                        .loginPage("/v1/login")
+                        .loginPage("/loginPage")
                         // 로그인 화면에서 form 테그의 action 주소(url path)
                         // 그러면, Spring Security가 로그인 검증을 진행함!!!
                         // Controller에서는 해당 "/login"을 만들 필요가 없음!!

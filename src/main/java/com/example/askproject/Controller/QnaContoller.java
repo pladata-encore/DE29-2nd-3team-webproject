@@ -59,18 +59,20 @@ public class QnaContoller {
     }
 
     @PostMapping("/sendq")
-    public String postQuestion(@ModelAttribute QuestionDTO questionDTO, @RequestParam String id){
+    public String postQuestion(@ModelAttribute QuestionDTO questionDTO, @RequestParam String id, Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         questionDTO.setQuestionTo(id);
-        questionDTO.setQuestionFrom("세션아이디가될예정");
+        questionDTO.setQuestionFrom(userDetails.getUsername());
         questionService.insertQuestion(questionDTO);
         return "redirect:/v1/qna/page?id="+id;
     }
 
     @PostMapping("/senda")
-    public String postAnswer(@ModelAttribute AnswerDTO answerDTO, @RequestParam String pageid, @RequestParam("questionid") Long questionid, @RequestParam("from") String from){
+    public String postAnswer(@ModelAttribute AnswerDTO answerDTO, @RequestParam String pageid, @RequestParam("questionid") Long questionid, @RequestParam("from") String from, Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         answerDTO.setAnswerTo(from);
         answerDTO.setAnswerQuestionId(questionid);
-        answerDTO.setAnswerFrom("to2");//세션아이디가 될 예정
+        answerDTO.setAnswerFrom(userDetails.getUsername());//세션아이디가 될 예정
         answerService.insertAnswer(answerDTO);
         questionService.changeAnswered(questionid);
         return "redirect:/v1/qna/page?id="+pageid;

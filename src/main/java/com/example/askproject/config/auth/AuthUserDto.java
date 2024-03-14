@@ -6,22 +6,26 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.askproject.Model.DTO.UserDTO;
+import com.example.askproject.Model.Entity.UserEntity;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @AllArgsConstructor
 public class AuthUserDto implements UserDetails{
-    private UserDTO userDTO;
+    private UserEntity userEntity;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        log.info("[AuthUserDTO] [GetAuthorities]");
         // TODO Auto-generated method stub
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return userDTO.getUserRole();
+                log.info(userEntity.toString());
+                return userEntity.getUserRole();
             }
         });
         return authorities;
@@ -30,13 +34,13 @@ public class AuthUserDto implements UserDetails{
     @Override
     public String getPassword() {
         // TODO Auto-generated method stub
-        return userDTO.getUserPassword();
+        return userEntity.getUserPassword();
     }
 
     @Override
     public String getUsername() {
         // TODO Auto-generated method stub
-        return userDTO.getUserId();
+        return userEntity.getUserId();
     }
 
     @Override

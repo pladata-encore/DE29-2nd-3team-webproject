@@ -29,83 +29,71 @@ public class UserController {
     @Autowired
     private UserServiceSecurity userServiceSecurity;
 
-    @GetMapping("/regist")
-    public String registUser() {
-        return "regist";
-    }
+    // @GetMapping("/index")
+    // public String index(Authentication authentication, Model model) {
+    //     if (authentication != null) {
+    //         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    //         model.addAttribute("username", userDetails.getUsername());
+    //     }
 
-    @PostMapping("/regist")
-    public String registUser(@Valid @ModelAttribute UserDTO dto) {
-        // TODO: process POST request
-        userService.registUser(dto);
-        return "redirect:/v1/user/login";
-    }
+    //     return "index";
+    // }
 
-    @GetMapping("/index")
-    public String index(Authentication authentication, Model model) {
-        if (authentication != null) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            model.addAttribute("username", userDetails.getUsername());
-        }
+    // @GetMapping("/loginPage")
+    // public String loginPage(@RequestParam(value = "errorMessage", required = false) String errorMessage, Model model) {
 
-        return "index";
-    }
+    //     model.addAttribute("errorMessage", errorMessage);
+    //     return "login/loginPage";
+    // }
 
-    @GetMapping("/loginPage")
-    public String loginPage(@RequestParam(value = "errorMessage", required = false) String errorMessage, Model model) {
+    // @GetMapping("/joinPage")
+    // public String joinPage() {
+    //     return "login/joinPage";
+    // }
 
-        model.addAttribute("errorMessage", errorMessage);
-        return "login/loginPage";
-    }
+    // @PostMapping("/join")
+    // public String join(@ModelAttribute UserDTO dto) {
+    //     userServiceSecurity.joinUserDto(dto);
+    //     return "redirect:/loginPage";
+    // }
 
-    @GetMapping("/joinPage")
-    public String joinPage() {
-        return "login/joinPage";
-    }
+    // @GetMapping("/user/index")
+    // public String user(Authentication authentication, Model model) {
 
-    @PostMapping("/join")
-    public String join(@ModelAttribute UserDTO dto) {
-        userServiceSecurity.joinUserDto(dto);
-        return "redirect:/loginPage";
-    }
+    //     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    //     model.addAttribute("username", userDetails.getUsername());
+    //     return "staff/user";
+    // }
 
-    @GetMapping("/user/index")
-    public String user(Authentication authentication, Model model) {
+    // @GetMapping("/manager/index")
+    // public String manager(Authentication authentication, Model model) {
 
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        model.addAttribute("username", userDetails.getUsername());
-        return "staff/user";
-    }
+    //     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    //     model.addAttribute("username", userDetails.getUsername());
+    //     return "staff/manager1";
+    // }
 
-    @GetMapping("/manager/index")
-    public String manager(Authentication authentication, Model model) {
+    // @GetMapping("/admin/index")
+    // public String admin(Authentication authentication, Model model) {
+    //     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    //     model.addAttribute("username", userDetails.getUsername());
+    //     return "staff/admin1";
+    // }
 
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        model.addAttribute("username", userDetails.getUsername());
-        return "staff/manager1";
-    }
+    // @Secured("ADMIN")
+    // @GetMapping("/secured")
+    // public String secured(Authentication authentication, Model model) {
+    //     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    //     model.addAttribute("username", userDetails.getUsername());
+    //     return "staff/secured";
+    // }
 
-    @GetMapping("/admin/index")
-    public String admin(Authentication authentication, Model model) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        model.addAttribute("username", userDetails.getUsername());
-        return "staff/admin1";
-    }
-
-    @Secured("ADMIN")
-    @GetMapping("/secured")
-    public String secured(Authentication authentication, Model model) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        model.addAttribute("username", userDetails.getUsername());
-        return "staff/secured";
-    }
-
-    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
-    @GetMapping("/secured-roles")
-    public String securedRoles(Authentication authentication, Model model) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        model.addAttribute("username", userDetails.getUsername());
-        return "staff/securedRoles";
-    }
+    // @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
+    // @GetMapping("/secured-roles")
+    // public String securedRoles(Authentication authentication, Model model) {
+    //     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    //     model.addAttribute("username", userDetails.getUsername());
+    //     return "staff/securedRoles";
+    // }
 
 }

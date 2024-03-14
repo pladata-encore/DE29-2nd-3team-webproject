@@ -5,8 +5,6 @@ import java.util.List; // List import 추가
 import com.example.askproject.Model.DTO.UserDTO;
 
 public interface UserService {
-    public void registUser(UserDTO userDTO);
-
     public void deleteUser(String userId);
 
     public void updateUser(UserDTO userDTO);
@@ -14,4 +12,6 @@ public interface UserService {
     public UserDTO findByUserId(String userId);
 
     public List<String> findAllUserId();
+
+    public boolean existsByUserId(String userId);
 }
