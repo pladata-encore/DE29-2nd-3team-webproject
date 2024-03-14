@@ -29,7 +29,7 @@ public class AuthProvider implements AuthenticationProvider {
         log.info("[AuthProvider][authenticate] Start");
 
         String name = authentication.getName();
-            String pwd = (String)authentication.getCredentials();
+        String pwd = (String)authentication.getCredentials();
         log.info("name: "+name+" / pwd: "+pwd);
 
         UserDetails userDetails = (AuthUserDto)securityUserService.loadUserByUsername(name);

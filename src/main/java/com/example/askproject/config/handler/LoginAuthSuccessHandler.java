@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.example.askproject.Service.UserService;
 import com.example.askproject.Service.UserServiceSecurity;
 
 import jakarta.servlet.ServletException;
@@ -29,7 +28,7 @@ public class LoginAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
         // TODO Auto-generated method stub
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         userServiceSecurity.updateIsLoginByName(userDetails.getUsername(), true);
-        response.sendRedirect("/user/index");
+        response.sendRedirect("/index");
 
         super.onAuthenticationSuccess(request, response, authentication);
     }

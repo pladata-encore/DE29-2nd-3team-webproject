@@ -1,5 +1,6 @@
 package com.example.askproject.Model.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -29,24 +30,12 @@ public class UserEntity extends BaseTimeEntity{
     private String userEmail;
     private String userRole;
     private String userNickname;
+    @Column(columnDefinition = "tinyint(1) default 0")
+    private Boolean isLogin;
 
 
 
-    
-     // 'findAllUserId' 속성 추가
-     private String findAllUserId;
-
-     // Getter 및 Setter 추가 (필요시)
-     public String getFindAllUserId() {
-         return findAllUserId;
-     }
- 
-     public void setFindAllUserId(String findAllUserId) {
-         this.findAllUserId = findAllUserId;
-     }
-
-
-      private boolean isAdmin;
+    private boolean isAdmin;
 
     public void setAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;

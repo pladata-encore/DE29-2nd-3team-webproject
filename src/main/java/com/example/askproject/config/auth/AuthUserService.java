@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.askproject.Model.DTO.UserDTO;
+import com.example.askproject.Model.Entity.UserEntity;
 import com.example.askproject.Model.Repository.UserRepository;
 
 @Service
@@ -15,14 +16,21 @@ public class AuthUserService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         // TODO Auto-generated method stub
-        UserDTO userDTO = userRepository.getUserDtoByName(name);
-
-        if (userDTO != null) {
-            return new AuthUserDto(userDTO);
+        UserEntity userEntity = userRepository.findByUserId(userId);
+        if (userEntity == null){
+            return null;
         }
-        return null;
+        UserDTO userDTO = new UserDTO();
+        userDTO.setIsLogin(userEntity.getIsLogin());
+        userDTO.setUserEmail(userEntity.getUserEmail());
+        userDTO.setUserId(userEntity.getUserId());
+        userDTO.setUserNickname(userEntity.getUserNickname());
+        userDTO.setUserPassword(userEntity.getUserPassword());
+        userDTO.setUserRole(userEntity.getUserRole());
+
+        return new AuthUserDto(userDTO);
     }
 
 }

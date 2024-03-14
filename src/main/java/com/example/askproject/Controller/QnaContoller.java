@@ -3,6 +3,8 @@ package com.example.askproject.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,17 +35,20 @@ public class QnaContoller {
     private PageService pageService;
 
     @GetMapping("/page")
-    public String getIndividualPage(@RequestParam String id, Model questionModel){
+    public String getIndividualPage(@RequestParam String id, Model questionModel, Authentication authentication){
         if (!userService.findAllUserId().contains(id)){
             return "error";
         }
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        
+
         List<joindQnaDTO> qdtos = questionService.joinQuestionAnswerByQuestionTo(id);
         PageDTO pageDTO = pageService.findByPageId(id);
         questionModel.addAttribute("pageTitle", pageDTO.getPageTitle());
         questionModel.addAttribute("pageComment", pageDTO.getPageComment());
         int questionCount = qdtos.size();
         int answerCount = answerService.findAllByAnswerFrom(id).size();
-        boolean isEquals = id.equals("to2"); //to1을 세션 아이디로 바꿔야댐
+        boolean isEquals = id.equals(userDetails.getUsername()); //to1을 세션 아이디로 바꿔야댐
         questionModel.addAttribute("questionCount", questionCount);
         questionModel.addAttribute("answerCount", answerCount);
         questionModel.addAttribute("noAnswerCount", questionCount-answerCount);
