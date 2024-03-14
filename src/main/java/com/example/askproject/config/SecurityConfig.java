@@ -79,7 +79,7 @@ public class SecurityConfig {
                 // 인증(로그인)에 대한 설정
                 .formLogin(formLogin -> formLogin
                         // Controller에서 로그인 페이지 url path
-                        .loginPage("/loginPage")
+                        .loginPage("/login")
                         // 로그인 화면에서 form 테그의 action 주소(url path)
                         // 그러면, Spring Security가 로그인 검증을 진행함!!!
                         // Controller에서는 해당 "/login"을 만들 필요가 없음!!

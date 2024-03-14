@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/v1/main")
+@RequestMapping("/v1")
 public class MainController {
     @Autowired
     private AnswerService answerService;
@@ -50,9 +50,6 @@ public class MainController {
         return shuffledPages.subList(0, count);
     }
 
-    @GetMapping("/")
-    public String getIndexPage() {
-        return "index";
-    }
+    
     
 }

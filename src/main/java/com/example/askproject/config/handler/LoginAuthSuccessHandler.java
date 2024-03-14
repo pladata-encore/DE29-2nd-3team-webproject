@@ -33,7 +33,7 @@ public class LoginAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
         log.info(userDetails.toString());
         userServiceSecurity.updateIsLoginByName(userDetails.getUsername(), true);
         log.info("[LoginAuthSuccessHandler][onAuthenticationSuccess] Start2");
-        response.sendRedirect("/v1/main/index");
+        response.sendRedirect("/v1/main");
         log.info("[LoginAuthSuccessHandler][onAuthenticationSuccess] Start3");
         log.info(userDetails.toString());
         log.info(authentication.toString());
