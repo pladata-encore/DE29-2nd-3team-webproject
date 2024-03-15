@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import java.time.LocalTime; // LocalDateTime 임포트 추가
 
 @Getter
 @Setter
@@ -24,5 +25,8 @@ public class PageEntity {
     private String pageId;
     private String pageTitle;
     private String pageComment;
-    private Long pageTodayCount = 0L; // 기본값으로 0 설정
+    @Column(name = "page_today_count", nullable = false)
+    @ColumnDefault("0")
+    private Long pageTodayCount; // 기본값으로 0 설정
+    private LocalTime lastUpdatedDate; // 추가
 }

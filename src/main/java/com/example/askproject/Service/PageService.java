@@ -4,18 +4,21 @@ import java.util.List;
 
 import com.example.askproject.Model.DTO.PageDTO;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public interface PageService {
-    public void insertPage(PageDTO pageDTO);
+    void insertPage(PageDTO pageDTO);
 
-    public void deletePage(String pageId);
+    void deletePage(String pageId);
 
-    public void updatePage(PageDTO pageDTO);
+    void updatePage(PageDTO pageDTO);
 
-    public List<PageDTO> findAllPage();
+    List<PageDTO> findAllPage();
 
-    public PageDTO findByPageId(String pageId);
+    PageDTO findByPageId(String pageId);
 
-    public List<String> findByPageIdContaining(String keyword);
+    List<String> findByPageIdContaining(String keyword);
 
-    public void increasePageCount(String pageId);
+    void increasePageCount(String pageId);
+
 }
