@@ -26,7 +26,6 @@ public class PageEntity {
     private String pageTitle;
     private String pageComment;
     @Column(name = "page_today_count", nullable = false)
-    @ColumnDefault("0")
-    private Long pageTodayCount; // 기본값으로 0 설정
-    private LocalTime lastUpdatedDate; // 추가
+    // @ColumnDefault(value = "0")
+    private Long pageTodayCount = 0L; // 기본값으로 0 설정
 }
