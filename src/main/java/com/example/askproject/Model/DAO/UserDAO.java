@@ -9,4 +9,5 @@ public interface UserDAO {
     public void updateUser(UserEntity userEntity);
     public UserEntity findByUserId(String userId);
     public List<String> findAllUserId();
+    public boolean existsByUserId(String userId);
 }

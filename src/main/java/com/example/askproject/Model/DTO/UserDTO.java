@@ -1,6 +1,5 @@
 package com.example.askproject.Model.DTO;
 
-import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,11 +13,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
-    private String userId;
-    private String userPassword;
-    private String userEmail;
-    private String userRole;
+    private String userId; // name
+    private String userPassword; // pwd
+    private String userEmail; // email
+
+    private String userRole; // role
+    
     private String userNickname;
-    private LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
+
+    private Boolean isLogin;
+
 }

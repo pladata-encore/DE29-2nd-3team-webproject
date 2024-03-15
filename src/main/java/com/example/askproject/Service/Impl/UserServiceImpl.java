@@ -11,7 +11,7 @@ import com.example.askproject.Model.Entity.UserEntity;
 import com.example.askproject.Service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAO userDAO;
 
@@ -40,16 +40,6 @@ public class UserServiceImpl implements UserService{
         return dto;
     }
 
-    @Override
-    public void registUser(UserDTO userDTO) {
-        // TODO Auto-generated method stub
-        UserEntity entity = new UserEntity();
-        entity.setUserId(userDTO.getUserId());
-        entity.setUserEmail(userDTO.getUserEmail());
-        entity.setUserNickname(userDTO.getUserId());
-        entity.setUserPassword(userDTO.getUserPassword());
-        userDAO.registUser(entity);
-    }
 
     @Override
     public void updateUser(UserDTO userDTO) {
@@ -60,4 +50,14 @@ public class UserServiceImpl implements UserService{
         entity.setUserPassword(userDTO.getUserPassword());
         userDAO.updateUser(entity);
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public boolean existsByUserId(String userId) {
+        // TODO Auto-generated method stub
+        return userDAO.existsByUserId(userId);
+    }
+
+>>>>>>> a3e154920483629f76954dc1c94167b6e0d18be8
 }
