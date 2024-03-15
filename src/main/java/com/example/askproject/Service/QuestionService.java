@@ -1,8 +1,8 @@
 package com.example.askproject.Service;
 
 import java.util.List;
+import java.util.Map;
 
-import com.example.askproject.Model.DTO.CountDTO;
 import com.example.askproject.Model.DTO.QuestionDTO;
 import com.example.askproject.Model.DTO.joindQnaDTO;
 
@@ -12,5 +12,5 @@ public interface QuestionService {
     public void insertQuestion(QuestionDTO questionDTO);
     public List<joindQnaDTO> joinQuestionAnswerByQuestionTo(String questionTo);
     public void changeAnswered(Long questionId);
-    public List<CountDTO> countQuestionByUserId();
+    public List<Map<String, Object>> countQuestionByUserId();
 }

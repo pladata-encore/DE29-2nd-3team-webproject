@@ -1,12 +1,12 @@
 package com.example.askproject.Model.DAO.Impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.askproject.Model.DAO.QuestionDAO;
-import com.example.askproject.Model.DTO.CountDTO;
 import com.example.askproject.Model.Entity.QuestionEntity;
 import com.example.askproject.Model.Repository.QuestionRepository;
 
@@ -47,7 +47,7 @@ public class QuestionDAOImpl implements QuestionDAO{
     }
 
     @Override
-    public List<CountDTO> countQuestionByUserId() {
+    public List<Map<String, Object>> countQuestionByUserId() {
         // TODO Auto-generated method stub
         return questionRepository.countQuestionByUserId();
     }

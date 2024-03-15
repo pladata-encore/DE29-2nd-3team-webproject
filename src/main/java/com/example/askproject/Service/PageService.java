@@ -17,5 +17,5 @@ public interface PageService {
 
     public List<String> findByPageIdContaining(String keyword);
 
-
+    public void increasePageCount(String pageId);
 }

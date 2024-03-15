@@ -220,97 +220,27 @@
               <a href="qna/mypage?id={pageId}" onclick="event.preventDefault(); window.location.href='qna/page?id={{user}}'">
                 <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
                   <h5 class="card-title" id="user-id1">{{user}}</h5>
-                  <p class="card-text" id="page-title1">PageTitle</p>
+                  <p class="card-text" id="page-title1">횟수 : {{count}}</p>
                 </div>
               </a>
             </div>
             {{/countQuestion}}
-
-            <div class="card">
-              <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id2').textContent.trim();">
-                <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
-                  <h5 class="card-title" id="user-id2">UserId</h5>
-                  <p class="card-text" id="page-title2">PageTitle</p>
-                </div>
-              </a>
-            </div>
-
-            <div class="card">
-              <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id3').textContent.trim();">
-                <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
-                  <h5 class="card-title" id="user-id3">UserId</h5>
-                  <p class="card-text" id="page-title3">PageTitle</p>
-                </div>
-              </a>
-            </div>
-
-            <div class="card">
-              <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id4').textContent.trim();">
-                <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
-                  <h5 class="card-title" id="user-id4">UserId</h5>
-                  <p class="card-text" id="page-title4">PageTitle</p>
-                </div>
-              </a>
-            </div>
-
-            <div class="card">
-              <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id5').textContent.trim();">
-                <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
-                  <h5 class="card-title" id="user-id5">UserId</h5>
-                  <p class="card-text" id="page-title5">PageTitle</p>
-                </div>
-              </a>
-            </div>
           </div>
 
 
           <!-- 세 번째 세로 줄 -->
           <div class="col-lg-4">
             <h5>답변이 많은 사용자 top 5</h5>
+            {{#countAnswer}}
             <div class="card">
-              <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id6').textContent.trim();">
+              <a href="qna/mypage?id={pageId}" onclick="event.preventDefault(); window.location.href='qna/page?id={{user}}'">
                 <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
-                  <h5 class="card-title" id="user-id6">UserId</h5>
-                  <p class="card-text" id="page-title6">PageTitle</p>
+                  <h5 class="card-title" id="user-id1">{{user}}</h5>
+                  <p class="card-text" id="page-title1">횟수 : {{count}}</p>
                 </div>
               </a>
             </div>
-
-            <div class="card">
-              <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id7').textContent.trim();">
-                <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
-                  <h5 class="card-title" id="user-id7">UserId</h5>
-                  <p class="card-text" id="page-title7">PageTitle</p>
-                </div>
-              </a>
-            </div>
-
-            <div class="card">
-              <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id8').textContent.trim();">
-                <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
-                  <h5 class="card-title" id="user-id8">UserId</h5>
-                  <p class="card-text" id="page-title8">PageTitle</p>
-                </div>
-              </a>
-            </div>
-
-            <div class="card">
-              <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id9').textContent.trim();">
-                <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
-                  <h5 class="card-title" id="user-id9">UserId</h5>
-                  <p class="card-text" id="page-title9">PageTitle</p>
-                </div>
-              </a>
-            </div>
-
-            <div class="card">
-              <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id10').textContent.trim();">
-                <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
-                  <h5 class="card-title" id="user-id10">UserId</h5>
-                  <p class="card-text" id="page-title10">PageTitle</p>
-                </div>
-              </a>
-            </div>
+            {{/countAnswer}}
           </div>
 
       </div>

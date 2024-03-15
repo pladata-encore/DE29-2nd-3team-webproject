@@ -1,6 +1,6 @@
 package com.example.askproject.Service;
 
-import java.util.List;
+import java.util.*;
 
 import com.example.askproject.Model.DTO.AnswerDTO;
 
@@ -9,4 +9,5 @@ public interface AnswerService {
     public AnswerDTO findByAnswerQuestionId(Long answerQuestionId);
     public void deleteByAnswerId(Long AnswerId);
     public void insertAnswer(AnswerDTO answerDTO);
+    public List<Map<String, Object>> countAnswerByUserId();
 }

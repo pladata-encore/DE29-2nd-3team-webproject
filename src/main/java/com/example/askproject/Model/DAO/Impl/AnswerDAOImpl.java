@@ -1,6 +1,7 @@
 package com.example.askproject.Model.DAO.Impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,12 @@ public class AnswerDAOImpl implements AnswerDAO{
     public AnswerEntity findByAnswerQuestionId(Long answerQuestionId) {
         // TODO Auto-generated method stub
         return answerRepository.findByAnswerQuestionId(answerQuestionId);
+    }
+
+    @Override
+    public List<Map<String, Object>> countAnswerByUserId() {
+        // TODO Auto-generated method stub
+        return answerRepository.countAnswerByUserId();
     }
     
 }

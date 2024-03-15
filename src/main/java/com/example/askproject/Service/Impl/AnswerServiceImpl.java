@@ -2,6 +2,7 @@ package com.example.askproject.Service.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,12 @@ public class AnswerServiceImpl implements AnswerService{
         answerEntity.setAnswerQuestionId(answerDTO.getAnswerQuestionId());
         answerEntity.setAnswerTo(answerDTO.getAnswerTo());
         answerDAO.insertAnswer(answerEntity);
+    }
+
+    @Override
+    public List<Map<String, Object>> countAnswerByUserId() {
+        // TODO Auto-generated method stub
+        return answerDAO.countAnswerByUserId();
     }
     
 }
