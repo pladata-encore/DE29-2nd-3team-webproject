@@ -47,7 +47,11 @@ public class RegisterController {
 
 
     @PostMapping("/register")
-    public String register(@ModelAttribute UserDTO dto, Model model) {
+    public String register(@ModelAttribute UserDTO dto, Model model) throws Exception {
+        boolean exists = userService.existsByUserId(dto.getUserId());
+        if (exists){
+            throw new Exception("계정 이미 있음");
+        }
         userServiceSecurity.joinUserDto(dto);
         return "redirect:/login"; // 로그인 페이지로 이동
     }

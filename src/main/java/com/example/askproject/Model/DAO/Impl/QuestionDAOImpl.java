@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.askproject.Model.DAO.QuestionDAO;
+import com.example.askproject.Model.DTO.CountDTO;
 import com.example.askproject.Model.Entity.QuestionEntity;
 import com.example.askproject.Model.Repository.QuestionRepository;
 
@@ -45,4 +46,9 @@ public class QuestionDAOImpl implements QuestionDAO{
         questionRepository.save(questionEntity);
     }
 
+    @Override
+    public List<CountDTO> countQuestionByUserId() {
+        // TODO Auto-generated method stub
+        return questionRepository.countQuestionByUserId();
+    }
 }

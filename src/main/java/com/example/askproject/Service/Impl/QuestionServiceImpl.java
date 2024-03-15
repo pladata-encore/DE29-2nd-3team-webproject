@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.askproject.Model.DAO.AnswerDAO;
 import com.example.askproject.Model.DAO.QuestionDAO;
+import com.example.askproject.Model.DTO.CountDTO;
 import com.example.askproject.Model.DTO.QuestionDTO;
 import com.example.askproject.Model.DTO.joindQnaDTO;
 import com.example.askproject.Model.Entity.AnswerEntity;
@@ -87,4 +88,11 @@ public class QuestionServiceImpl implements QuestionService{
         }
         return dtos;
     }
+
+    @Override
+    public List<CountDTO> countQuestionByUserId() {
+        // TODO Auto-generated method stub
+        return questionDAO.countQuestionByUserId();
+    }
+    
 }

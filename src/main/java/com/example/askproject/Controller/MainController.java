@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.askproject.Model.DTO.CountDTO;
 import com.example.askproject.Model.DTO.PageDTO;
 import com.example.askproject.Service.AnswerService;
 import com.example.askproject.Service.PageService;
@@ -39,10 +40,12 @@ public class MainController {
     public String getMainPage(Model model, Authentication authentication){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("myId", userDetails.getUsername());
+        List<CountDTO> countDTOs = questionService.countQuestionByUserId();
         List<PageDTO> pageDTOs = pageService.findAllPage();
         List<PageDTO> selectedPages = pageDTOs.size() <= 5
                 ? pageDTOs
                 : getRandomPages(pageDTOs, 5);
+        model.addAttribute("countQuestion", countDTOs);
         model.addAttribute("pages", selectedPages);
         return "main";
     }

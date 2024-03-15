@@ -215,14 +215,16 @@
           <!-- 두 번째 세로 줄 -->
           <div class="col-lg-4">
             <h5>질문을 많이 받은 사용자 top 5</h5>
+            {{#countQuestion}}
             <div class="card">
-              <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id1').textContent.trim();">
+              <a href="qna/mypage?id={pageId}" onclick="event.preventDefault(); window.location.href='qna/page?id={{user}}'">
                 <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
-                  <h5 class="card-title" id="user-id1">UserId</h5>
+                  <h5 class="card-title" id="user-id1">{{user}}</h5>
                   <p class="card-text" id="page-title1">PageTitle</p>
                 </div>
               </a>
             </div>
+            {{/countQuestion}}
 
             <div class="card">
               <a href="mypage/{userId}" onclick="event.preventDefault(); window.location.href='mypage/' + document.getElementById('user-id2').textContent.trim();">
