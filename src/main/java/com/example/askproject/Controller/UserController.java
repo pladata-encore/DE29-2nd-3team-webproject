@@ -5,12 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.askproject.Model.DTO.UserDTO;
 import com.example.askproject.Service.UserService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -31,5 +34,5 @@ public class UserController {
         userService.registUser(dto);
         return "redirect:/v1/user/login";
     }
-    
-}
+
+    }

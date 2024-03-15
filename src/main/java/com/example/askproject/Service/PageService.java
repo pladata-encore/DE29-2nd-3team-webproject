@@ -6,8 +6,12 @@ import com.example.askproject.Model.DTO.PageDTO;
 
 public interface PageService {
     public void insertPage(PageDTO pageDTO);
+
     public void deletePage(String pageId);
+
     public void updatePage(PageDTO pageDTO);
+
     public List<PageDTO> findAllPage();
+
     public PageDTO findByPageId(String pageId);
 }

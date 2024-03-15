@@ -71,4 +71,11 @@ public class PageServiceImpl implements PageService{
         pageDAO.insertPage(pageEntity);
     }
     
+
+    public PageDTO getPageById(Long pageId) {
+        PageDTO pageDTO = new PageDTO();
+        pageDTO.setPageTitle("페이지 제목");
+        pageDTO.setPageComment("페이지 코멘트");
+        return pageDTO;
+    }
 }

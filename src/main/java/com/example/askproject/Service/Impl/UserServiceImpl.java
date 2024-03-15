@@ -60,5 +60,4 @@ public class UserServiceImpl implements UserService{
         entity.setUserPassword(userDTO.getUserPassword());
         userDAO.updateUser(entity);
     }
-    
 }
