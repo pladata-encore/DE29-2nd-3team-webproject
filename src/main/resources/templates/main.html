@@ -199,7 +199,7 @@
         <div class="row">
           <!-- 첫 번째 세로 줄 -->
           <div class="col-lg-4">
-            <h5>추천 사용자</h5>
+            <h5 class="text-center">추천 사용자</h5>
             {{#pages}}
             <div class="card">
               <a href="qna/mypage?id={pageId}" onclick="event.preventDefault(); window.location.href='qna/page?id={{pageId}}'">
@@ -214,7 +214,7 @@
           
           <!-- 두 번째 세로 줄 -->
           <div class="col-lg-4">
-            <h5>질문을 많이 받은 사용자 top 5</h5>
+            <h5 class="text-center">질문을 많이 받은 사용자 top 5</h5>
             {{#countQuestion}}
             <div class="card">
               <a href="qna/mypage?id={pageId}" onclick="event.preventDefault(); window.location.href='qna/page?id={{user}}'">
@@ -230,7 +230,7 @@
 
           <!-- 세 번째 세로 줄 -->
           <div class="col-lg-4">
-            <h5>답변이 많은 사용자 top 5</h5>
+            <h5 class="text-center">답변이 많은 사용자 top 5</h5>
             {{#countAnswer}}
             <div class="card">
               <a href="qna/mypage?id={pageId}" onclick="event.preventDefault(); window.location.href='qna/page?id={{user}}'">
