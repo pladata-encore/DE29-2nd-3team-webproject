@@ -15,4 +15,5 @@ public class PageDTO {
     private String pageId;
     private String pageTitle;
     private String pageComment;
+    private Long pageTodayCount;
 }

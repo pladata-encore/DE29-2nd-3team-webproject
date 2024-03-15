@@ -12,7 +12,7 @@ import com.example.askproject.Model.Entity.PageEntity;
 import com.example.askproject.Service.PageService;
 
 @Service
-public class PageServiceImpl implements PageService{
+public class PageServiceImpl implements PageService {
 
     @Autowired
     private PageDAO pageDAO;
@@ -25,15 +25,15 @@ public class PageServiceImpl implements PageService{
         pageDTO.setPageComment(pageEntity.getPageComment());
         pageDTO.setPageId(pageEntity.getPageId());
         pageDTO.setPageTitle(pageEntity.getPageTitle());
+        pageDTO.setPageTodayCount(pageEntity.getPageTodayCount());
         return pageDTO;
     }
 
-    
     @Override
     public void deletePage(String pageId) {
         // TODO Auto-generated method stub
         pageDAO.deletePage(pageId);
-        
+
     }
 
     @Override
@@ -46,6 +46,7 @@ public class PageServiceImpl implements PageService{
             pageDTO.setPageComment(pageEntity.getPageComment());
             pageDTO.setPageId(pageEntity.getPageId());
             pageDTO.setPageTitle(pageEntity.getPageTitle());
+            pageDTO.setPageTodayCount(pageEntity.getPageTodayCount());
             dtos.add(pageDTO);
         }
         return dtos;
@@ -58,6 +59,7 @@ public class PageServiceImpl implements PageService{
         pageEntity.setPageComment(pageDTO.getPageComment());
         pageEntity.setPageId(pageDTO.getPageId());
         pageEntity.setPageTitle(pageDTO.getPageTitle());
+        pageEntity.setPageTodayCount(pageDTO.getPageTodayCount());
         pageDAO.insertPage(pageEntity);
     }
 
@@ -68,9 +70,9 @@ public class PageServiceImpl implements PageService{
         pageEntity.setPageComment(pageDTO.getPageComment());
         pageEntity.setPageId(pageDTO.getPageId());
         pageEntity.setPageTitle(pageDTO.getPageTitle());
+        pageEntity.setPageTodayCount(pageDTO.getPageTodayCount());
         pageDAO.insertPage(pageEntity);
     }
-
 
     @Override
     public List<String> findByPageIdContaining(String keyword) {
@@ -82,5 +84,14 @@ public class PageServiceImpl implements PageService{
         }
         return pageIds;
     }
-    
+
+    @Override
+    public void increasePageCount(String pageId) {
+        // TODO Auto-generated method stub
+        PageEntity entity = pageDAO.findByPageId(pageId);
+        Long count = entity.getPageTodayCount() + 1;
+        entity.setPageTodayCount(count);
+        pageDAO.updatePage(entity);
+    }
+
 }
