@@ -35,24 +35,25 @@ public class QnaContoller {
     private PageService pageService;
 
     @GetMapping("/page")
-    public String getIndividualPage(@RequestParam String id, Model questionModel, Authentication authentication){
-        if (!userService.findAllUserId().contains(id)){
+    public String getIndividualPage(@RequestParam String id, Model questionModel, Authentication authentication) {
+        if (!userService.findAllUserId().contains(id)) {
             return "error";
         }
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         questionModel.addAttribute("myId", userDetails.getUsername());
-        
+        pageService.increasePageCount(id);
 
         List<joindQnaDTO> qdtos = questionService.joinQuestionAnswerByQuestionTo(id);
         PageDTO pageDTO = pageService.findByPageId(id);
         questionModel.addAttribute("pageTitle", pageDTO.getPageTitle());
         questionModel.addAttribute("pageComment", pageDTO.getPageComment());
+        questionModel.addAttribute("pageTodayCount", pageDTO.getPageTodayCount());
         int questionCount = qdtos.size();
         int answerCount = answerService.findAllByAnswerFrom(id).size();
-        boolean isEquals = id.equals(userDetails.getUsername()); //to1을 세션 아이디로 바꿔야댐
+        boolean isEquals = id.equals(userDetails.getUsername()); // to1을 세션 아이디로 바꿔야댐
         questionModel.addAttribute("questionCount", questionCount);
         questionModel.addAttribute("answerCount", answerCount);
-        questionModel.addAttribute("noAnswerCount", questionCount-answerCount);
+        questionModel.addAttribute("noAnswerCount", questionCount - answerCount);
         questionModel.addAttribute("idCheck", isEquals);
         questionModel.addAttribute("pageId", id);
         questionModel.addAttribute("questions", qdtos);
@@ -60,22 +61,26 @@ public class QnaContoller {
     }
 
     @PostMapping("/sendq")
-    public String postQuestion(@ModelAttribute QuestionDTO questionDTO, @RequestParam String id, Authentication authentication){
+    public String postQuestion(@ModelAttribute QuestionDTO questionDTO, @RequestParam String id,
+            Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         questionDTO.setQuestionTo(id);
         questionDTO.setQuestionFrom(userDetails.getUsername());
         questionService.insertQuestion(questionDTO);
-        return "redirect:/v1/qna/page?id="+id;
+        return "redirect:/v1/qna/page?id=" + id;
     }
 
     @PostMapping("/senda")
-    public String postAnswer(@ModelAttribute AnswerDTO answerDTO, @RequestParam String pageid, @RequestParam("questionid") Long questionid, @RequestParam("from") String from, Authentication authentication){
+    public String postAnswer(@ModelAttribute AnswerDTO answerDTO, @RequestParam String pageid,
+            @RequestParam("questionid") Long questionid, @RequestParam("from") String from,
+            Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         answerDTO.setAnswerTo(from);
         answerDTO.setAnswerQuestionId(questionid);
-        answerDTO.setAnswerFrom(userDetails.getUsername());//세션아이디가 될 예정
+        answerDTO.setAnswerFrom(userDetails.getUsername());// 세션아이디가 될 예정
         answerService.insertAnswer(answerDTO);
         questionService.changeAnswered(questionid);
-        return "redirect:/v1/qna/page?id="+pageid;
+        return "redirect:/v1/qna/page?id=" + pageid;
     }
+
 }

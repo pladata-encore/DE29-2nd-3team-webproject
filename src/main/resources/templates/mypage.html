@@ -237,13 +237,14 @@
 
           <div class="col-lg-3 col-6 text-center">
             <span
-              data-purecounter-start="0"
-              data-purecounter-end="15"
-              data-purecounter-duration="1"
-              class="purecounter"
+                id="todayCount"
+                data-purecounter-start="0"
+                data-purecounter-end="{{pageTodayCount}}"
+                data-purecounter-duration="1"
+                class="purecounter"
             ></span>
-            <p>Total Like</p>
-          </div>
+            <p>Number of visits</p>
+        </div>
         </div>
       </section>
       <!-- End About Section -->
@@ -416,6 +417,27 @@
         }
       }
     </script>
+    <script>
+      // 페이지가 로드될 때마다 호출되는 함수
+      window.onload = function() {
+          // AJAX 요청을 사용하여 서버로 현재 페이지의 pageId를 전송하고, 서버에서 pageTodayCount 값을 증가시킵니다.
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                  // 서버로부터 응답을 받으면 증가된 pageTodayCount 값을 사용하여 카운터를 업데이트합니다.
+                  document.getElementById("todayCount").setAttribute("data-purecounter-end", this.responseText);
+                  // 카운터를 시작합니다.
+                  var counter = new PureCounter(document.getElementById("todayCount"));
+                  counter.start();
+              }
+          };
+          // 서버로 보낼 데이터를 구성합니다. 여기서는 pageId를 전송합니다.
+          var pageId = "{{pageId}}";
+          // AJAX 요청을 보냅니다.
+          xhttp.open("GET", "/v1/qna/increasePageCount?pageId=" + pageId, true);
+          xhttp.send();
+      };
+  </script>
     <!-- Vendor JS Files -->
     <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
     <script src="/static/assets/vendor/aos/aos.js"></script>

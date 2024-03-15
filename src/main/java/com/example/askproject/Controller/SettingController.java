@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.askproject.Model.DTO.PageDTO;
 import com.example.askproject.Model.DTO.UserDTO;
 import com.example.askproject.Service.PageService;
 import com.example.askproject.Service.UserService;
-
 
 @RequestMapping("/v1/setting")
 @Controller
@@ -47,13 +45,11 @@ public class SettingController {
 
     @PostMapping("/pageupdate")
     public String updatePageSetting(@ModelAttribute PageDTO pageDTO, Authentication authentication) {
-        //TODO: process POST request
+        // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        pageDTO.setPageId(userDetails.getUsername()); //세션id가 될 값입니다.
+        pageDTO.setPageId(userDetails.getUsername()); // 세션id가 될 값입니다.
         pageService.updatePage(pageDTO);
         return "redirect:/v1/main";
     }
-    
-    
-    
+
 }

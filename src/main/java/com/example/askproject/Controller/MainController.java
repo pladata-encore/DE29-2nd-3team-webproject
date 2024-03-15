@@ -37,7 +37,7 @@ public class MainController {
     private QuestionService questionService;
 
     @GetMapping("/main")
-    public String getMainPage(Model model, Authentication authentication){
+    public String getMainPage(Model model, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("myId", userDetails.getUsername());
         List<CountDTO> countDTOs = questionService.countQuestionByUserId();
@@ -57,12 +57,11 @@ public class MainController {
         // count만큼 선택
         return shuffledPages.subList(0, count);
     }
+
     @GetMapping("/search")
     @ResponseBody
     public List<String> searchUsers(@RequestParam("query") String query) {
         return pageService.findByPageIdContaining(query);
     }
 
-    
-    
 }
