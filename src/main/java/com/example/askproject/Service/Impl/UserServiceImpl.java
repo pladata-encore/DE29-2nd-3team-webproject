@@ -50,8 +50,6 @@ public class UserServiceImpl implements UserService {
         entity.setUserPassword(userDTO.getUserPassword());
         userDAO.updateUser(entity);
     }
-<<<<<<< HEAD
-=======
 
     @Override
     public boolean existsByUserId(String userId) {
@@ -59,5 +57,4 @@ public class UserServiceImpl implements UserService {
         return userDAO.existsByUserId(userId);
     }
 
->>>>>>> a3e154920483629f76954dc1c94167b6e0d18be8
 }

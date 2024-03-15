@@ -40,6 +40,7 @@ public class QnaContoller {
             return "error";
         }
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        questionModel.addAttribute("myId", userDetails.getUsername());
         
 
         List<joindQnaDTO> qdtos = questionService.joinQuestionAnswerByQuestionTo(id);

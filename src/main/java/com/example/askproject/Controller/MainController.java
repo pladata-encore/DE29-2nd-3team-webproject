@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,8 @@ public class MainController {
 
     @GetMapping("/main")
     public String getMainPage(Model model, Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("myId", userDetails.getUsername());
         List<PageDTO> pageDTOs = pageService.findAllPage();
         List<PageDTO> selectedPages = pageDTOs.size() <= 5
                 ? pageDTOs

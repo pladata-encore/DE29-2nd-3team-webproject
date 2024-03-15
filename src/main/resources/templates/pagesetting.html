@@ -77,9 +77,24 @@
         color: #ccc;
       }
 
+      button[type=submit] {
+        background: #34B7A7;
+        border: 0;
+        padding: 10px 30px 12px 30px;
+        color: #fff;
+        transition: 0.4s;
+        border-radius: 50px;
+        margin-top: 30px;
+        margin-bottom :100px;
+      }
+      button[type=submit]:hover {
+        background: #3DC8B7;
+      }
+
       .info .title,
       .info .comment {
         margin-top: 20px;
+      
       }
     </style>
 
@@ -112,13 +127,9 @@
           <ul>
             <!-- <li><a class="active" href="index.html">Home</a></li> -->
             <li><a href="/v1/main">Home</a></li>
-            <li><a href="/v1/qna/page?id=to1">MyPage</a></li>
-            <li><a href="/v1/setting/page?id=to1">PageSetting</a></li>
-            <li><a href="/v1/setting/user?id=to1">MyAccount</a></li>
-<<<<<<< HEAD
-=======
-            <li><a href="/v1/setting/user?id=to1">Logout</a></li>
->>>>>>> origin/css_2
+            <li><a href="/v1/qna/page?id={{myId}}">MyPage</a></li>
+            <li><a href="/v1/setting/page">PageSetting</a></li>
+            <li><a href="/logout">Logout</a></li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
@@ -128,73 +139,6 @@
     <!-- End Header -->
 
     <main id="main">
-<<<<<<< HEAD
-      <!-- ======= Modify Section ======= -->
-      <section id="contact" class="contact">
-        <div class="container" data-aos="fade-up">
-          <div class="section-title">
-            <h2>페이지 수정하기</h2>
-          </div>
-          {{#pageDTO}}
-          <div class="row mt-5">
-            <div class="col-lg-4">
-              <div class="info">
-                <div class="title">
-                  <i class="bi bi-geo-alt"></i>
-                  <h4>Current Title:</h4>
-                  <p>{{pageTitle}}</p>
-                </div>
-
-                <div class="comment">
-                  <i class="bi bi-envelope"></i>
-                  <h4>Current Bio:</h4>
-                  <p>{{pageComment}}</p>
-                </div>
-              </div>
-            </div>
-            {{/pageDTO}}
-
-            <div class="col-lg-8 mt-5 mt-lg-0">
-              <form
-                action="/v1/setting/pageupdate"
-                method="post"
-                role="form"
-                class="php-email-form"
-              >
-                <div class="row"></div>
-                <div class="form-group mt-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="pageTitle"
-                    placeholder="페이지 제목을 입력하세요."
-                    required
-                  />
-                </div>
-                <div class="form-group mt-3">
-                  <textarea
-                    class="form-control"
-                    name="pageComment"
-                    rows="3"
-                    placeholder="자기소개를 입력하세요."
-                    required
-                  ></textarea>
-                </div>
-                <div class="my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">페이지 정보가 수정되었습니다.</div>
-                </div>
-                <div class="text-center">
-                  <button type="submit">수정하기</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- End Contact Section -->
-=======
 <!-- ======= Modify Section ======= -->
 <section id="contact" class="contact">
   <div class="container" data-aos="fade-up">
@@ -202,60 +146,56 @@
       <h2>페이지 수정하기</h2>
     </div>
     {{#pageDTO}}
-    <div class="row mt-5 text-center">
-      <div class="col-lg-6 mx-auto">
-        <div class="info">
-          <div class="title">
-            <i class="bi bi-house"></i>
+      <div class="row mt-5 text-center">
+        <div class="col-lg-6 mx-auto">
+          <div class="info">
             <form
               action="/v1/setting/pageupdate"
               method="post"
               role="form"
               class="php-email-form"
             >
-              <h4 style="text-align: left;">Current Title:</h4>
-              <p style="text-align: left;">{{pageTitle}}</p>
+            <div class="title">
+              <i class="bi bi-house"></i>
+                <h4 style="text-align: left;">Current Title:</h4>
+                <p style="text-align: left;">{{pageTitle}}</p>
+                <div class="form-group mt-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="pageTitle"
+                    placeholder="페이지 제목을 입력하세요."
+                    style="margin-top: 5px;"
+                    required
+                  />
+                </div>
+            </div>
+            <div class="comment">
+              <i class="bi bi-chat-left-quote"></i>
+              <h4 style="text-align: left;">Current Bio:</h4>
+              <p style="text-align: left;">{{pageComment}}</p>
               <div class="form-group mt-3">
-                <input
-                  type="text"
+                <textarea
                   class="form-control"
-                  name="pageTitle"
-                  placeholder="페이지 제목을 입력하세요."
+                  name="pageComment"
+                  rows="3"
+                  placeholder="자기소개를 입력하세요."
                   style="margin-top: 5px;"
                   required
-                />
+                ></textarea>
               </div>
-          </div>
-          <div class="comment">
-            <i class="bi bi-chat-left-quote"></i>
-            <h4 style="text-align: left;">Current Bio:</h4>
-            <p style="text-align: left;">{{pageComment}}</p>
-            <div class="form-group mt-3">
-              <textarea
-                class="form-control"
-                name="pageComment"
-                rows="3"
-                placeholder="자기소개를 입력하세요."
-                style="margin-top: 5px;"
-                required
-              ></textarea>
+              <div class="text-center">
+                <button type="submit">수정하기</button>
+              </div>
             </div>
-            <!-- <div class="my-3">
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">페이지 정보가 수정되었습니다.</div>
-            </div> -->
-            <div class="text-center">
-              <button type="submit">수정하기</button>
-            </div>
+          </form>
           </div>
-        </div>
+        </div> 
       </div>
-      {{/pageDTO}}
-    </div>
+    {{/pageDTO}}
     </div>
   </div>
-  </form>
+  
 </section>
 <!-- End Modify Section -->
 
@@ -271,22 +211,25 @@
         <div class="info">
           <div class="title">
             <i class="bi bi-person"></i>
-            <form
-              action="/update_nickname"
-              method="post" style="margin-bottom:60px;">
               <h4 style="text-align: left;">Current Nickname:</h4>
               <p style="text-align: left;">{{pageTitle}}</p> 
-              <div class="form-group mt-3" style="margin: 16px 0px;">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="newnickname"
-                  placeholder="닉네임을 입력하세요."
-                  style="margin-top: 5px;"
-                  required
-                />
-              </div>
-            </form>
+                <form
+                action="/update_nickname"
+                method="post" style="margin-bottom:60px;">
+                <div class="form-group mt-3" style="margin: 16px 0px;">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="newnickname"
+                    placeholder="닉네임을 입력하세요."
+                    style="margin-top: 5px;"
+                    required
+                  />
+                </div>
+                <div class="text-center">
+                  <button type="submit">수정하기</button>
+                </div>
+                </form>
       {{/pageDTO}}
           </div>
           <form action="/update_password" method="post">
@@ -297,20 +240,18 @@
                 <input type="password " class="form-control mb-2" name="new_password" placeholder="새 비밀번호를 입력하세요.">
                 <input type="password " class="form-control" name="confirmed_password" placeholder="비밀번호를 다시 입력하세요.">
             </div>
-          </form>
             <div class="text-center">
               <button type="submit">수정하기</button>
             </div>
+          </form>
           </div>
         </div>
       </div>
     </div>
     </div>
   </div>
-  </form>
 </section>
 <!-- End Modify Section -->
->>>>>>> origin/css_2
     </main>
     <!-- End #main -->
 

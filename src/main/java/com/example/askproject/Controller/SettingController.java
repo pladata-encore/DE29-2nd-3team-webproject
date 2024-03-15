@@ -1,6 +1,8 @@
 package com.example.askproject.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,23 +26,28 @@ public class SettingController {
     private PageService pageService;
 
     @GetMapping("/user")
-    public String getUserSetting(@RequestParam String id, Model settingModel) {
-        UserDTO userdto = userService.findByUserId(id);
+    public String getUserSetting(Model settingModel, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        settingModel.addAttribute("myId", userDetails.getUsername());
+        UserDTO userdto = userService.findByUserId(userDetails.getUsername());
         settingModel.addAttribute("userdto", userdto);
         return "myaccount";
     }
 
     @GetMapping("/page")
-    public String getPageSetting(@RequestParam String id, Model settingModel) {
-        PageDTO pagedto = pageService.findByPageId(id);
+    public String getPageSetting(Model settingModel, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        settingModel.addAttribute("myId", userDetails.getUsername());
+        PageDTO pagedto = pageService.findByPageId(userDetails.getUsername());
         settingModel.addAttribute("pageDTO", pagedto);
         return "pagesetting";
     }
 
     @PostMapping("/pageupdate")
-    public String updatePageSetting(@ModelAttribute PageDTO pageDTO) {
+    public String updatePageSetting(@ModelAttribute PageDTO pageDTO, Authentication authentication) {
         //TODO: process POST request
-        pageDTO.setPageId("to1"); //세션id가 될 값입니다.
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        pageDTO.setPageId(userDetails.getUsername()); //세션id가 될 값입니다.
         pageService.updatePage(pageDTO);
         return "redirect:/v1/main";
     }

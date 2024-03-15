@@ -18,7 +18,6 @@ import com.example.askproject.Service.UserService;
 import com.example.askproject.Service.UserServiceSecurity;
 
 @Controller
-@RequestMapping("/v1")
 public class RegisterController {
 
     @Autowired
@@ -50,6 +49,6 @@ public class RegisterController {
     @PostMapping("/register")
     public String register(@ModelAttribute UserDTO dto, Model model) {
         userServiceSecurity.joinUserDto(dto);
-        return "login"; // 로그인 페이지로 이동
+        return "redirect:/login"; // 로그인 페이지로 이동
     }
 }
