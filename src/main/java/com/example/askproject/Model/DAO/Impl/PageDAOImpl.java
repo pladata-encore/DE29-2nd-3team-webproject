@@ -51,4 +51,10 @@ public class PageDAOImpl implements PageDAO{
         return pageRepository.findByPageIdContaining(keyword);
     }
 
+    @Override
+    public void resetPageTodayCount() {
+        // TODO Auto-generated method stub
+        pageRepository.resetPageTodayCount();
+    }
+
 }

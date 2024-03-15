@@ -10,4 +10,5 @@ public interface PageDAO {
     public List<PageEntity> findAllPage();
     public PageEntity findByPageId(String pageId);
     public List<PageEntity> findByPageIdContaining(String keyword);
+    public void resetPageTodayCount();
 }

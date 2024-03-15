@@ -103,4 +103,10 @@ public class PageServiceImpl implements PageService {
             }
         }
     }
+
+    @Scheduled(cron = "0 0 0 * * *")
+    public void resetToday() {
+        pageDAO.resetPageTodayCount();
+    }
+
 }
