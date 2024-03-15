@@ -47,7 +47,7 @@ public class MainController {
                 ? pageDTOs
                 : getRandomPages(pageDTOs, 5);
         model.addAttribute("countQuestion", countQuestions);
-        model.addAttribute("countQuestion", countAnswers);
+        model.addAttribute("countAnswer", countAnswers);
         model.addAttribute("pages", selectedPages);
         return "main";
     }
