@@ -45,4 +45,10 @@ public class PageDAOImpl implements PageDAO{
         return pageRepository.findByPageId(pageId);
     }
 
+    @Override
+    public List<PageEntity> findByPageIdContaining(String keyword) {
+        // TODO Auto-generated method stub
+        return pageRepository.findByPageIdContaining(keyword);
+    }
+
 }

@@ -9,4 +9,5 @@ public interface PageDAO {
     public void updatePage(PageEntity pageEntity);
     public List<PageEntity> findAllPage();
     public PageEntity findByPageId(String pageId);
+    public List<PageEntity> findByPageIdContaining(String keyword);
 }

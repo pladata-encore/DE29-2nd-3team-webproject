@@ -70,12 +70,17 @@ public class PageServiceImpl implements PageService{
         pageEntity.setPageTitle(pageDTO.getPageTitle());
         pageDAO.insertPage(pageEntity);
     }
-    
 
-    public PageDTO getPageById(Long pageId) {
-        PageDTO pageDTO = new PageDTO();
-        pageDTO.setPageTitle("페이지 제목");
-        pageDTO.setPageComment("페이지 코멘트");
-        return pageDTO;
+
+    @Override
+    public List<String> findByPageIdContaining(String keyword) {
+        // TODO Auto-generated method stub
+        List<PageEntity> entities = pageDAO.findByPageIdContaining(keyword);
+        List<String> pageIds = new ArrayList<>();
+        for (PageEntity entity : entities) {
+            pageIds.add(entity.getPageId());
+        }
+        return pageIds;
     }
+    
 }

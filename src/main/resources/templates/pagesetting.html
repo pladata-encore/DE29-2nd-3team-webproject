@@ -153,41 +153,41 @@
               action="/v1/setting/pageupdate"
               method="post"
               role="form"
-              class="php-email-form"
+              class="pageupdate-form"
             >
-            <div class="title">
-              <i class="bi bi-house"></i>
-                <h4 style="text-align: left;">Current Title:</h4>
-                <p style="text-align: left;">{{pageTitle}}</p>
+              <div class="title">
+                <i class="bi bi-house"></i>
+                  <h4 style="text-align: left;">Current Title:</h4>
+                  <p style="text-align: left;">{{pageTitle}}</p>
+                  <div class="form-group mt-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="pageTitle"
+                      placeholder="페이지 제목을 입력하세요."
+                      style="margin-top: 5px;"
+                      required
+                    />
+                  </div>
+              </div>
+              <div class="comment">
+                <i class="bi bi-chat-left-quote"></i>
+                <h4 style="text-align: left;">Current Bio:</h4>
+                <p style="text-align: left;">{{pageComment}}</p>
                 <div class="form-group mt-3">
-                  <input
-                    type="text"
+                  <textarea
                     class="form-control"
-                    name="pageTitle"
-                    placeholder="페이지 제목을 입력하세요."
+                    name="pageComment"
+                    rows="3"
+                    placeholder="자기소개를 입력하세요."
                     style="margin-top: 5px;"
                     required
-                  />
+                  ></textarea>
                 </div>
-            </div>
-            <div class="comment">
-              <i class="bi bi-chat-left-quote"></i>
-              <h4 style="text-align: left;">Current Bio:</h4>
-              <p style="text-align: left;">{{pageComment}}</p>
-              <div class="form-group mt-3">
-                <textarea
-                  class="form-control"
-                  name="pageComment"
-                  rows="3"
-                  placeholder="자기소개를 입력하세요."
-                  style="margin-top: 5px;"
-                  required
-                ></textarea>
               </div>
               <div class="text-center">
                 <button type="submit">수정하기</button>
               </div>
-            </div>
           </form>
           </div>
         </div> 

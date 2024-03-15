@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.askproject.Model.DTO.PageDTO;
 import com.example.askproject.Service.AnswerService;
@@ -51,6 +53,11 @@ public class MainController {
 
         // count만큼 선택
         return shuffledPages.subList(0, count);
+    }
+    @GetMapping("/search")
+    @ResponseBody
+    public List<String> searchUsers(@RequestParam("query") String query) {
+        return pageService.findByPageIdContaining(query);
     }
 
     

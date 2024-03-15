@@ -173,14 +173,16 @@
         <div class="container" data-aos="fade-up">
           <div class="section-title">
             <h2>사용자 검색</h2>
-            <form class="justify-content-center" action="/search" method="GET"  data-aos="none">
+            <form class="justify-content-center" id="searchForm" action="/v1/search" method="GET"  data-aos="none">
               <input
                 type="text"
+                id="searchInput"
                 name="query"
                 placeholder="사용자를 입력하세요."
               />
               <button type="submit">검색</button>
             </form>
+          <div id="searchResults"></div>
           </div>
           <hr class="my-5">
           </div>
@@ -343,6 +345,67 @@
     <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="/static/assets/vendor/waypoints/noframework.waypoints.js"></script>
     <script src="/static/assets/vendor/php-email-form/validate.js"></script>
+    <script>
+      var searchForm = document.getElementById('searchForm');
+      var searchInput = document.getElementById('searchInput');
+      var searchResultsDiv = document.getElementById('searchResults');
+    
+      searchInput.addEventListener('input', function(event) {
+        var query = searchInput.value.trim(); // 검색어 가져오기
+    
+        if (query === '') {
+          // 검색어가 비어 있는 경우 결과를 지우고 함수 종료
+          clearSearchResults();
+          return;
+        }
+    
+        // AJAX 요청 생성
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/v1/search?query=' + query, true);
+    
+        // 요청 완료 시 동작 정의
+        xhr.onload = function() {
+          if (xhr.status >= 200 && xhr.status < 400) {
+            // 성공적으로 응답이 도착한 경우
+            var data = JSON.parse(xhr.responseText);
+            displaySearchResults(data);
+          } else {
+            // 에러가 발생한 경우
+            console.error('요청 실패');
+          }
+        };
+    
+        // 요청 실패 시 동작 정의
+        xhr.onerror = function() {
+          console.error('네트워크 오류');
+        };
+    
+        // 요청 전송
+        xhr.send();
+      });
+    
+      // 검색 결과를 표시하는 함수
+      function displaySearchResults(results) {
+        searchResultsDiv.innerHTML = ''; // 결과를 표시하기 전에 이전 결과 삭제
+    
+        if (results.length === 0) {
+          searchResultsDiv.innerHTML = '검색 결과가 없습니다.';
+        } else {
+          var ul = document.createElement('ul');
+          results.forEach(function(result) {
+            var li = document.createElement('li');
+            li.textContent = result;
+            ul.appendChild(li);
+          });
+          searchResultsDiv.appendChild(ul);
+        }
+      }
+    
+      // 검색 결과를 지우는 함수
+      function clearSearchResults() {
+        searchResultsDiv.innerHTML = '';
+      }
+    </script>
 
     <!-- Template Main JS File -->
     <script src="/static/assets/js/main.js"></script>

@@ -182,7 +182,7 @@
       $("#userId").keyup(function () {
         var userId = $(this).val();
         $.ajax({
-          url: "/v1/check-userid",
+          url: "/check-userid",
           type: "GET",
           data: { userId: userId },
           success: function (data) {

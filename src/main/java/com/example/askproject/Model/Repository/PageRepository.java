@@ -10,4 +10,5 @@ public interface PageRepository extends JpaRepository<PageEntity, String>{
     @Query(value = "Select * from page", nativeQuery = true)
     public List<PageEntity> findAllPage();
     public PageEntity findByPageId(String pageId);
+    public List<PageEntity> findByPageIdContaining(String keyword);
 }

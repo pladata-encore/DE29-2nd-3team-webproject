@@ -40,6 +40,8 @@ public class SettingController {
         settingModel.addAttribute("myId", userDetails.getUsername());
         PageDTO pagedto = pageService.findByPageId(userDetails.getUsername());
         settingModel.addAttribute("pageDTO", pagedto);
+        UserDTO userdto = userService.findByUserId(userDetails.getUsername());
+        settingModel.addAttribute("userdto", userdto);
         return "pagesetting";
     }
 

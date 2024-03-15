@@ -14,4 +14,6 @@ public interface PageService {
     public List<PageDTO> findAllPage();
 
     public PageDTO findByPageId(String pageId);
+
+    public List<String> findByPageIdContaining(String keyword);
 }
