@@ -85,7 +85,7 @@
         transition: 0.4s;
         border-radius: 50px;
         margin-top: 30px;
-        margin-bottom :100px;
+
       }
       button[type=submit]:hover {
         background: #3DC8B7;
@@ -96,6 +96,18 @@
         margin-top: 20px;
       
       }
+
+      .section-title h2 {
+        font-size: 32px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-top: 50px;
+        padding-bottom: 20px;
+        position: relative;
+    }
+
+
+
     </style>
 
     <!-- =======================================================
@@ -128,7 +140,7 @@
             <!-- <li><a class="active" href="index.html">Home</a></li> -->
             <li><a href="/v1/main">Home</a></li>
             <li><a href="/v1/qna/page?id={{myId}}">MyPage</a></li>
-            <li><a href="/v1/setting/page">PageSetting</a></li>
+            <li><a href="/v1/setting/page">Setting</a></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
@@ -252,6 +264,18 @@
     </div>
   </div>
 </section>
+
+  <a id="withdraw" href="#" class="row justify-content-center" style="margin-top:50px; font-size:13px; color:black">회원탈퇴하기</a>
+
+<script>
+  document.getElementById("withdraw").addEventListener("click", function() {
+    var confirmation = confirm("정말 탈퇴하시겠습니까?");
+    if (confirmation) {
+      // 
+      alert("탈퇴되었습니다.");
+    }
+  });
+  </script>
 <!-- End Modify Section -->
     </main>
     <!-- End #main -->
