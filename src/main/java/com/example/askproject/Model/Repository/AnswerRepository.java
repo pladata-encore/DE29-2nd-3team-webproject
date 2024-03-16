@@ -16,4 +16,5 @@ public interface AnswerRepository extends JpaRepository<AnswerEntity, Long>{
     nativeQuery = true
     )
     public List<Map<String, Object>> countAnswerByUserId();
+    public AnswerEntity findByAnswerId(Long answerId);
 }

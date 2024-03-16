@@ -65,7 +65,7 @@ public class QuestionServiceImpl implements QuestionService{
         questionDAO.updateQuestion(questionEntity);
     }
 
-    public List<joindQnaDTO> joinQuestionAnswerByQuestionTo(String questionTo){
+    public List<joindQnaDTO> joinQuestionAnswerByQuestionTo(String questionTo, String userId){
         List<joindQnaDTO> dtos = new ArrayList<>();
         List<QuestionEntity> entities = questionDAO.findAllByQuestionTo(questionTo);
         for (QuestionEntity questionEntity : entities) {
@@ -77,12 +77,14 @@ public class QuestionServiceImpl implements QuestionService{
             qnaDTO.setQuestionFrom(questionEntity.getQuestionFrom());
             qnaDTO.setQuestionId(questionEntity.getQuestionId());
             qnaDTO.setQuestionTo(questionEntity.getQuestionTo());
+            qnaDTO.setMyQuestion(questionEntity.getQuestionFrom().equals(userId));
             if (answerEntity != null){
                 qnaDTO.setAnswerContent(answerEntity.getAnswerContent());
                 qnaDTO.setAnswerFrom(answerEntity.getAnswerFrom());
                 qnaDTO.setAnswerId(answerEntity.getAnswerId());
                 qnaDTO.setAnswerQuestionId(answerEntity.getAnswerQuestionId());
                 qnaDTO.setAnswerTo(answerEntity.getAnswerTo());
+                qnaDTO.setMyAnswer(answerEntity.getAnswerFrom().equals(userId));
             }
             dtos.add(qnaDTO);
         }
@@ -93,6 +95,28 @@ public class QuestionServiceImpl implements QuestionService{
     public List<Map<String, Object>> countQuestionByUserId() {
         // TODO Auto-generated method stub
         return questionDAO.countQuestionByUserId();
+    }
+
+    @Override
+    public boolean checkMyQuestion(String userId, Long questionId) {
+        // TODO Auto-generated method stub
+        QuestionEntity entity = questionDAO.findByQuestionId(questionId);
+        return entity.getQuestionFrom().equals(userId);
+    }
+
+    @Override
+    public boolean checkMyQuestionTo(String userId, Long questionId) {
+        // TODO Auto-generated method stub
+        QuestionEntity entity = questionDAO.findByQuestionId(questionId);
+        return entity.getQuestionTo().equals(userId);
+    }
+
+    @Override
+    public void updateQuestionContent(Long questionId, String questionContent) {
+        // TODO Auto-generated method stub
+        QuestionEntity entity = questionDAO.findByQuestionId(questionId);
+        entity.setQuestionContent(questionContent);
+        questionDAO.updateQuestion(entity);
     }
     
 }

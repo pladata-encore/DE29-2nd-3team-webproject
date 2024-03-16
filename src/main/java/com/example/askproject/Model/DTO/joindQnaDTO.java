@@ -23,5 +23,7 @@ public class joindQnaDTO {
     private String answerTo;
     private String answerContent;
     private Long answerQuestionId;
+    private boolean myQuestion;
+    private boolean myAnswer;
     
 }

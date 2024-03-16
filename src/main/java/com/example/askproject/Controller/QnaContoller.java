@@ -22,6 +22,9 @@ import com.example.askproject.Service.PageService;
 import com.example.askproject.Service.QuestionService;
 import com.example.askproject.Service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RequestMapping("/v1/qna")
 @Controller
 public class QnaContoller {
@@ -44,7 +47,7 @@ public class QnaContoller {
         questionModel.addAttribute("myId", userDetails.getUsername());
         pageService.increasePageCount(id);
 
-        List<joindQnaDTO> qdtos = questionService.joinQuestionAnswerByQuestionTo(id);
+        List<joindQnaDTO> qdtos = questionService.joinQuestionAnswerByQuestionTo(id, userDetails.getUsername());
         PageDTO pageDTO = pageService.findByPageId(id);
         questionModel.addAttribute("pageTitle", pageDTO.getPageTitle());
         questionModel.addAttribute("pageComment", pageDTO.getPageComment());
@@ -84,4 +87,57 @@ public class QnaContoller {
         return "redirect:/v1/qna/page?id=" + pageid;
     }
 
+    @PostMapping("/deletea")
+    public String deleteAnswer(@RequestParam Long answerId, @RequestParam Long questionId, Authentication authentication) {
+        //TODO: process POST request
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        if (answerService.checkMyAnswer(userDetails.getUsername(), answerId)){
+            answerService.deleteByAnswerId(answerId);
+            questionService.changeAnswered(questionId);
+            return "redirect:/";
+        }
+        else {
+            return null;
+        }  
+    }
+
+    @PostMapping("/deleteq")
+    public String deleteQuestion(@RequestParam Long questionId, Authentication authentication) {
+        //TODO: process POST request
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        if (questionService.checkMyQuestion(userDetails.getUsername(), questionId)||questionService.checkMyQuestionTo(userDetails.getUsername(), questionId)){
+            questionService.deleteByQuestionId(questionId);
+            answerService.deleteAnswerCascade(questionId);
+            return "redirect:/";
+        }
+        else {
+            return null;
+        }  
+    }
+
+    @PostMapping("/updateq")
+    public String updateQuestion(@RequestParam Long questionId, @RequestParam String updatedQuestion, Authentication authentication) {
+        //TODO: process POST request
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        if (questionService.checkMyQuestion(userDetails.getUsername(), questionId)){
+            questionService.updateQuestionContent(questionId, updatedQuestion);
+            return "redirect:/";
+        }
+        else {
+            return null;
+        }  
+    }
+
+    @PostMapping("/updatea")
+    public String updateAnswer(@RequestParam Long answerId, @RequestParam String updatedAnswer, Authentication authentication) {
+        //TODO: process POST request
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        if (answerService.checkMyAnswer(userDetails.getUsername(), answerId)){
+            answerService.updateAnswerContent(answerId, updatedAnswer);
+            return "redirect:/";
+        }
+        else {
+            return null;
+        }  
+    }
 }

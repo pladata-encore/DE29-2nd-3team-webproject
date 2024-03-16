@@ -10,4 +10,7 @@ public interface AnswerService {
     public void deleteByAnswerId(Long AnswerId);
     public void insertAnswer(AnswerDTO answerDTO);
     public List<Map<String, Object>> countAnswerByUserId();
+    public Boolean checkMyAnswer(String userId, Long answerId);
+    public void deleteAnswerCascade(Long answerQuestionId);
+    public void updateAnswerContent(Long answerId, String answerContent);
 }

@@ -266,16 +266,21 @@
               <div class="question-content">
                 <p>{{questionContent}}</p>
               </div>
+              
               <div class="question-actions" style="text-align: right;">
+                {{#myQuestion}}
+                {{^answered}}
                 <button class="btn btn-sm btn-primary edit-question" onclick="showEditArea('editArea_question_{{questionId}}')">수정</button>
-                <button class="btn btn-sm btn-danger delete-question" onclick="deleteQuestion()">삭제</button>
-                <form id="deleteQuestion" action="DeleteQuestion.do" method="post">
-                  <input type="hidden" name="no" value="${post.no}" />
-                </form>
+                {{/answered}}
+                <button class="btn btn-sm btn-danger delete-question" onclick="deleteQuestion('{{questionId}}')">삭제</button>
+                {{/myQuestion}}
+                {{#idCheck}}
+                <button class="btn btn-sm btn-danger delete-question" onclick="deleteQuestion('{{questionId}}')">삭제</button>
+                {{/idCheck}}
               </div>
               <div id="editArea_question_{{questionId}}" style="display: none; text-align: right; margin-top:13px;">
                 <textarea id="editedContent_question_{{questionId}}" class="form-control" rows="3">{{questionContent}}</textarea>
-                <button class="btn btn-sm btn-success" style="margin-top: 10px;" onclick="saveQuestion()">완료</button>
+                <button class="btn btn-sm btn-success" style="margin-top: 10px;" onclick="saveQuestion('{{questionId}}')">완료</button>
                 <button class="btn btn-sm btn-secondary" style="margin-top: 10px;" onclick="cancelEdit('editArea_question_{{questionId}}')">취소</button>
               </div>
             </div>
@@ -286,18 +291,16 @@
                 <p>{{answerContent}}</p>
               </div>
               <div class="answer-actions" style="text-align: right;">
+                {{#idCheck}}
                 <button class="btn btn-sm btn-primary edit-answer" onclick="showEditArea('editArea_answer_{{answerId}}')">수정</button>
-                <button class="btn btn-sm btn-danger delete-answer" onclick="deleteAnswer()">삭제</button>
-                <form id="deleteAnswer" action="DeleteAnswer.do" method="post">
-                  <input type="hidden" name="no" value="${post.no}" />
-                </form>
+                <button class="btn btn-sm btn-danger delete-answer" onclick="deleteAnswer('{{answerId}}', '{{questionId}}')">삭제</button>
+                {{/idCheck}}
               </div>
               <div id="editArea_answer_{{answerId}}" style="display: none; text-align: right; margin-top:13px;">
                 <textarea id="editedContent_answer_{{answerId}}" class="form-control" rows="3">{{answerContent}}</textarea>
-                <button class="btn btn-sm btn-success" style="margin-top: 10px;" onclick="saveAnswer()">완료</button>
+                <button class="btn btn-sm btn-success" style="margin-top: 10px;" onclick="saveAnswer('{{answerId}}')">완료</button>
                 <button class="btn btn-sm btn-secondary" style="margin-top: 10px;" onclick="cancelEdit('editArea_answer_{{answerId}}')">취소</button>
               </div>
-            </div>
             </div>
             {{/answered}} {{^answered}} {{#idCheck}}
             <form
@@ -378,6 +381,7 @@
       class="back-to-top d-flex align-items-center justify-content-center"
       ><i class="bi bi-arrow-up-short"></i
     ></a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
       function showEditArea(editAreaId) {
         document.getElementById(editAreaId).style.display = "block";
@@ -396,49 +400,83 @@
         document.querySelector("#" + editAreaId + " .question-content").style.display = "block";
       }
   
-      function saveQuestion() {
+      function saveQuestion(questionId) {
+        var updatedQuestion = document.getElementById("editedContent_question_"+questionId).value;
+        $.ajax({
+            url: "/v1/qna/updateq?questionId="+questionId,
+            type: "POST",
+            data: {updatedQuestion: updatedQuestion},
+            success: function(data) {
+              alert("수정되었습니다.");
+              window.location.href = "/v1/qna/page?id={{pageId}}";
+            },
+            error: function(xhr, status, error) {
+              // 오류 처리
+              alert("수정에 실패했습니다.");
+            }
+          });
         // 수정된 내용을 서버로 전송하는 로직을 작성합니다.
         // 여기에 코드를 추가하세요.
       }
   
-      function deleteQuestion() {
-        if (confirm("삭제하시겠습니까?")) {
-          document.getElementById("deleteQuestion").submit();
+      function deleteQuestion(questionId) {
+        var confirmation = confirm("질문을 삭제하시겠습니까?");
+        if (confirmation) {
+          // 확인을 클릭한 경우
+          $.ajax({
+            url: "/v1/qna/deleteq?questionId="+questionId,
+            type: "POST",
+            success: function(data) {
+              alert("삭제되었습니다.");
+              window.location.href = "/v1/qna/page?id={{pageId}}";
+            },
+            error: function(xhr, status, error) {
+              // 오류 처리
+              alert("삭제에 실패했습니다.");
+            }
+          });
         }
       }
   
-      function saveAnswer() {
+      function saveAnswer(answerId) {
         // 수정된 내용을 서버로 전송하는 로직을 작성합니다.
         // 여기에 코드를 추가하세요.
+        var updatedAnswer = document.getElementById("editedContent_answer_"+answerId).value;
+        $.ajax({
+            url: "/v1/qna/updatea?answerId="+answerId,
+            type: "POST",
+            data: {updatedAnswer: updatedAnswer},
+            success: function(data) {
+              alert("수정되었습니다.");
+              window.location.href = "/v1/qna/page?id={{pageId}}";
+            },
+            error: function(xhr, status, error) {
+              // 오류 처리
+              alert("수정에 실패했습니다.");
+            }
+          });
       }
   
-      function deleteAnswer() {
-        if (confirm("삭제하시겠습니까?")) {
-          document.getElementById("deleteAnswer").submit();
+      function deleteAnswer(answerId, questionId) {
+        var confirmation = confirm("답변을 삭제하시겠습니까?");
+        if (confirmation) {
+          // 확인을 클릭한 경우
+          $.ajax({
+            url: "/v1/qna/deletea?answerId="+answerId+"&questionId="+questionId,
+            type: "POST",
+            success: function(data) {
+              alert("삭제되었습니다.");
+              window.location.href = "/v1/qna/page?id={{pageId}}";
+            },
+            error: function(xhr, status, error) {
+              // 오류 처리
+              alert("삭제에 실패했습니다.");
+            }
+          });
         }
-      }
-    </script>
-    <script>
-      // 페이지가 로드될 때마다 호출되는 함수
-      window.onload = function() {
-          // AJAX 요청을 사용하여 서버로 현재 페이지의 pageId를 전송하고, 서버에서 pageTodayCount 값을 증가시킵니다.
-          var xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {
-                  // 서버로부터 응답을 받으면 증가된 pageTodayCount 값을 사용하여 카운터를 업데이트합니다.
-                  document.getElementById("todayCount").setAttribute("data-purecounter-end", this.responseText);
-                  // 카운터를 시작합니다.
-                  var counter = new PureCounter(document.getElementById("todayCount"));
-                  counter.start();
-              }
-          };
-          // 서버로 보낼 데이터를 구성합니다. 여기서는 pageId를 전송합니다.
-          var pageId = "{{pageId}}";
-          // AJAX 요청을 보냅니다.
-          xhttp.open("GET", "/v1/qna/increasePageCount?pageId=" + pageId, true);
-          xhttp.send();
       };
-  </script>
+      
+    </script>
     <!-- Vendor JS Files -->
     <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
     <script src="/static/assets/vendor/aos/aos.js"></script>

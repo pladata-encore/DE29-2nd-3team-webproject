@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.askproject.Model.DAO.QuestionDAO;
 import com.example.askproject.Model.Entity.QuestionEntity;
@@ -23,6 +24,7 @@ public class QuestionDAOImpl implements QuestionDAO{
     }
 
     @Override
+    @Transactional
     public void deleteByQuestionId(Long questionId) {
         // TODO Auto-generated method stub
         questionRepository.deleteByQuestionId(questionId);

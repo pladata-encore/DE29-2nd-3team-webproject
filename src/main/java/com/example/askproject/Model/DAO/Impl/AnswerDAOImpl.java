@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.askproject.Model.DAO.AnswerDAO;
 import com.example.askproject.Model.Entity.AnswerEntity;
@@ -16,6 +17,7 @@ public class AnswerDAOImpl implements AnswerDAO{
     private AnswerRepository answerRepository;
 
     @Override
+    @Transactional
     public void deleteByAnswerId(Long answerId) {
         // TODO Auto-generated method stub
         answerRepository.deleteByAnswerId(answerId);   
@@ -44,6 +46,18 @@ public class AnswerDAOImpl implements AnswerDAO{
     public List<Map<String, Object>> countAnswerByUserId() {
         // TODO Auto-generated method stub
         return answerRepository.countAnswerByUserId();
+    }
+
+    @Override
+    public AnswerEntity findByAnswerId(Long answerId) {
+        // TODO Auto-generated method stub
+        return answerRepository.findByAnswerId(answerId);
+    }
+
+    @Override
+    public void updateAnswer(AnswerEntity answerEntity) {
+        // TODO Auto-generated method stub
+        answerRepository.save(answerEntity);
     }
     
 }

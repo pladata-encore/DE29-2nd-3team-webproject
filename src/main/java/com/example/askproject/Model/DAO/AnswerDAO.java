@@ -8,4 +8,6 @@ public interface AnswerDAO {
     public void deleteByAnswerId(Long AnswerId);
     public void insertAnswer(AnswerEntity answerEntity);
     public List<Map<String, Object>> countAnswerByUserId();
+    public AnswerEntity findByAnswerId(Long answerId);
+    public void updateAnswer(AnswerEntity answerEntity);
 }

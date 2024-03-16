@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.askproject.Model.DAO.AnswerDAO;
 import com.example.askproject.Model.DTO.AnswerDTO;
 import com.example.askproject.Model.Entity.AnswerEntity;
+import com.example.askproject.Model.Entity.QuestionEntity;
 import com.example.askproject.Service.AnswerService;
 
 @Service
@@ -72,5 +73,27 @@ public class AnswerServiceImpl implements AnswerService{
         // TODO Auto-generated method stub
         return answerDAO.countAnswerByUserId();
     }
-    
+
+    @Override
+    public Boolean checkMyAnswer(String userId, Long answerId) {
+        // TODO Auto-generated method stub
+        AnswerEntity entity = answerDAO.findByAnswerId(answerId);
+        return entity.getAnswerFrom().equals(userId);
+    }
+
+    @Override
+    public void deleteAnswerCascade(Long answerQuestionId) {
+        // TODO Auto-generated method stub
+        AnswerEntity answerEntity = answerDAO.findByAnswerQuestionId(answerQuestionId);
+        if (answerEntity != null){
+            answerDAO.deleteByAnswerId(answerEntity.getAnswerId());}
+        
+    }
+    @Override
+    public void updateAnswerContent(Long answerId, String answerContent) {
+        // TODO Auto-generated method stub
+        AnswerEntity entity = answerDAO.findByAnswerId(answerId);
+        entity.setAnswerContent(answerContent);
+        answerDAO.updateAnswer(entity);
+    }
 }
