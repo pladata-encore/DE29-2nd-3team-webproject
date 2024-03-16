@@ -40,6 +40,7 @@ public class QnaContoller {
             return "error";
         }
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        questionModel.addAttribute("Nickname", userService.findNicknameByUserId(userDetails.getUsername()));
         questionModel.addAttribute("myId", userDetails.getUsername());
         pageService.increasePageCount(id);
 

@@ -87,7 +87,6 @@
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <!-- <li><a class="active" href="index.html">Home</a></li> -->
-          <li><a href="/">Home</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
@@ -117,15 +116,13 @@
                 <!-- 아이디 중복 에러 메시지 -->
                 <p id="duplicateUserIdError" class="text-danger" style="display: none;">사용할 수 없는 아이디입니다.</p>
                 <!--yang-->
-
-            
-
+      
               </div>
               <div class="mb-3">
                 <label for="formGroupExampleInput2" class="form-label">비밀번호</label>
-                <input id="password" type="text" class="form-control" name="userPassword" placeholder="비밀번호를 입력하세요"
+                <input id="password" type="password" class="form-control" name="userPassword" placeholder="비밀번호를 입력하세요"
                   style="font-size: 11px" onkeyup="checkPasswordMatch();"/>
-                <input id="confirmedPassword" type="text" class="form-control" name="confirmed_password" placeholder="비밀번호를 다시 입력하세요"
+                <input id="confirmedPassword" type="password" class="form-control" name="confirmed_password" placeholder="비밀번호를 다시 입력하세요"
                   style="font-size: 11px" onkeyup="checkPasswordMatch();"/>
                 <p id="passwordMatchMessage" style="text-align: center;"></p>
               </div>

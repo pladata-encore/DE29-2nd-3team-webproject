@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.askproject.Model.DAO.PageDAO;
 import com.example.askproject.Model.Entity.PageEntity;
@@ -21,9 +22,10 @@ public class PageDAOImpl implements PageDAO{
     }
 
     @Override
+    @Transactional
     public void deletePage(String pageId) {
         // TODO Auto-generated method stub
-        pageRepository.deleteById(pageId);
+        pageRepository.deleteByPageId(pageId);
     }
 
     @Override

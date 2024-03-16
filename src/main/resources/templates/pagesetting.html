@@ -138,6 +138,7 @@
         <nav id="navbar" class="navbar order-last order-lg-0">
           <ul>
             <!-- <li><a class="active" href="index.html">Home</a></li> -->
+            <li>안녕하세요, {{Nickname}}님</li>
             <li><a href="/v1/main">Home</a></li>
             <li><a href="/v1/qna/page?id={{myId}}">MyPage</a></li>
             <li><a href="/v1/setting/page">Setting</a></li>
@@ -217,22 +218,22 @@
     <div class="section-title">
       <h2>회원정보 수정하기</h2>
     </div>
-    {{#pageDTO}}
+    {{#userDTO}}
     <div class="row mt-5 text-center">
       <div class="col-lg-6 mx-auto">
         <div class="info">
           <div class="title">
             <i class="bi bi-person"></i>
               <h4 style="text-align: left;">Current Nickname:</h4>
-              <p style="text-align: left;">{{pageTitle}}</p> 
+              <p style="text-align: left;">{{userNickname}}</p> 
                 <form
-                action="/update_nickname"
+                action="/v1/setting/updatenickname"
                 method="post" style="margin-bottom:60px;">
                 <div class="form-group mt-3" style="margin: 16px 0px;">
                   <input
                     type="text"
                     class="form-control"
-                    name="newnickname"
+                    name="userNickname"
                     placeholder="닉네임을 입력하세요."
                     style="margin-top: 5px;"
                     required
@@ -242,7 +243,7 @@
                   <button type="submit">수정하기</button>
                 </div>
                 </form>
-      {{/pageDTO}}
+      {{/userDTO}}
           </div>
           <form action="/v1/setting/updatepassword" method="post">
             <i class="bi bi-file-earmark-lock"></i>
@@ -267,15 +268,7 @@
 
   <a id="withdraw" href="#" class="row justify-content-center" style="margin-top:50px; font-size:13px; color:black">회원탈퇴하기</a>
 
-<script>
-  document.getElementById("withdraw").addEventListener("click", function() {
-    var confirmation = confirm("정말 탈퇴하시겠습니까?");
-    if (confirmation) {
-      // 
-      alert("탈퇴되었습니다.");
-    }
-  });
-  </script>
+  
 <!-- End Modify Section -->
     </main>
     <!-- End #main -->
@@ -298,6 +291,26 @@
       ><i class="bi bi-arrow-up-short"></i
     ></a>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      document.getElementById("withdraw").addEventListener("click", function() {
+        var confirmation = confirm("정말 탈퇴하시겠습니까?");
+        if (confirmation) {
+          // 확인을 클릭한 경우
+          $.ajax({
+            url: "/v1/setting/deleteuser",
+            type: "POST",
+            success: function(data) {
+              alert("탈퇴되었습니다.");
+              window.location.href = "/";
+            },
+            error: function(xhr, status, error) {
+              // 오류 처리
+              alert("탈퇴에 실패했습니다.");
+            }
+          });
+        }
+      });
+    </script>
     <script>
       $(document).ready(function () {
         $("#currentPassword").keyup(function () {

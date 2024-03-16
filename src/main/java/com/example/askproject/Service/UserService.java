@@ -14,4 +14,6 @@ public interface UserService {
     public List<String> findAllUserId();
 
     public boolean existsByUserId(String userId);
+
+    public String findNicknameByUserId(String userId);
 }

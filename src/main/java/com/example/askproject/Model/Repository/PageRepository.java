@@ -19,4 +19,5 @@ public interface PageRepository extends JpaRepository<PageEntity, String>{
     @Modifying
     @Query(value = "update page set page_today_count = 0", nativeQuery = true)
     public void resetPageTodayCount();
+    public void deleteByPageId(String pageId);
 }

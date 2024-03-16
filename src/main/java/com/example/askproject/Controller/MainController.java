@@ -40,6 +40,7 @@ public class MainController {
     public String getMainPage(Model model, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("myId", userDetails.getUsername());
+        model.addAttribute("Nickname", userService.findNicknameByUserId(userDetails.getUsername()));
         List<Map<String, Object>> countQuestions = questionService.countQuestionByUserId();
         List<Map<String, Object>> countAnswers = answerService.countAnswerByUserId();
         List<PageDTO> pageDTOs = pageService.findAllPage();

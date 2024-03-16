@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.askproject.Model.DAO.UserDAO;
 import com.example.askproject.Model.Entity.UserEntity;
@@ -15,6 +16,7 @@ public class UserDAOImpl implements UserDAO{
     private UserRepository userRepository;
 
     @Override
+    @Transactional
     public void deleteUser(String userId) {
         // TODO Auto-generated method stub
         userRepository.deleteByUserId(userId);

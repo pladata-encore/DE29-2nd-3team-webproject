@@ -45,7 +45,7 @@ public class UserServiceSecurity {
         pageEntity.setPageTitle(dto.getUserId()+"'s Page");
         pageEntity.setPageComment("");
         entity.setUserEmail(dto.getUserEmail());
-        entity.setUserNickname(dto.getUserNickname());
+        entity.setUserNickname(dto.getUserId());
         entity.setUserPassword(dto.getUserPassword());
         entity.setUserRole(dto.getUserRole());
         entity.setUserId(dto.getUserId());

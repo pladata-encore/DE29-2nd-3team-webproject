@@ -45,9 +45,7 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserDTO userDTO) {
         // TODO Auto-generated method stub
         UserEntity entity = userDAO.findByUserId(userDTO.getUserId());
-        entity.setUserEmail(userDTO.getUserEmail());
         entity.setUserNickname(userDTO.getUserNickname());
-        entity.setUserPassword(userDTO.getUserPassword());
         userDAO.updateUser(entity);
     }
 
@@ -55,6 +53,11 @@ public class UserServiceImpl implements UserService {
     public boolean existsByUserId(String userId) {
         // TODO Auto-generated method stub
         return userDAO.existsByUserId(userId);
+    }
+
+    @Override
+    public String findNicknameByUserId(String userId) {
+        return userDAO.findByUserId(userId).getUserNickname();
     }
 
 }
