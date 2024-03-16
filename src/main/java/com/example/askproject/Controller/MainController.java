@@ -41,7 +41,7 @@ public class MainController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("myId", userDetails.getUsername());
         List<Map<String, Object>> countQuestions = questionService.countQuestionByUserId();
-        List<Map<String, Object>> countAnswers = questionService.countQuestionByUserId();
+        List<Map<String, Object>> countAnswers = answerService.countAnswerByUserId();
         List<PageDTO> pageDTOs = pageService.findAllPage();
         List<PageDTO> selectedPages = pageDTOs.size() <= 5
                 ? pageDTOs

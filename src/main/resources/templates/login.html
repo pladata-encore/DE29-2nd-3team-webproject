@@ -155,7 +155,11 @@
 
   <!-- Template Main JS File -->
   <script src="/static/assets/js/main.js"></script>
-
+  {{#error}}
+  <script type="text/javascript">
+    alert("{{exception}}");
+  </script>
+  {{/error}}
 </body>
 
 </html>

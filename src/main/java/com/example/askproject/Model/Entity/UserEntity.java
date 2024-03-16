@@ -22,22 +22,11 @@ import lombok.ToString;
 @Table(name = "user")
 public class UserEntity extends BaseTimeEntity{
     @Id
-    @NotBlank
     private String userId;
-    @NotBlank
     private String userPassword;
-    @Email
     private String userEmail;
     private String userRole;
     private String userNickname;
     @Column(columnDefinition = "tinyint(1) default 0")
     private Boolean isLogin;
-
-
-
-    private boolean isAdmin;
-
-    public void setAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
 }

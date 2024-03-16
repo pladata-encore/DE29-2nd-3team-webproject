@@ -52,4 +52,23 @@ public class UserServiceSecurity {
         pageDAO.insertPage(pageEntity);
         userDAO.updateUser(entity);
     }
+    
+    public void changePassword(UserDTO dto) {
+        String rawPwd = dto.getUserPassword();
+        String encodedPwd = bCryptPasswordEncoder.encode(rawPwd);
+        dto.setUserPassword(encodedPwd);
+        UserEntity userEntity = userDAO.findByUserId(dto.getUserId());
+        userEntity.setUserPassword(dto.getUserPassword());
+        userDAO.updateUser(userEntity);
+    }
+
+    public boolean verifyPassword(String userId, String rawPassword) {
+        UserEntity userEntity = userDAO.findByUserId(userId);
+        if (userEntity == null) {
+            // 사용자가 존재하지 않을 경우
+            return false;
+        }
+        // DB에 저장된 암호화된 비밀번호와 입력된 비밀번호를 비교
+        return bCryptPasswordEncoder.matches(rawPassword, userEntity.getUserPassword());
+    }
 }

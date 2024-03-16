@@ -12,7 +12,7 @@ public interface AnswerRepository extends JpaRepository<AnswerEntity, Long>{
     public void deleteByAnswerId(Long answerId);
 
     @Query(
-    value ="select answer_from as user, count(*) as count from answer group by question_to order by count desc limit 5",
+    value ="select answer_from as user, count(*) as count from answer group by answer_from order by count desc limit 5",
     nativeQuery = true
     )
     public List<Map<String, Object>> countAnswerByUserId();

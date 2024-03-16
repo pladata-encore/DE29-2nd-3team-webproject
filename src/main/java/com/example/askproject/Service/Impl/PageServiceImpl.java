@@ -61,11 +61,9 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public void updatePage(PageDTO pageDTO) {
-        PageEntity pageEntity = new PageEntity();
+        PageEntity pageEntity = pageDAO.findByPageId(pageDTO.getPageId());
         pageEntity.setPageComment(pageDTO.getPageComment());
-        pageEntity.setPageId(pageDTO.getPageId());
         pageEntity.setPageTitle(pageDTO.getPageTitle());
-        pageEntity.setPageTodayCount(pageDTO.getPageTodayCount());
         pageDAO.updatePage(pageEntity);
     }
 
@@ -91,18 +89,6 @@ public class PageServiceImpl implements PageService {
         pageDAO.updatePage(entity);
     }
 
-    @Scheduled(cron = "0 */1 * * * *") // 매 분 0초에 실행
-    public void resetPageCount() {
-        // 현재 시간의 시와 분이 모두 0인 경우에만 모든 페이지의 방문자 수를 초기화
-        LocalTime now = LocalTime.now();
-        if (now.getHour() == 0 && now.getMinute() == 0) {
-            List<PageEntity> entities = pageDAO.findAllPage();
-            for (PageEntity entity : entities) {
-                entity.setPageTodayCount(0L);
-                pageDAO.updatePage(entity);
-            }
-        }
-    }
 
     @Scheduled(cron = "0 0 0 * * *")
     public void resetToday() {

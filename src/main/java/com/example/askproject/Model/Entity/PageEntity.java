@@ -1,7 +1,5 @@
 package com.example.askproject.Model.Entity;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import java.time.LocalTime; // LocalDateTime 임포트 추가
 
 @Getter
 @Setter
@@ -20,7 +17,7 @@ import java.time.LocalTime; // LocalDateTime 임포트 추가
 @ToString
 @Entity
 @Table(name = "page")
-public class PageEntity {
+public class PageEntity extends BaseTimeEntity{
     @Id
     private String pageId;
     private String pageTitle;

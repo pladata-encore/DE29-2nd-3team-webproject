@@ -232,16 +232,17 @@
                 </form>
       {{/pageDTO}}
           </div>
-          <form action="/update_password" method="post">
+          <form action="/v1/setting/updatepassword" method="post">
             <i class="bi bi-file-earmark-lock"></i>
             <h4 style="text-align: left;">Password Change:</h4>
             <div class="form-group mt-3" style="margin: 16px 0px;">
-              <input type="password " class="form-control mb-2" name="current_password" placeholder="현재 비밀번호를 입력하세요." style="margin-top: 25px;" >
-                <input type="password " class="form-control mb-2" name="new_password" placeholder="새 비밀번호를 입력하세요.">
-                <input type="password " class="form-control" name="confirmed_password" placeholder="비밀번호를 다시 입력하세요.">
+              <input type="password" class="form-control mb-2" id="currentPassword" name="current_password" placeholder="현재 비밀번호를 입력하세요." style="margin-top: 25px;">
+              <input type="password" class="form-control mb-2" id="newPassword" name="userPassword" placeholder="새 비밀번호를 입력하세요." onkeyup="checkPasswordMatch();">
+              <input type="password" class="form-control" id="confirmedPassword" name="confirmed_password" placeholder="비밀번호를 다시 입력하세요." onkeyup="checkPasswordMatch();">
+              <div id="passwordMatchMessage"></div>
             </div>
             <div class="text-center">
-              <button type="submit">수정하기</button>
+              <button id="submitButton" type="submit" disabled>수정하기</button>
             </div>
           </form>
           </div>
@@ -272,6 +273,65 @@
       class="back-to-top d-flex align-items-center justify-content-center"
       ><i class="bi bi-arrow-up-short"></i
     ></a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#currentPassword").keyup(function () {
+          var passwordMatchMessage = document.getElementById("passwordMatchMessage");
+          var currentPassword = $(this).val();
+          $.ajax({
+            url: "/v1/setting/verify-password",
+            type: "POST",
+            data: {currentPassword: currentPassword},
+            success: function (data) {
+                if (data) {
+                    passwordMatchMessage.innerHTML = "";
+                } else {
+                    passwordMatchMessage.innerHTML = "현재 비밀번호가 일치하지 않습니다.";
+                    passwordMatchMessage.style.color = "red";
+                    submitButton.disabled = true;
+                }
+            }
+          });
+        });
+      });
+    </script>
+    <script>
+      function checkPasswordMatch() {
+          var currentPassword = document.getElementById("currentPassword").value;
+          var newPassword = document.getElementById("newPassword").value;
+          var confirmedPassword = document.getElementById("confirmedPassword").value;
+          var passwordMatchMessage = document.getElementById("passwordMatchMessage");
+          
+  
+          // 새 비밀번호와 확인 비밀번호가 같은지 확인하고 메시지 표시
+          if (currentPassword === newPassword && currentPassword !== "") {
+            passwordMatchMessage.innerHTML = "현재 비밀번호와 신규 비밀번호는 같을 수 없습니다.";
+            passwordMatchMessage.style.color = "red";
+            submitButton.disabled = true; // 현재 비밀번호와 새 비밀번호가 같으면 버튼 비활성화
+            return;
+          }
+
+          // 새 비밀번호와 확인 비밀번호가 같은지 확인하고 메시지 표시
+          if (newPassword === confirmedPassword) {
+              // 비밀번호가 조건을 충족하는지 확인
+              var regex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{8,16}$/;
+              if (regex.test(newPassword)) {
+                  passwordMatchMessage.innerHTML = "사용 가능한 비밀번호 입니다.";
+                  passwordMatchMessage.style.color = "green";
+                  submitButton.disabled = false; // 비밀번호가 일치하고 조건을 충족하면 버튼 활성화
+              } else {
+                  passwordMatchMessage.innerHTML = "비밀번호는 숫자, 문자, 특수문자를 포함한 8~16자여야 합니다.";
+                  passwordMatchMessage.style.color = "red";
+                  submitButton.disabled = true; // 비밀번호가 조건을 충족하지 않으면 버튼 비활성화
+              }
+          } else {
+              passwordMatchMessage.innerHTML = "비밀번호가 일치하지 않습니다.";
+              passwordMatchMessage.style.color = "red";
+              submitButton.disabled = true; // 비밀번호가 일치하지 않으면 버튼 비활성화
+          }
+      }
+    </script>
 
     <!-- Vendor JS Files -->
     <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
