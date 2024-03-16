@@ -124,9 +124,11 @@
     #searchResults ul li {
       padding: 10px;
       background-color: #f2f2f2;
-      margin-bottom: 5px;
+      margin-top: 5px;
+      margin-right: 68px;
       cursor: pointer;
       transition: background-color 0.3s;
+      border-radius: 5px;
       width: 300px; /* 검색창과 동일한 폭 설정 */
     }
 
@@ -162,7 +164,7 @@
           <!-- <li><a class="active" href="index.html">Home</a></li> -->
           <li><a href="/v1/main">Home</a></li>
           <li><a href="/v1/qna/page?id={{myId}}">MyPage</a></li>
-          <li><a href="/v1/setting/page">PageSetting</a></li>
+          <li><a href="/v1/setting/page">Setting</a></li>
           <li><a href="/logout">Logout</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
