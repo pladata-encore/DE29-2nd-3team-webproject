@@ -19,3 +19,4 @@ public interface PageService {
 
     public void increasePageCount(String pageId);
 }
+
