@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.askproject.Model.DAO.AnswerDAO;
 import com.example.askproject.Model.DAO.QuestionDAO;
+import com.example.askproject.Model.DAO.UserDAO;
 import com.example.askproject.Model.DTO.QuestionDTO;
 import com.example.askproject.Model.DTO.joindQnaDTO;
 import com.example.askproject.Model.Entity.AnswerEntity;
@@ -22,6 +23,8 @@ public class QuestionServiceImpl implements QuestionService{
     private QuestionDAO questionDAO;
     @Autowired
     private AnswerDAO answerDAO;
+    @Autowired
+    private UserDAO userDAO;
 
     @Override
     public void insertQuestion(QuestionDTO questionDTO) {
@@ -94,7 +97,14 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public List<Map<String, Object>> countQuestionByUserId() {
         // TODO Auto-generated method stub
-        return questionDAO.countQuestionByUserId();
+        List<Map<String, Object>> realUser = new ArrayList<>();
+        List<Map<String, Object>> questionCountList = questionDAO.countQuestionByUserId();
+        for (Map<String, Object> questionCount : questionCountList) {
+            if (userDAO.findAllUserId().contains(questionCount.get("user"))){
+                realUser.add(questionCount);
+            }
+        }
+        return realUser;
     }
 
     @Override

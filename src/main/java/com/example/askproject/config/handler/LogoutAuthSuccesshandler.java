@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.example.askproject.Service.UserService;
 import com.example.askproject.Service.UserServiceSecurity;
 
 import jakarta.servlet.ServletException;
@@ -22,12 +23,17 @@ public class LogoutAuthSuccesshandler implements LogoutSuccessHandler {
     @Lazy
     private UserServiceSecurity userServiceSecurity;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
         // TODO Auto-generated method stub
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        userServiceSecurity.updateIsLoginByName(userDetails.getUsername(), false);
+        if (userService.findAllUserId().contains(userDetails.getUsername())){
+            userServiceSecurity.updateIsLoginByName(userDetails.getUsername(), false);
+        }
 
         response.sendRedirect("/");
 

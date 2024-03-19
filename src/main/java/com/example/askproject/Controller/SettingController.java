@@ -79,8 +79,7 @@ public class SettingController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         userService.deleteUser(userDetails.getUsername());
         pageService.deletePage(userDetails.getUsername());
-        authentication.setAuthenticated(false);
-        return "redirect:/";
+        return "redirect:/logout";
     }
     
 

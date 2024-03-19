@@ -36,6 +36,15 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.example.askproject.AskprojectApplication', // 메인 클래스 지정
+            'Implementation-Version': '0.0.1',     // 구현 버전
+            // 필요한 다른 속성 추가 가능
+        )
+    }
+}
 
 tasks.named('test') {
 	useJUnitPlatform()

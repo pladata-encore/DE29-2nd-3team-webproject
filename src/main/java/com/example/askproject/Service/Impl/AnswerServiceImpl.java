@@ -8,15 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.askproject.Model.DAO.AnswerDAO;
+import com.example.askproject.Model.DAO.UserDAO;
 import com.example.askproject.Model.DTO.AnswerDTO;
 import com.example.askproject.Model.Entity.AnswerEntity;
-import com.example.askproject.Model.Entity.QuestionEntity;
 import com.example.askproject.Service.AnswerService;
 
 @Service
 public class AnswerServiceImpl implements AnswerService{
     @Autowired
     private AnswerDAO answerDAO;
+    @Autowired
+    private UserDAO userDAO;
 
     @Override
     public void deleteByAnswerId(Long AnswerId) {
@@ -71,7 +73,14 @@ public class AnswerServiceImpl implements AnswerService{
     @Override
     public List<Map<String, Object>> countAnswerByUserId() {
         // TODO Auto-generated method stub
-        return answerDAO.countAnswerByUserId();
+        List<Map<String, Object>> realUser = new ArrayList<>();
+        List<Map<String, Object>> answerCountList = answerDAO.countAnswerByUserId();
+        for (Map<String, Object> answerCount : answerCountList) {
+            if (userDAO.findAllUserId().contains(answerCount.get("user"))){
+                realUser.add(answerCount);
+            }
+        }
+        return realUser;
     }
 
     @Override
