@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.askproject.Exception.PageException;
+import com.example.askproject.Exception.UserException;
 import com.example.askproject.Model.DTO.AnswerDTO;
 import com.example.askproject.Model.DTO.MessageDTO;
 import com.example.askproject.Model.DTO.PageDTO;
@@ -45,7 +47,7 @@ public class UserController {
     private UserServiceSecurity userServiceSecurity;
 
     @GetMapping("/main")
-    public String getMainPage(Model model, Authentication authentication) {
+    public String getMainPage(Model model, Authentication authentication) throws PageException{
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("myId", userDetails.getUsername());
         model.addAttribute("Nickname", userService.findNicknameByUserId(userDetails.getUsername()));
@@ -61,7 +63,7 @@ public class UserController {
         return "main";
     }
 
-    private List<PageDTO> getRandomPages(List<PageDTO> allPages, int count) {
+    private List<PageDTO> getRandomPages(List<PageDTO> allPages, int count) throws PageException{
         List<PageDTO> shuffledPages = new ArrayList<>(allPages);
         Collections.shuffle(shuffledPages);
 
@@ -71,14 +73,14 @@ public class UserController {
 
     @GetMapping("/search")
     @ResponseBody
-    public List<String> searchUsers(@RequestParam("query") String query) {
+    public List<String> searchUsers(@RequestParam("query") String query) throws PageException{
         return pageService.findByPageIdContaining(query);
     }
 
     @GetMapping("/page")
-    public String getIndividualPage(@RequestParam String id, Model questionModel, Authentication authentication) {
+    public String getIndividualPage(@RequestParam String id, Model questionModel, Authentication authentication) throws PageException{
         if (!userService.findAllUserId().contains(id)) {
-            return "error";
+            throw new PageException("계정을 찾을 수 없음");
         }
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         questionModel.addAttribute("Nickname", userService.findNicknameByUserId(userDetails.getUsername()));
@@ -104,7 +106,7 @@ public class UserController {
 
     @PostMapping("/sendq")
     public String postQuestion(@ModelAttribute QuestionDTO questionDTO, @RequestParam String id,
-            Authentication authentication) {
+            Authentication authentication) throws UserException{
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         questionDTO.setQuestionTo(id);
         questionDTO.setQuestionFrom(userDetails.getUsername());
@@ -115,7 +117,7 @@ public class UserController {
     @PostMapping("/senda")
     public String postAnswer(@ModelAttribute AnswerDTO answerDTO, @RequestParam String pageid,
             @RequestParam("questionid") Long questionid, @RequestParam("from") String from,
-            Authentication authentication) {
+            Authentication authentication) throws UserException{
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         answerDTO.setAnswerTo(from);
         answerDTO.setAnswerQuestionId(questionid);
@@ -127,7 +129,7 @@ public class UserController {
 
     @PostMapping("/deletea")
     public String deleteAnswer(@RequestParam Long answerId, @RequestParam Long questionId,
-            Authentication authentication) {
+            Authentication authentication) throws UserException{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if (answerService.checkMyAnswer(userDetails.getUsername(), answerId)) {
@@ -135,12 +137,12 @@ public class UserController {
             questionService.changeAnswered(questionId);
             return "redirect:/";
         } else {
-            return null;
+            throw new UserException("비정상적인 답변 삭제 시도");
         }
     }
 
     @PostMapping("/deleteq")
-    public String deleteQuestion(@RequestParam Long questionId, Authentication authentication) {
+    public String deleteQuestion(@RequestParam Long questionId, Authentication authentication) throws UserException{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if (questionService.checkMyQuestion(userDetails.getUsername(), questionId)
@@ -149,38 +151,38 @@ public class UserController {
             answerService.deleteAnswerCascade(questionId);
             return "redirect:/";
         } else {
-            return null;
+            throw new UserException("비정상적인 질문 삭제 시도");
         }
     }
 
     @PostMapping("/updateq")
     public String updateQuestion(@RequestParam Long questionId, @RequestParam String updatedQuestion,
-            Authentication authentication) {
+            Authentication authentication) throws UserException{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if (questionService.checkMyQuestion(userDetails.getUsername(), questionId)) {
             questionService.updateQuestionContent(questionId, updatedQuestion);
             return "redirect:/";
         } else {
-            return null;
+            throw new UserException("비정상적인 질문 수정 시도");
         }
     }
 
     @PostMapping("/updatea")
     public String updateAnswer(@RequestParam Long answerId, @RequestParam String updatedAnswer,
-            Authentication authentication) {
+            Authentication authentication) throws UserException{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if (answerService.checkMyAnswer(userDetails.getUsername(), answerId)) {
             answerService.updateAnswerContent(answerId, updatedAnswer);
             return "redirect:/";
         } else {
-            return null;
+            throw new UserException("비정상적인 답변 수정 시도");
         }
     }
 
     @GetMapping("/page")
-    public String getPageSetting(Model settingModel, Authentication authentication) {
+    public String getPageSetting(Model settingModel, Authentication authentication) throws PageException{
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         settingModel.addAttribute("Nickname", userService.findNicknameByUserId(userDetails.getUsername()));
         settingModel.addAttribute("myId", userDetails.getUsername());
@@ -192,7 +194,7 @@ public class UserController {
     }
 
     @PostMapping("/pageupdate")
-    public String updatePageSetting(@ModelAttribute PageDTO pageDTO, Authentication authentication, Model model) {
+    public String updatePageSetting(@ModelAttribute PageDTO pageDTO, Authentication authentication, Model model) throws UserException{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         pageDTO.setPageId(userDetails.getUsername()); // 세션id가 될 값입니다.
@@ -202,7 +204,7 @@ public class UserController {
     }
 
     @PostMapping("/updatepassword")
-    public String updatePassword(@ModelAttribute UserDTO userDTO, Authentication authentication, Model model) {
+    public String updatePassword(@ModelAttribute UserDTO userDTO, Authentication authentication, Model model) throws UserException{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         userDTO.setUserId(userDetails.getUsername()); // 세션id가 될 값입니다.
@@ -212,7 +214,7 @@ public class UserController {
     }
 
     @PostMapping("/updatenickname")
-    public String updateNickname(@ModelAttribute UserDTO userDTO, Authentication authentication, Model model) {
+    public String updateNickname(@ModelAttribute UserDTO userDTO, Authentication authentication, Model model) throws UserException{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         userDTO.setUserId(userDetails.getUsername()); // 세션id가 될 값입니다.
@@ -222,7 +224,7 @@ public class UserController {
     }
 
     @PostMapping("/deleteuser")
-    public String deleteUser(Authentication authentication) {
+    public String deleteUser(Authentication authentication) throws UserException{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         userService.deleteUser(userDetails.getUsername());
@@ -237,7 +239,7 @@ public class UserController {
 
     @PostMapping("/verify-password")
     @ResponseBody
-    public boolean verifyPassword(@RequestParam String currentPassword, Authentication authentication) {
+    public boolean verifyPassword(@RequestParam String currentPassword, Authentication authentication) throws UserException{
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return userServiceSecurity.verifyPassword(userDetails.getUsername(), currentPassword);
     }
