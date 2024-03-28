@@ -133,41 +133,19 @@
           #searchResults ul li:hover {
             background-color: #e0e0e0;
           }
-      
-      
         </style>
-      
-        <!-- =======================================================
-      * Template Name: Kelly
-      * Updated: Mar 10 2024 with Bootstrap v5.3.3
-      * Template URL: https://bootstrapmade.com/kelly-free-bootstrap-cv-resume-html-template/
-      * Author: BootstrapMade.com
-      * License: https://bootstrapmade.com/license/
-      ======================================================== -->
     </head>
+
+
 <body>
     {{#params}}
     <form id="redirectForm" action="{{redirectUri}}" method="{{method}}" style="display: none;">
         <input type="hidden"/>
     </form>
     {{/params}}
-    
-    <script type="text/javascript">
-        window.onload = function() {
-            var message = "{{params.message}}";
-            if (message) {
-                alert(message);
-            }
-          
-            var form = document.getElementById('redirectForm');
-            if (form) {
-                form.submit();
-                return false;
-            }
-          
-            var redirectUri = "{{params.redirectUri}}";
-            window.location.href = redirectUri;
-        };
-    </script>
+
+
+<script src="/static/assets/js/etc.js"></script>
 </body>
+
 </html>
