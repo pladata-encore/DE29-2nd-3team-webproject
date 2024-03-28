@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>AnonyQ</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <!-- Favicons -->
+    <link href="https://cdn-icons-png.flaticon.com/128/14773/14773815.png" rel="icon">
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+    <!-- 나눔고딕 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Pacifico -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Vendor CSS Files -->
+    <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="/static/assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" /> -->
+    <!-- Boxicons JS -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"
+      rel="stylesheet"
+    />
+    <link
+      href="/static/assets/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+    <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="/static/assets/css/style.css" rel="stylesheet" />
+    <style>
+      * {
+        font-family: "Nanum Gothic", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        letter-spacing: -1px;
+      }
+      h1.logo a {
+        font-family: "Pacifico", cursive;
+        font-weight: 400;
+        font-style: normal;
+      }
+      #header,
+      #navbar {
+        background-color: #3e3e3e;
+      }
+      #navbar ul li a {
+        color: #fff;
+      }
+      #navbar ul li a:hover {
+        color: #ccc;
+      }
+
+      button[type=submit] {
+        background: #34B7A7;
+        border: 0;
+        padding: 10px 30px 12px 30px;
+        color: #fff;
+        transition: 0.4s;
+        border-radius: 50px;
+        margin-top: 30px;
+
+      }
+      button[type=submit]:hover {
+        background: #3DC8B7;
+      }
+
+      .info .title,
+      .info .comment {
+        margin-top: 20px;
+      
+      }
+
+      .section-title h2 {
+        font-size: 32px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-top: 50px;
+        padding-bottom: 20px;
+        position: relative;
+    }
+
+
+
+    </style>
+
+    <!-- =======================================================
+  * Template Name: Kelly
+  * Updated: Mar 10 2024 with Bootstrap v5.3.3
+  * Template URL: https://bootstrapmade.com/kelly-free-bootstrap-cv-resume-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <body style="background-color: rgb(215, 214, 214)">
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+      <div
+        class="container-fluid d-flex justify-content-between align-items-center"
+      >
+        <h1 class="logo me-auto me-lg-0">
+          <a href="/v1/main">
+            <img
+              src="https://cdn-icons-png.flaticon.com/128/14773/14773815.png"
+              alt="Logo"
+            />
+            AnonyQ
+          </a>
+        </h1>
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+          <ul>
+            <!-- <li><a class="active" href="index.html">Home</a></li> -->
+            <li style="color: white;">안녕하세요, {{Nickname}}님</li>
+            <li><a href="/v1/main">Home</a></li>
+            <li><a href="/v1/qna/page?id={{myId}}">MyPage</a></li>
+            <li><a href="/v1/setting/page">Setting</a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <!-- .navbar -->
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <main id="main">
+<!-- ======= Modify Section ======= -->
+<section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>페이지 수정하기</h2>
+    </div>
+    {{#pageDTO}}
+      <div class="row mt-5 text-center">
+        <div class="col-lg-6 mx-auto">
+          <div class="info">
+            <form
+              action="/v1/setting/pageupdate"
+              method="post"
+              role="form"
+              class="pageupdate-form"
+            >
+              <div class="title">
+                <i class="bi bi-house"></i>
+                  <h4 style="text-align: left;">Current Title:</h4>
+                  <p style="text-align: left;">{{pageTitle}}</p>
+                  <div class="form-group mt-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="pageTitle"
+                      placeholder="페이지 제목을 입력하세요."
+                      style="margin-top: 5px;"
+                      required
+                    />
+                  </div>
+              </div>
+              <div class="comment">
+                <i class="bi bi-chat-left-quote"></i>
+                <h4 style="text-align: left;">Current Bio:</h4>
+                <p style="text-align: left;">{{pageComment}}</p>
+                <div class="form-group mt-3">
+                  <textarea
+                    class="form-control"
+                    name="pageComment"
+                    rows="3"
+                    placeholder="자기소개를 입력하세요."
+                    style="margin-top: 5px;"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="submit">수정하기</button>
+              </div>
+          </form>
+          </div>
+        </div> 
+      </div>
+    {{/pageDTO}}
+    </div>
+  </div>
+  
+</section>
+<!-- End Modify Section -->
+
+  <!-- ======= Modify Section ======= -->
+<section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>회원정보 수정하기</h2>
+    </div>
+    {{#userDTO}}
+    <div class="row mt-5 text-center">
+      <div class="col-lg-6 mx-auto">
+        <div class="info">
+          <div class="title">
+            <i class="bi bi-person"></i>
+              <h4 style="text-align: left;">Current Nickname:</h4>
+              <p style="text-align: left;">{{userNickname}}</p> 
+                <form
+                action="/v1/setting/updatenickname"
+                method="post" style="margin-bottom:60px;">
+                <div class="form-group mt-3" style="margin: 16px 0px;">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="userNickname"
+                    placeholder="닉네임을 입력하세요."
+                    style="margin-top: 5px;"
+                    required
+                  />
+                </div>
+                <div class="text-center">
+                  <button type="submit">수정하기</button>
+                </div>
+                </form>
+      {{/userDTO}}
+          </div>
+          <form action="/v1/setting/updatepassword" method="post">
+            <i class="bi bi-file-earmark-lock"></i>
+            <h4 style="text-align: left;">Password Change:</h4>
+            <div class="form-group mt-3" style="margin: 16px 0px;">
+              <input type="password" class="form-control mb-2" id="currentPassword" name="current_password" placeholder="현재 비밀번호를 입력하세요." style="margin-top: 25px;">
+              <input type="password" class="form-control mb-2" id="newPassword" name="userPassword" placeholder="새 비밀번호를 입력하세요." onkeyup="checkPasswordMatch();">
+              <input type="password" class="form-control" id="confirmedPassword" name="confirmed_password" placeholder="비밀번호를 다시 입력하세요." onkeyup="checkPasswordMatch();">
+              <div id="passwordMatchMessage"></div>
+            </div>
+            <div class="text-center">
+              <button id="submitButton" type="submit" disabled>수정하기</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+  <a id="withdraw" href="#" class="row justify-content-center" style="margin-top:50px; font-size:13px; color:black">회원탈퇴하기</a>
+
+  
+<!-- End Modify Section -->
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+      <div class="container">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Team 3</span></strong
+          >. All Rights Reserved
+        </div>
+      </div>
+    </footer>
+    <!-- End  Footer -->
+
+    <div id="preloader"></div>
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i></a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/static/assets/js/admin.js"></script>
+
+    <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="/static/assets/vendor/aos/aos.js"></script>
+    <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/static/assets/vendor/waypoints/noframework.wasypoints.js"></script>
+    <script src="/static/assets/vendor/php-email-form/validate.js"></script>
+
+    <script src="/static/assets/js/main.js"></script>
+  </body>
+</html>
