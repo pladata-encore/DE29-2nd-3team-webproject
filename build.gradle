@@ -49,3 +49,8 @@ jar {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+
+bootRun {
+    jvmArgs = ["-Djava.security.egd=file:/dev/./urandom"]
+}

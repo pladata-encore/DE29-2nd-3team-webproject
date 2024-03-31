@@ -33,17 +33,17 @@ public class SecurityConfig {
 
     // @Bean
     // public AuthenticationSuccessHandler loginAuthSuccessHandler() {
-    //     return new LoginAuthSuccessHandler();
+    // return new LoginAuthSuccessHandler();
     // }
 
     // @Bean
     // public AuthenticationFailureHandler loginAuthFailureHandler() {
-    //     return new LoginAuthFailureHandler();
+    // return new LoginAuthFailureHandler();
     // }
 
     // @Bean
     // public LogoutSuccessHandler logoutAuthSuccesshandler() {
-    //     return new LogoutAuthSuccesshandler();
+    // return new LogoutAuthSuccesshandler();
     // }
 
     @Bean
@@ -59,14 +59,20 @@ public class SecurityConfig {
         http
                 // http request 요청에 대한 화면 접근(url path) 권한 설정
                 .authorizeHttpRequests(authorize -> authorize
-                        // "/user" 와 같은 url path로 접근할 경우...
-                        .requestMatchers("/v1/**")
-                        // 인증(로그인)만 접근 가능
-                        .authenticated()
-                        .requestMatchers("/logout")
-                        // 인증(로그인)만 접근 가능
-                        .authenticated()
+                        // // "/user" 와 같은 url path로 접근할 경우...
+                        // .requestMatchers("/v1/**")
+                        // // 인증(로그인)만 접근 가능
+                        // .authenticated()
+                        // .requestMatchers("/logout")
+                        // // 인증(로그인)만 접근 가능
+                        // .authenticated()
+                        // .anyRequest().permitAll())
+
+                        .requestMatchers("/login").permitAll() 
+                        .requestMatchers("/user/**").hasAuthority("ROLE_USER")
+                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().permitAll())
+
                 // 인증(로그인)에 대한 설정
                 .formLogin(formLogin -> formLogin
                         // Controller에서 로그인 페이지 url path
