@@ -68,8 +68,8 @@ public class SecurityConfig {
                         // .authenticated()
                         // .anyRequest().permitAll())
 
-                        .requestMatchers("/user/**").hasAuthority("ROLE_USER")
-                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/user/**").hasAuthority("USER")
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .anyRequest().permitAll())
 
                 // 인증(로그인)에 대한 설정
