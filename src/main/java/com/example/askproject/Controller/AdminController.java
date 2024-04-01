@@ -11,18 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.askproject.Model.DTO.AnswerDTO;
-import com.example.askproject.Model.DTO.MessageDTO;
 import com.example.askproject.Model.DTO.PageDTO;
-import com.example.askproject.Model.DTO.QuestionDTO;
-import com.example.askproject.Model.DTO.UserDTO;
 import com.example.askproject.Model.DTO.joindQnaDTO;
 import com.example.askproject.Service.AnswerService;
 import com.example.askproject.Service.PageService;
@@ -99,146 +93,21 @@ public class AdminController {
         questionModel.addAttribute("idCheck", isEquals);
         questionModel.addAttribute("pageId", id);
         questionModel.addAttribute("questions", qdtos);
-        return "mypage";
-    }
-
-    @PostMapping("/sendq")
-    public String postQuestion(@ModelAttribute QuestionDTO questionDTO, @RequestParam String id,
-            Authentication authentication) throws Exception{
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        questionDTO.setQuestionTo(id);
-        questionDTO.setQuestionFrom(userDetails.getUsername());
-        questionService.insertQuestion(questionDTO);
-        return "redirect:/v1/qna/page?id=" + id;
-    }
-
-    @PostMapping("/senda")
-    public String postAnswer(@ModelAttribute AnswerDTO answerDTO, @RequestParam String pageid,
-            @RequestParam("questionid") Long questionid, @RequestParam("from") String from,
-            Authentication authentication) throws Exception{
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        answerDTO.setAnswerTo(from);
-        answerDTO.setAnswerQuestionId(questionid);
-        answerDTO.setAnswerFrom(userDetails.getUsername());// 세션아이디가 될 예정
-        answerService.insertAnswer(answerDTO);
-        questionService.changeAnswered(questionid);
-        return "redirect:/v1/qna/page?id=" + pageid;
+        return "admin/mypage";
     }
 
     @PostMapping("/deletea")
-    public String deleteAnswer(@RequestParam Long answerId, @RequestParam Long questionId,
+    public void deleteAnswer(@RequestParam Long answerId, @RequestParam Long questionId,
             Authentication authentication) throws Exception{
         // TODO: process POST request
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        if (answerService.checkMyAnswer(userDetails.getUsername(), answerId)) {
-            answerService.deleteByAnswerId(answerId);
-            questionService.changeAnswered(questionId);
-            return "redirect:/";
-        } else {
-            return null;
-        }
+        answerService.deleteByAnswerId(answerId);
+        questionService.changeAnswered(questionId);
     }
 
     @PostMapping("/deleteq")
-    public String deleteQuestion(@RequestParam Long questionId, Authentication authentication) throws Exception{
+    public void deleteQuestion(@RequestParam Long questionId, Authentication authentication) throws Exception{
         // TODO: process POST request
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        if (questionService.checkMyQuestion(userDetails.getUsername(), questionId)
-                || questionService.checkMyQuestionTo(userDetails.getUsername(), questionId)) {
         questionService.deleteByQuestionId(questionId);
         answerService.deleteAnswerCascade(questionId);
-            return "redirect:/";
-        } else {
-            return null;
-        }
-    }
-
-    @PostMapping("/updateq")
-    public String updateQuestion(@RequestParam Long questionId, @RequestParam String updatedQuestion,
-            Authentication authentication) throws Exception{
-        // TODO: process POST request
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        if (questionService.checkMyQuestion(userDetails.getUsername(), questionId)) {
-            questionService.updateQuestionContent(questionId, updatedQuestion);
-            return "redirect:/";
-        } else {
-            return null;
-        }
-    }
-
-    @PostMapping("/updatea")
-    public String updateAnswer(@RequestParam Long answerId, @RequestParam String updatedAnswer,
-            Authentication authentication) throws Exception{
-        // TODO: process POST request
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        if (answerService.checkMyAnswer(userDetails.getUsername(), answerId)) {
-            answerService.updateAnswerContent(answerId, updatedAnswer);
-            return "redirect:/";
-        } else {
-            return null;
-        }
-    }
-
-    @GetMapping("/pagesetting")
-    public String getPageSetting(Model settingModel, Authentication authentication) throws Exception{
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        settingModel.addAttribute("Nickname", userService.findNicknameByUserId(userDetails.getUsername()));
-        settingModel.addAttribute("myId", userDetails.getUsername());
-        PageDTO pagedto = pageService.findByPageId(userDetails.getUsername());
-        settingModel.addAttribute("pageDTO", pagedto);
-        UserDTO userdto = userService.findByUserId(userDetails.getUsername());
-        settingModel.addAttribute("userDTO", userdto);
-        return "pagesetting";
-    }
-
-    @PostMapping("/pageupdate")
-    public String updatePageSetting(@ModelAttribute PageDTO pageDTO, Authentication authentication, Model model) throws Exception{
-        // TODO: process POST request
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        pageDTO.setPageId(userDetails.getUsername()); // 세션id가 될 값입니다.
-        pageService.updatePage(pageDTO);
-        MessageDTO message = new MessageDTO("페이지 정보가 업데이트 되었습니다.", "/v1/main", RequestMethod.GET);
-        return showMessageAndRedirect(message, model);
-    }
-
-    @PostMapping("/updatepassword")
-    public String updatePassword(@ModelAttribute UserDTO userDTO, Authentication authentication, Model model) throws Exception{
-        // TODO: process POST request
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        userDTO.setUserId(userDetails.getUsername()); // 세션id가 될 값입니다.
-        userServiceSecurity.changePassword(userDTO);
-        MessageDTO message = new MessageDTO("비밀번호 수정이 완료되었습니다.", "/v1/main", RequestMethod.GET);
-        return showMessageAndRedirect(message, model);
-    }
-
-    @PostMapping("/updatenickname")
-    public String updateNickname(@ModelAttribute UserDTO userDTO, Authentication authentication, Model model) throws Exception{
-        // TODO: process POST request
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        userDTO.setUserId(userDetails.getUsername()); // 세션id가 될 값입니다.
-        userService.updateUser(userDTO);
-        MessageDTO message = new MessageDTO("닉네임이 수정이 완료되었습니다.", "/v1/main", RequestMethod.GET);
-        return showMessageAndRedirect(message, model);
-    }
-
-    @PostMapping("/deleteuser")
-    public String deleteUser(Authentication authentication) throws Exception{
-        // TODO: process POST request
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        userService.deleteUser(userDetails.getUsername());
-        pageService.deletePage(userDetails.getUsername());
-        return "redirect:/logout";
-    }
-
-    private String showMessageAndRedirect(final MessageDTO params, Model model) throws Exception{
-        model.addAttribute("params", params);
-        return "messageRedirect";
-    }
-
-    @PostMapping("/verify-password")
-    @ResponseBody
-    public boolean verifyPassword(@RequestParam String currentPassword, Authentication authentication) throws Exception{
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return userServiceSecurity.verifyPassword(userDetails.getUsername(), currentPassword);
     }
 }
