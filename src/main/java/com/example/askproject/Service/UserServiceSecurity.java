@@ -28,12 +28,9 @@ public class UserServiceSecurity {
 
     public void joinUserDto(UserDTO dto) throws Exception{
         dto.setUserRole("USER");
-        if (dto.getUserId().equals("admin")) {
+        if (dto.getUserId().equals("administrator")) {
             dto.setUserRole("ADMIN");
-        } else if (dto.getUserId().equals("manager")) {
-            dto.setUserRole("MANAGER");
         }
-
         String rawPwd = dto.getUserPassword();
         String encodedPwd = bCryptPasswordEncoder.encode(rawPwd);
         dto.setUserPassword(encodedPwd);
