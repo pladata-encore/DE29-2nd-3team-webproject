@@ -26,21 +26,21 @@ public class AuthController {
 
     @GetMapping("/login")
     public String showLoginPage(@RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "exception", required = false) String exception, Model model) {
+            @RequestParam(value = "exception", required = false) String exception, Model model) throws Exception{
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
-        return "login";
+        return "auth/login";
     }
 
     @GetMapping("/register")
     public String showRegisterPage() {
-        return "regist";
+        return "auth/regist";
     }
 
     // yang => 중복아이디 메시지창 html에서 띄우려고 추가함
     @GetMapping("/check-userid")
     @ResponseBody
-    public Map<String, Boolean> checkUserId(@RequestParam String userId) {
+    public Map<String, Boolean> checkUserId(@RequestParam String userId) throws Exception{
         boolean exists = userService.existsByUserId(userId);
         Map<String, Boolean> response = new HashMap<>();
         response.put("isDuplicate", exists);

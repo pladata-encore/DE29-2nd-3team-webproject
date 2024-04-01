@@ -22,13 +22,13 @@ public class AnswerServiceImpl implements AnswerService{
     private UserDAO userDAO;
 
     @Override
-    public void deleteByAnswerId(Long AnswerId) {
+    public void deleteByAnswerId(Long AnswerId) throws Exception{
         // TODO Auto-generated method stub
         answerDAO.deleteByAnswerId(AnswerId);
     }
 
     @Override
-    public List<AnswerDTO> findAllByAnswerFrom(String answerFrom) {
+    public List<AnswerDTO> findAllByAnswerFrom(String answerFrom) throws Exception{
         // TODO Auto-generated method stub
         List<AnswerEntity> entities = answerDAO.findAllByAnswerFrom(answerFrom);
         List<AnswerDTO> dtos = new ArrayList<>();
@@ -45,7 +45,7 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public AnswerDTO findByAnswerQuestionId(Long answerQuestionId) {
+    public AnswerDTO findByAnswerQuestionId(Long answerQuestionId) throws Exception{
         // TODO Auto-generated method stub
         AnswerEntity answerEntity = answerDAO.findByAnswerQuestionId(answerQuestionId);
         if (answerEntity == null) {
@@ -61,7 +61,7 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public void insertAnswer(AnswerDTO answerDTO) {
+    public void insertAnswer(AnswerDTO answerDTO) throws Exception{
         // TODO Auto-generated method stub
         AnswerEntity answerEntity = new AnswerEntity();
         answerEntity.setAnswerContent(answerDTO.getAnswerContent());
@@ -72,7 +72,7 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public List<Map<String, Object>> countAnswerByUserId() {
+    public List<Map<String, Object>> countAnswerByUserId() throws Exception{
         // TODO Auto-generated method stub
         List<Map<String, Object>> realUser = new ArrayList<>();
         List<Map<String, Object>> answerCountList = answerDAO.countAnswerByUserId();
@@ -85,14 +85,14 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public Boolean checkMyAnswer(String userId, Long answerId) {
+    public Boolean checkMyAnswer(String userId, Long answerId) throws Exception{
         // TODO Auto-generated method stub
         AnswerEntity entity = answerDAO.findByAnswerId(answerId);
         return entity.getAnswerFrom().equals(userId);
     }
 
     @Override
-    public void deleteAnswerCascade(Long answerQuestionId) {
+    public void deleteAnswerCascade(Long answerQuestionId) throws Exception{
         // TODO Auto-generated method stub
         AnswerEntity answerEntity = answerDAO.findByAnswerQuestionId(answerQuestionId);
         if (answerEntity != null){
@@ -100,7 +100,7 @@ public class AnswerServiceImpl implements AnswerService{
         
     }
     @Override
-    public void updateAnswerContent(Long answerId, String answerContent) {
+    public void updateAnswerContent(Long answerId, String answerContent) throws Exception{
         // TODO Auto-generated method stub
         AnswerEntity entity = answerDAO.findByAnswerId(answerId);
         entity.setAnswerContent(answerContent);

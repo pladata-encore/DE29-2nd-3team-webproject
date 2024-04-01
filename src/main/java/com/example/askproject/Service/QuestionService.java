@@ -7,13 +7,13 @@ import com.example.askproject.Model.DTO.QuestionDTO;
 import com.example.askproject.Model.DTO.joindQnaDTO;
 
 public interface QuestionService {
-    public List<QuestionDTO> findAllByQuestionTo(String questionTo);
-    public void deleteByQuestionId(Long questionId);
-    public void insertQuestion(QuestionDTO questionDTO);
-    public List<joindQnaDTO> joinQuestionAnswerByQuestionTo(String questionTo, String userId);
-    public void changeAnswered(Long questionId);
-    public List<Map<String, Object>> countQuestionByUserId();
-    public boolean checkMyQuestion(String userId, Long questionId);
-    public boolean checkMyQuestionTo(String userId, Long questionId);
-    public void updateQuestionContent(Long questionId, String questionContent);
+    public List<QuestionDTO> findAllByQuestionTo(String questionTo)throws Exception;
+    public void deleteByQuestionId(Long questionId)throws Exception;
+    public void insertQuestion(QuestionDTO questionDTO)throws Exception;
+    public List<joindQnaDTO> joinQuestionAnswerByQuestionTo(String questionTo, String userId)throws Exception;
+    public void changeAnswered(Long questionId)throws Exception;
+    public List<Map<String, Object>> countQuestionByUserId()throws Exception;
+    public boolean checkMyQuestion(String userId, Long questionId)throws Exception;
+    public boolean checkMyQuestionTo(String userId, Long questionId)throws Exception;
+    public void updateQuestionContent(Long questionId, String questionContent)throws Exception;
 }

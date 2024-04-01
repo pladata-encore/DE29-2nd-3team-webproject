@@ -26,14 +26,15 @@ public class LoginAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-            Authentication authentication) throws IOException, ServletException {
+            Authentication authentication) throws IOException, ServletException{
         // TODO Auto-generated method stub
         log.info("[LoginAuthSuccessHandler][onAuthenticationSuccess] Start1");
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         log.info(userDetails.toString());
-        userServiceSecurity.updateIsLoginByName(userDetails.getUsername(), true);
+        try {userServiceSecurity.updateIsLoginByName(userDetails.getUsername(), true);}
+        catch (Exception e){}
         log.info("[LoginAuthSuccessHandler][onAuthenticationSuccess] Start2");
-        response.sendRedirect("/v1/main");
+        response.sendRedirect("/user/main");
         log.info("[LoginAuthSuccessHandler][onAuthenticationSuccess] Start3");
         log.info(userDetails.toString());
         log.info(authentication.toString());

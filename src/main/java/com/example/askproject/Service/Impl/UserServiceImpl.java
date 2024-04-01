@@ -16,19 +16,19 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 
     @Override
-    public void deleteUser(String userId) {
+    public void deleteUser(String userId) throws Exception{
         // TODO Auto-generated method stub
         userDAO.deleteUser(userId);
     }
 
     @Override
-    public List<String> findAllUserId() {
+    public List<String> findAllUserId() throws Exception{
         // TODO Auto-generated method stub
         return userDAO.findAllUserId();
     }
 
     @Override
-    public UserDTO findByUserId(String userId) {
+    public UserDTO findByUserId(String userId) throws Exception{
         // TODO Auto-generated method stub
         UserEntity entity = userDAO.findByUserId(userId);
         UserDTO dto = new UserDTO();
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void updateUser(UserDTO userDTO) {
+    public void updateUser(UserDTO userDTO) throws Exception{
         // TODO Auto-generated method stub
         UserEntity entity = userDAO.findByUserId(userDTO.getUserId());
         entity.setUserNickname(userDTO.getUserNickname());
@@ -50,13 +50,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean existsByUserId(String userId) {
+    public boolean existsByUserId(String userId) throws Exception{
         // TODO Auto-generated method stub
         return userDAO.existsByUserId(userId);
     }
 
     @Override
-    public String findNicknameByUserId(String userId) {
+    public String findNicknameByUserId(String userId) throws Exception{
         return userDAO.findByUserId(userId).getUserNickname();
     }
 

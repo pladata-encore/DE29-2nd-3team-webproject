@@ -18,38 +18,38 @@ public class QuestionDAOImpl implements QuestionDAO{
     private QuestionRepository questionRepository;
 
     @Override
-    public void insertQuestion(QuestionEntity questionEntity) {
+    public void insertQuestion(QuestionEntity questionEntity) throws Exception{
         // TODO Auto-generated method stub
         questionRepository.save(questionEntity);
     }
 
     @Override
     @Transactional
-    public void deleteByQuestionId(Long questionId) {
+    public void deleteByQuestionId(Long questionId) throws Exception{
         // TODO Auto-generated method stub
         questionRepository.deleteByQuestionId(questionId);
     }
 
     @Override
-    public List<QuestionEntity> findAllByQuestionTo(String questionTo) {
+    public List<QuestionEntity> findAllByQuestionTo(String questionTo) throws Exception{
         // TODO Auto-generated method stub
         return questionRepository.findAllByQuestionTo(questionTo);
     }
 
     @Override
-    public QuestionEntity findByQuestionId(Long questionId) {
+    public QuestionEntity findByQuestionId(Long questionId) throws Exception{
         // TODO Auto-generated method stub
         return questionRepository.findByQuestionId(questionId);
     }
 
     @Override
-    public void updateQuestion(QuestionEntity questionEntity) {
+    public void updateQuestion(QuestionEntity questionEntity) throws Exception{
         // TODO Auto-generated method stub
         questionRepository.save(questionEntity);
     }
 
     @Override
-    public List<Map<String, Object>> countQuestionByUserId() {
+    public List<Map<String, Object>> countQuestionByUserId() throws Exception{
         // TODO Auto-generated method stub
         return questionRepository.countQuestionByUserId();
     }

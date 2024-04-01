@@ -27,7 +27,7 @@ public class QuestionServiceImpl implements QuestionService{
     private UserDAO userDAO;
 
     @Override
-    public void insertQuestion(QuestionDTO questionDTO) {
+    public void insertQuestion(QuestionDTO questionDTO) throws Exception{
         // TODO Auto-generated method stub
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setAnonymous(questionDTO.isAnonymous());
@@ -39,13 +39,13 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public void deleteByQuestionId(Long questionId) {
+    public void deleteByQuestionId(Long questionId) throws Exception{
         // TODO Auto-generated method stub
         questionDAO.deleteByQuestionId(questionId);
     }
 
     @Override
-    public List<QuestionDTO> findAllByQuestionTo(String questionTo) {
+    public List<QuestionDTO> findAllByQuestionTo(String questionTo) throws Exception{
         // TODO Auto-generated method stub
         List<QuestionDTO> dtos = new ArrayList<>();
         List<QuestionEntity> entities = questionDAO.findAllByQuestionTo(questionTo);
@@ -62,13 +62,13 @@ public class QuestionServiceImpl implements QuestionService{
         return dtos; 
     }
 
-    public void changeAnswered(Long questionId){ //답변 입력상태가 변경되면 Answered True->False 또는 반대로 변경
+    public void changeAnswered(Long questionId) throws Exception{ //답변 입력상태가 변경되면 Answered True->False 또는 반대로 변경
         QuestionEntity questionEntity = questionDAO.findByQuestionId(questionId);
         questionEntity.setAnswered(!questionEntity.isAnswered());
         questionDAO.updateQuestion(questionEntity);
     }
 
-    public List<joindQnaDTO> joinQuestionAnswerByQuestionTo(String questionTo, String userId){
+    public List<joindQnaDTO> joinQuestionAnswerByQuestionTo(String questionTo, String userId) throws Exception{
         List<joindQnaDTO> dtos = new ArrayList<>();
         List<QuestionEntity> entities = questionDAO.findAllByQuestionTo(questionTo);
         for (QuestionEntity questionEntity : entities) {
@@ -95,7 +95,7 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public List<Map<String, Object>> countQuestionByUserId() {
+    public List<Map<String, Object>> countQuestionByUserId() throws Exception{
         // TODO Auto-generated method stub
         List<Map<String, Object>> realUser = new ArrayList<>();
         List<Map<String, Object>> questionCountList = questionDAO.countQuestionByUserId();
@@ -108,21 +108,21 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public boolean checkMyQuestion(String userId, Long questionId) {
+    public boolean checkMyQuestion(String userId, Long questionId) throws Exception{
         // TODO Auto-generated method stub
         QuestionEntity entity = questionDAO.findByQuestionId(questionId);
         return entity.getQuestionFrom().equals(userId);
     }
 
     @Override
-    public boolean checkMyQuestionTo(String userId, Long questionId) {
+    public boolean checkMyQuestionTo(String userId, Long questionId) throws Exception{
         // TODO Auto-generated method stub
         QuestionEntity entity = questionDAO.findByQuestionId(questionId);
         return entity.getQuestionTo().equals(userId);
     }
 
     @Override
-    public void updateQuestionContent(Long questionId, String questionContent) {
+    public void updateQuestionContent(Long questionId, String questionContent) throws Exception{
         // TODO Auto-generated method stub
         QuestionEntity entity = questionDAO.findByQuestionId(questionId);
         entity.setQuestionContent(questionContent);

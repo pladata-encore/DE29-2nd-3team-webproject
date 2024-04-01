@@ -20,13 +20,13 @@ public class UserServiceSecurity {
     @Autowired
     private PageDAO pageDAO;
 
-    public void updateIsLoginByName(String name, Boolean isLogin) {
+    public void updateIsLoginByName(String name, Boolean isLogin) throws Exception{
         UserEntity entity = userDAO.findByUserId(name);
         entity.setIsLogin(isLogin);
         userDAO.updateUser(entity);
     }
 
-    public void joinUserDto(UserDTO dto) {
+    public void joinUserDto(UserDTO dto) throws Exception{
         dto.setUserRole("USER");
         if (dto.getUserId().equals("admin")) {
             dto.setUserRole("ADMIN");
@@ -53,7 +53,7 @@ public class UserServiceSecurity {
         userDAO.updateUser(entity);
     }
     
-    public void changePassword(UserDTO dto) {
+    public void changePassword(UserDTO dto) throws Exception{
         String rawPwd = dto.getUserPassword();
         String encodedPwd = bCryptPasswordEncoder.encode(rawPwd);
         dto.setUserPassword(encodedPwd);
@@ -62,7 +62,7 @@ public class UserServiceSecurity {
         userDAO.updateUser(userEntity);
     }
 
-    public boolean verifyPassword(String userId, String rawPassword) {
+    public boolean verifyPassword(String userId, String rawPassword) throws Exception{
         UserEntity userEntity = userDAO.findByUserId(userId);
         if (userEntity == null) {
             // 사용자가 존재하지 않을 경우

@@ -12,50 +12,50 @@ import com.example.askproject.Model.Entity.AnswerEntity;
 import com.example.askproject.Model.Repository.AnswerRepository;
 
 @Service
-public class AnswerDAOImpl implements AnswerDAO{
+public class AnswerDAOImpl implements AnswerDAO {
     @Autowired
     private AnswerRepository answerRepository;
 
     @Override
     @Transactional
-    public void deleteByAnswerId(Long answerId) {
+    public void deleteByAnswerId(Long answerId) throws Exception{
         // TODO Auto-generated method stub
         answerRepository.deleteByAnswerId(answerId);   
     }
 
     @Override
-    public List<AnswerEntity> findAllByAnswerFrom(String answerFrom) {
+    public List<AnswerEntity> findAllByAnswerFrom(String answerFrom) throws Exception{
         // TODO Auto-generated method stub
         return answerRepository.findAllByAnswerFrom(answerFrom);
     }
 
     @Override
-    public void insertAnswer(AnswerEntity answerEntity) {
+    public void insertAnswer(AnswerEntity answerEntity) throws Exception{
         // TODO Auto-generated method stub
         answerRepository.save(answerEntity);
         
     }
 
     @Override
-    public AnswerEntity findByAnswerQuestionId(Long answerQuestionId) {
+    public AnswerEntity findByAnswerQuestionId(Long answerQuestionId) throws Exception{
         // TODO Auto-generated method stub
         return answerRepository.findByAnswerQuestionId(answerQuestionId);
     }
 
     @Override
-    public List<Map<String, Object>> countAnswerByUserId() {
+    public List<Map<String, Object>> countAnswerByUserId() throws Exception{
         // TODO Auto-generated method stub
         return answerRepository.countAnswerByUserId();
     }
 
     @Override
-    public AnswerEntity findByAnswerId(Long answerId) {
+    public AnswerEntity findByAnswerId(Long answerId) throws Exception{
         // TODO Auto-generated method stub
         return answerRepository.findByAnswerId(answerId);
     }
 
     @Override
-    public void updateAnswer(AnswerEntity answerEntity) {
+    public void updateAnswer(AnswerEntity answerEntity) throws Exception{
         // TODO Auto-generated method stub
         answerRepository.save(answerEntity);
     }

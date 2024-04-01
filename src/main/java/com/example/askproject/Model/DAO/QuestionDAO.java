@@ -4,10 +4,10 @@ import java.util.*;
 import com.example.askproject.Model.Entity.QuestionEntity;
 
 public interface QuestionDAO {
-    public List<QuestionEntity> findAllByQuestionTo(String questionTo);
-    public void deleteByQuestionId(Long questionId);
-    public void insertQuestion(QuestionEntity questionEntity);
-    public void updateQuestion(QuestionEntity questionEntity);
-    public QuestionEntity findByQuestionId(Long questionId);
-    public List<Map<String, Object>> countQuestionByUserId();
+    public List<QuestionEntity> findAllByQuestionTo(String questionTo)throws Exception;
+    public void deleteByQuestionId(Long questionId)throws Exception;
+    public void insertQuestion(QuestionEntity questionEntity)throws Exception;
+    public void updateQuestion(QuestionEntity questionEntity)throws Exception;
+    public QuestionEntity findByQuestionId(Long questionId)throws Exception;
+    public List<Map<String, Object>> countQuestionByUserId()throws Exception;
 }

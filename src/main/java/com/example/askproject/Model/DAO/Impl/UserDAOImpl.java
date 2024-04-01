@@ -17,37 +17,37 @@ public class UserDAOImpl implements UserDAO{
 
     @Override
     @Transactional
-    public void deleteUser(String userId) {
+    public void deleteUser(String userId) throws Exception{
         // TODO Auto-generated method stub
         userRepository.deleteByUserId(userId);
     }
 
     @Override
-    public void registUser(UserEntity userEntity) {
+    public void registUser(UserEntity userEntity) throws Exception{
         // TODO Auto-generated method stub
         userRepository.save(userEntity);
     }
 
     @Override
-    public List<String> findAllUserId() {
+    public List<String> findAllUserId() throws Exception{
         // TODO Auto-generated method stub
         return userRepository.findAllUserId();
     }
 
     @Override
-    public UserEntity findByUserId(String userId) {
+    public UserEntity findByUserId(String userId) throws Exception{
         // TODO Auto-generated method stub
         return userRepository.findByUserId(userId);
     }
 
     @Override
-    public void updateUser(UserEntity userEntity) {
+    public void updateUser(UserEntity userEntity) throws Exception{
         // TODO Auto-generated method stub
         userRepository.save(userEntity);
     }
 
     @Override
-    public boolean existsByUserId(String userId) {
+    public boolean existsByUserId(String userId) throws Exception{
         // TODO Auto-generated method stub
         return userRepository.existsByUserId(userId);
     }

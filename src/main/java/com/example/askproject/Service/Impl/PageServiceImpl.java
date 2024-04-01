@@ -19,7 +19,7 @@ public class PageServiceImpl implements PageService {
     private PageDAO pageDAO;
 
     @Override
-    public PageDTO findByPageId(String pageId) {
+    public PageDTO findByPageId(String pageId) throws Exception{
         PageDTO pageDTO = new PageDTO();
         PageEntity pageEntity = pageDAO.findByPageId(pageId);
         pageDTO.setPageComment(pageEntity.getPageComment());
@@ -30,12 +30,12 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public void deletePage(String pageId) {
+    public void deletePage(String pageId) throws Exception{
         pageDAO.deletePage(pageId);
     }
 
     @Override
-    public List<PageDTO> findAllPage() {
+    public List<PageDTO> findAllPage() throws Exception{
         List<PageEntity> entities = pageDAO.findAllPage();
         List<PageDTO> dtos = new ArrayList<>();
         for (PageEntity pageEntity : entities) {
@@ -50,7 +50,7 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public void insertPage(PageDTO pageDTO) {
+    public void insertPage(PageDTO pageDTO) throws Exception{
         PageEntity pageEntity = new PageEntity();
         pageEntity.setPageComment(pageDTO.getPageComment());
         pageEntity.setPageId(pageDTO.getPageId());
@@ -60,7 +60,7 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public void updatePage(PageDTO pageDTO) {
+    public void updatePage(PageDTO pageDTO) throws Exception{
         PageEntity pageEntity = pageDAO.findByPageId(pageDTO.getPageId());
         pageEntity.setPageComment(pageDTO.getPageComment());
         pageEntity.setPageTitle(pageDTO.getPageTitle());
@@ -68,7 +68,7 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public List<String> findByPageIdContaining(String keyword) {
+    public List<String> findByPageIdContaining(String keyword) throws Exception{
         List<PageEntity> entities = pageDAO.findByPageIdContaining(keyword);
         List<String> pageIds = new ArrayList<>();
         for (PageEntity entity : entities) {
@@ -78,7 +78,7 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public void increasePageCount(String pageId) {
+    public void increasePageCount(String pageId) throws Exception{
         PageEntity entity = pageDAO.findByPageId(pageId);
         Long count = entity.getPageTodayCount();
         if (count == null) {
@@ -91,7 +91,7 @@ public class PageServiceImpl implements PageService {
 
 
     @Scheduled(cron = "0 0 0 * * *")
-    public void resetToday() {
+    public void resetToday() throws Exception{
         pageDAO.resetPageTodayCount();
     }
 

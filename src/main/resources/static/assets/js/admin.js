@@ -15,7 +15,7 @@ searchInput.addEventListener('input', function (event) {
 
     // AJAX 요청 생성
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/v1/search?query=' + query, true);
+    xhr.open('GET', '/user/search?query=' + query, true);
 
     // 요청 완료 시 동작 정의
     xhr.onload = function () {
@@ -51,7 +51,7 @@ function displaySearchResults(results) {
             li.textContent = result;
             li.addEventListener('click', function () {
                 // 클릭한 검색어에 대한 페이지로 이동
-                window.location.href = '/v1/qna/page?id=' + encodeURIComponent(result);
+                window.location.href = '/user/page?id=' + encodeURIComponent(result);
             });
             ul.appendChild(li);
         });
@@ -87,12 +87,12 @@ function cancelEdit(editAreaId) {
 function saveQuestion(questionId) {
     const updatedQuestion = document.getElementById("editedContent_question_" + questionId).value;
     $.ajax({
-        url: "/v1/qna/updateq?questionId=" + questionId,
+        url: "/user/updateq?questionId=" + questionId,
         type: "POST",
         data: { updatedQuestion: updatedQuestion },
         success: function (data) {
             alert("수정되었습니다.");
-            window.location.href = "/v1/qna/page?id={{pageId}}";
+            window.location.href = window.location.href;
         },
         error: function (xhr, status, error) {
             // 오류 처리
@@ -108,11 +108,11 @@ function deleteQuestion(questionId) {
     if (confirmation) {
         // 확인을 클릭한 경우
         $.ajax({
-            url: "/v1/qna/deleteq?questionId=" + questionId,
+            url: "/user/deleteq?questionId=" + questionId,
             type: "POST",
             success: function (data) {
                 alert("삭제되었습니다.");
-                window.location.href = "/v1/qna/page?id={{pageId}}";
+                window.location.href = window.location.href;
             },
             error: function (xhr, status, error) {
                 // 오류 처리
@@ -127,12 +127,12 @@ function saveAnswer(answerId) {
     // 여기에 코드를 추가하세요.
     const updatedAnswer = document.getElementById("editedContent_answer_" + answerId).value;
     $.ajax({
-        url: "/v1/qna/updatea?answerId=" + answerId,
+        url: "/user/updatea?answerId=" + answerId,
         type: "POST",
         data: { updatedAnswer: updatedAnswer },
         success: function (data) {
             alert("수정되었습니다.");
-            window.location.href = "/v1/qna/page?id={{pageId}}";
+            window.location.href = window.location.href;
         },
         error: function (xhr, status, error) {
             // 오류 처리
@@ -146,11 +146,11 @@ function deleteAnswer(answerId, questionId) {
     if (confirmation) {
         // 확인을 클릭한 경우
         $.ajax({
-            url: "/v1/qna/deletea?answerId=" + answerId + "&questionId=" + questionId,
+            url: "/user/deletea?answerId=" + answerId + "&questionId=" + questionId,
             type: "POST",
             success: function (data) {
                 alert("삭제되었습니다.");
-                window.location.href = "/v1/qna/page?id={{pageId}}";
+                window.location.href = window.location.href;
             },
             error: function (xhr, status, error) {
                 // 오류 처리
@@ -167,7 +167,7 @@ document.getElementById("withdraw").addEventListener("click", function () {
     if (confirmation) {
         // 확인을 클릭한 경우
         $.ajax({
-            url: "/v1/setting/deleteuser",
+            url: "/user/deleteuser",
             type: "POST",
             success: function (data) {
                 alert("탈퇴되었습니다.");
@@ -186,7 +186,7 @@ $(document).ready(function () {
         const passwordMatchMessage = document.getElementById("passwordMatchMessage");
         const currentPassword = $(this).val();
         $.ajax({
-            url: "/v1/setting/verify-password",
+            url: "/user/verify-password",
             type: "POST",
             data: { currentPassword: currentPassword },
             success: function (data) {
