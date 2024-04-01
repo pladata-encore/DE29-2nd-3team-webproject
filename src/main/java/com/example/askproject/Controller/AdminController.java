@@ -145,8 +145,8 @@ public class AdminController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if (questionService.checkMyQuestion(userDetails.getUsername(), questionId)
                 || questionService.checkMyQuestionTo(userDetails.getUsername(), questionId)) {
-            questionService.deleteByQuestionId(questionId);
-            answerService.deleteAnswerCascade(questionId);
+        questionService.deleteByQuestionId(questionId);
+        answerService.deleteAnswerCascade(questionId);
             return "redirect:/";
         } else {
             return null;
