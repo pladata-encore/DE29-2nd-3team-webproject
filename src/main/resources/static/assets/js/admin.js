@@ -59,50 +59,6 @@ function displaySearchResults(results) {
     }
 }
 
-
-// 검색 결과를 지우는 함수
-function clearSearchResults() {
-    searchResultsDiv.innerHTML = '';
-}
-
-// === mypage.html ===
-
-function showEditArea(editAreaId) {
-    document.getElementById(editAreaId).style.display = "block";
-    // 수정, 삭제 버튼 숨김
-    document.querySelector("#" + editAreaId + " .question-actions").style.display = "none";
-    // 질문 또는 답변 내용 숨김
-    document.querySelector("#" + editAreaId + " .question-content").style.display = "none";
-}
-
-function cancelEdit(editAreaId) {
-    // 수정 영역 숨김
-    document.getElementById(editAreaId).style.display = "none";
-    // 수정, 삭제 버튼 표시
-    document.querySelector("#" + editAreaId + " .question-actions").style.display = "block";
-    // 질문 또는 답변 내용 표시
-    document.querySelector("#" + editAreaId + " .question-content").style.display = "block";
-}
-
-function saveQuestion(questionId) {
-    const updatedQuestion = document.getElementById("editedContent_question_" + questionId).value;
-    $.ajax({
-        url: "/user/updateq?questionId=" + questionId,
-        type: "POST",
-        data: { updatedQuestion: updatedQuestion },
-        success: function (data) {
-            alert("수정되었습니다.");
-            window.location.href = window.location.href;
-        },
-        error: function (xhr, status, error) {
-            // 오류 처리
-            alert("수정에 실패했습니다.");
-        }
-    });
-    // 수정된 내용을 서버로 전송하는 로직을 작성합니다.
-    // 여기에 코드를 추가하세요.
-}
-
 function deleteQuestion(questionId) {
     const confirmation = confirm("질문을 삭제하시겠습니까?");
     if (confirmation) {
@@ -120,25 +76,6 @@ function deleteQuestion(questionId) {
             }
         });
     }
-}
-
-function saveAnswer(answerId) {
-    // 수정된 내용을 서버로 전송하는 로직을 작성합니다.
-    // 여기에 코드를 추가하세요.
-    const updatedAnswer = document.getElementById("editedContent_answer_" + answerId).value;
-    $.ajax({
-        url: "/user/updatea?answerId=" + answerId,
-        type: "POST",
-        data: { updatedAnswer: updatedAnswer },
-        success: function (data) {
-            alert("수정되었습니다.");
-            window.location.href = window.location.href;
-        },
-        error: function (xhr, status, error) {
-            // 오류 처리
-            alert("수정에 실패했습니다.");
-        }
-    });
 }
 
 function deleteAnswer(answerId, questionId) {
