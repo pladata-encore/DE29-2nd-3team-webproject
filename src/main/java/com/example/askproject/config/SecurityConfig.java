@@ -68,8 +68,7 @@ public class SecurityConfig {
                         // .authenticated()
                         // .anyRequest().permitAll())
 
-                        .requestMatchers("/v1/**").authenticated() // 인증이되면 접근 가능
-                        .requestMatchers("/manager/**").hasAnyAuthority("ADMIN", "MANAGER") // 인증&인가가 되면 접근 가능
+                        .requestMatchers("/user/**").hasAnyAuthority("USER","ADMIN")
                         .requestMatchers("/admin/**").hasAnyAuthority("ADMIN") // 인증&인가가 되면 접근 가능
                         .anyRequest().permitAll()) // 누구나 접근 가능
                 
