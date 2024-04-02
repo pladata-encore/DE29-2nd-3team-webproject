@@ -15,7 +15,7 @@ searchInput.addEventListener('input', function (event) {
 
     // AJAX 요청 생성
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/user/search?query=' + query, true);
+    xhr.open('GET', '/admin/search?query=' + query, true);
 
     // 요청 완료 시 동작 정의
     xhr.onload = function () {
@@ -51,7 +51,7 @@ function displaySearchResults(results) {
             li.textContent = result;
             li.addEventListener('click', function () {
                 // 클릭한 검색어에 대한 페이지로 이동
-                window.location.href = '/user/page?id=' + encodeURIComponent(result);
+                window.location.href = '/admin/page?id=' + encodeURIComponent(result);
             });
             ul.appendChild(li);
         });
@@ -64,7 +64,7 @@ function deleteQuestion(questionId) {
     if (confirmation) {
         // 확인을 클릭한 경우
         $.ajax({
-            url: "/user/deleteq?questionId=" + questionId,
+            url: "/admin/deleteq?questionId=" + questionId,
             type: "POST",
             success: function (data) {
                 alert("삭제되었습니다.");
@@ -83,7 +83,7 @@ function deleteAnswer(answerId, questionId) {
     if (confirmation) {
         // 확인을 클릭한 경우
         $.ajax({
-            url: "/user/deletea?answerId=" + answerId + "&questionId=" + questionId,
+            url: "/admin/deletea?answerId=" + answerId + "&questionId=" + questionId,
             type: "POST",
             success: function (data) {
                 alert("삭제되었습니다.");
@@ -95,83 +95,10 @@ function deleteAnswer(answerId, questionId) {
             }
         });
     }
-};
+}
 
-// === pagesetting.html ===
-
-document.getElementById("withdraw").addEventListener("click", function () {
-    const confirmation = confirm("정말 탈퇴하시겠습니까?");
-    if (confirmation) {
-        // 확인을 클릭한 경우
-        $.ajax({
-            url: "/user/deleteuser",
-            type: "POST",
-            success: function (data) {
-                alert("탈퇴되었습니다.");
-                window.location.href = "/";
-            },
-            error: function (xhr, status, error) {
-                // 오류 처리
-                alert("탈퇴에 실패했습니다.");
-            }
-        });
-    }
-});
-
-$(document).ready(function () {
-    $("#currentPassword").keyup(function () {
-        const passwordMatchMessage = document.getElementById("passwordMatchMessage");
-        const currentPassword = $(this).val();
-        $.ajax({
-            url: "/user/verify-password",
-            type: "POST",
-            data: { currentPassword: currentPassword },
-            success: function (data) {
-                if (data) {
-                    passwordMatchMessage.innerHTML = "";
-                } else {
-                    passwordMatchMessage.innerHTML = "현재 비밀번호가 일치하지 않습니다.";
-                    passwordMatchMessage.style.color = "red";
-                    submitButton.disabled = true;
-                }
-            }
-        });
-    });
-});
-
-
-function checkPasswordMatch() {
-    const currentPassword = document.getElementById("currentPassword").value;
-    const newPassword = document.getElementById("newPassword").value;
-    const confirmedPassword = document.getElementById("confirmedPassword").value;
-    const passwordMatchMessage = document.getElementById("passwordMatchMessage");
-
-
-    // 새 비밀번호와 확인 비밀번호가 같은지 확인하고 메시지 표시
-    if (currentPassword === newPassword && currentPassword !== "") {
-        passwordMatchMessage.innerHTML = "현재 비밀번호와 신규 비밀번호는 같을 수 없습니다.";
-        passwordMatchMessage.style.color = "red";
-        submitButton.disabled = true; // 현재 비밀번호와 새 비밀번호가 같으면 버튼 비활성화
-        return;
-    }
-
-    // 새 비밀번호와 확인 비밀번호가 같은지 확인하고 메시지 표시
-    if (newPassword === confirmedPassword) {
-        // 비밀번호가 조건을 충족하는지 확인
-        const regex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{8,16}$/;
-        if (regex.test(newPassword)) {
-            passwordMatchMessage.innerHTML = "사용 가능한 비밀번호 입니다.";
-            passwordMatchMessage.style.color = "green";
-            submitButton.disabled = false; // 비밀번호가 일치하고 조건을 충족하면 버튼 활성화
-        } else {
-            passwordMatchMessage.innerHTML = "비밀번호는 숫자, 문자, 특수문자를 포함한 8~16자여야 합니다.";
-            passwordMatchMessage.style.color = "red";
-            submitButton.disabled = true; // 비밀번호가 조건을 충족하지 않으면 버튼 비활성화
-        }
-    } else {
-        passwordMatchMessage.innerHTML = "비밀번호가 일치하지 않습니다.";
-        passwordMatchMessage.style.color = "red";
-        submitButton.disabled = true; // 비밀번호가 일치하지 않으면 버튼 비활성화
-    }
+// 검색 결과를 지우는 함수
+function clearSearchResults() {
+    searchResultsDiv.innerHTML = '';
 }
 

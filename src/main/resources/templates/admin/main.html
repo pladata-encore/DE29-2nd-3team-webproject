@@ -159,7 +159,7 @@
   <header id="header" class="fixed-top">
     <div class="container-fluid d-flex justify-content-between align-items-center">
       <h1 class="logo me-auto me-lg-0">
-        <a href="/v1/main">
+        <a href="/admin/main">
           <img src="https://cdn-icons-png.flaticon.com/128/14773/14773815.png" alt="Logo" />
           AnonyQ
         </a>
@@ -169,9 +169,7 @@
         <ul>
           <!-- <li><a class="active" href="index.html">Home</a></li> -->
           <li style="color: white;">안녕하세요, {{Nickname}}님</li>
-          <li><a href="/v1/main">Home</a></li>
-          <li><a href="/v1/qna/page?id={{myId}}">MyPage</a></li>
-          <li><a href="/v1/setting/page">Setting</a></li>
+          <li><a href="/admin/main">Home</a></li>
           <li><a href="/logout">Logout</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -187,7 +185,7 @@
       <div class="container" data-aos="fade-up">
         <div class="section-title">
           <h2>사용자 검색</h2>
-          <form class="justify-content-center" id="searchForm" action="/v1/search" method="GET" data-aos="none">
+          <form class="justify-content-center" id="searchForm" action="/admin/search" method="GET" data-aos="none">
             <input type="text" id="searchInput" name="query" placeholder="사용자를 입력하세요." />
             <button type="submit">검색</button>
           </form>
@@ -211,7 +209,7 @@
             <h5 class="text-center">추천 사용자</h5>
             {{#pages}}
             <div class="card">
-              <a href="qna/mypage?id={pageId}" onclick="event.preventDefault(); window.location.href='qna/page?id={{pageId}}'">
+              <a href="/admin/page?id={pageId}" onclick="event.preventDefault(); window.location.href='/admin/page?id={{pageId}}'">
                 <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
                   <h5 class="card-title" id="user-id1">{{pageId}}</h5>
                   <p class="card-text" id="page-title1">{{pageTitle}}</p>
@@ -226,7 +224,7 @@
             <h5 class="text-center">질문을 많이 받은 사용자 top 5</h5>
             {{#countQuestion}}
             <div class="card">
-              <a href="qna/mypage?id={pageId}" onclick="event.preventDefault(); window.location.href='qna/page?id={{user}}'">
+              <a href="/admin/page?id={pageId}" onclick="event.preventDefault(); window.location.href='/admin/page?id={{user}}'">
                 <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
                   <h5 class="card-title" id="user-id1">{{user}}</h5>
                   <p class="card-text" id="page-title1">횟수 : {{count}}</p>
@@ -242,7 +240,7 @@
             <h5 class="text-center">답변이 많은 사용자 top 5</h5>
             {{#countAnswer}}
             <div class="card">
-              <a href="qna/mypage?id={pageId}" onclick="event.preventDefault(); window.location.href='qna/page?id={{user}}'">
+              <a href="/admin/page?id={pageId}" onclick="event.preventDefault(); window.location.href='/admin/page?id={{user}}'">
                 <div class="card-body text-center"> <!-- 텍스트 가운데 정렬 -->
                   <h5 class="card-title" id="user-id1">{{user}}</h5>
                   <p class="card-text" id="page-title1">횟수 : {{count}}</p>

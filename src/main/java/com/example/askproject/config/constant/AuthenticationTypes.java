@@ -13,7 +13,6 @@ public enum AuthenticationTypes {
     DisabledException(405, "계정비활성화"),
     LockedException(406, "계정잠김"),
     NoneException(407, "알 수 없는 에러 입니다.");
-
     private int code;
     private String msg;
 }

@@ -172,7 +172,7 @@
         class="container-fluid d-flex justify-content-between align-items-center"
       >
         <h1 class="logo me-auto me-lg-0">
-          <a href="/v1/main">
+          <a href="/admin/main">
             <img
               src="https://cdn-icons-png.flaticon.com/128/14773/14773815.png"
               alt="Logo"
@@ -185,9 +185,7 @@
           <ul>
             <!-- <li><a class="active" href="index.html">Home</a></li> -->
             <li style="color: white;">안녕하세요, {{Nickname}}님</li>
-            <li><a href="/v1/main">Home</a></li>
-            <li><a href="/v1/qna/page?id={{myId}}">MyPage</a></li>
-            <li><a href="/v1/setting/page">Setting</a></li>
+            <li><a href="/admin/main">Home</a></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
@@ -268,20 +266,7 @@
               </div>
               
               <div class="question-actions" style="text-align: right;">
-                {{#myQuestion}}
-                {{^answered}}
-                <button class="btn btn-sm btn-primary edit-question" onclick="showEditArea('editArea_question_{{questionId}}')">수정</button>
-                {{/answered}}
                 <button class="btn btn-sm btn-danger delete-question" onclick="deleteQuestion('{{questionId}}')">삭제</button>
-                {{/myQuestion}}
-                {{#idCheck}}
-                <button class="btn btn-sm btn-danger delete-question" onclick="deleteQuestion('{{questionId}}')">삭제</button>
-                {{/idCheck}}
-              </div>
-              <div id="editArea_question_{{questionId}}" style="display: none; text-align: right; margin-top:13px;">
-                <textarea id="editedContent_question_{{questionId}}" class="form-control" rows="3">{{questionContent}}</textarea>
-                <button class="btn btn-sm btn-success" style="margin-top: 10px;" onclick="saveQuestion('{{questionId}}')">완료</button>
-                <button class="btn btn-sm btn-secondary" style="margin-top: 10px;" onclick="cancelEdit('editArea_question_{{questionId}}')">취소</button>
               </div>
             </div>
 
@@ -291,69 +276,10 @@
                 <p>{{answerContent}}</p>
               </div>
               <div class="answer-actions" style="text-align: right;">
-                {{#idCheck}}
-                <button class="btn btn-sm btn-primary edit-answer" onclick="showEditArea('editArea_answer_{{answerId}}')">수정</button>
                 <button class="btn btn-sm btn-danger delete-answer" onclick="deleteAnswer('{{answerId}}', '{{questionId}}')">삭제</button>
-                {{/idCheck}}
-              </div>
-              <div id="editArea_answer_{{answerId}}" style="display: none; text-align: right; margin-top:13px;">
-                <textarea id="editedContent_answer_{{answerId}}" class="form-control" rows="3">{{answerContent}}</textarea>
-                <button class="btn btn-sm btn-success" style="margin-top: 10px;" onclick="saveAnswer('{{answerId}}')">완료</button>
-                <button class="btn btn-sm btn-secondary" style="margin-top: 10px;" onclick="cancelEdit('editArea_answer_{{answerId}}')">취소</button>
               </div>
             </div>
-            {{/answered}} {{^answered}} {{#idCheck}}
-            <form
-              id="answer-form"
-              class="answer-form"
-              method="post"
-              action="/v1/qna/senda?pageid={{pageId}}&questionid={{questionId}}&from={{questionFrom}}"
-            >
-              <div class="d-flex">
-                <!-- 행 내 요소로 정렬하기 위한 클래스 추가 -->
-                <div class="form-group flex-grow-1 mr-2">
-                  <!-- 오른쪽 버튼과의 간격을 위해 추가한 클래스 -->
-                  <textarea
-                    id="answer"
-                    name="answerContent"
-                    class="form-control answer-textarea"
-                    rows="2"
-                    placeholder="답변을 입력해주세요."
-                  ></textarea>
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-custom">
-                    답변 제출
-                  </button>
-                </div>
-              </div>
-            </form>
-            {{/idCheck}} {{/answered}} {{/questions}} {{^idCheck}}
-            <form
-              id="question-form"
-              class="question-form"
-              action="/v1/qna/sendq?id={{pageId}}"
-              method="post"
-            >
-              <div class="d-flex">
-                <!-- 행 내 요소로 정렬하기 위한 클래스 추가 -->
-                <div class="form-group flex-grow-1 mr-2">
-                  <textarea
-                    id="question"
-                    name="questionContent"
-                    class="form-control question-textarea"
-                    rows="2"
-                    placeholder="질문을 입력해주세요."
-                  ></textarea>
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-custom">
-                    질문 제출
-                  </button>
-                </div>
-              </div>
-            </form>
-            {{/idCheck}}
+            {{/answered}} {{/questions}}
             <!-- 추가 질문들도 같은 방식으로 추가합니다 -->
           </div>
         </div>
@@ -379,8 +305,7 @@
     <a
       href="#"
       class="back-to-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
+      ><i class="bi bi-arrow-up-short"></i></a>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
 
@@ -398,7 +323,7 @@
 
     <!-- Template Main JS File -->
     <script src="/static/assets/js/main.js"></script>
-    <script src="/static/assets/js/admin/js"></script>
+    <script src="/static/assets/js/admin.js"></script>
   </body>
 </html>
 
