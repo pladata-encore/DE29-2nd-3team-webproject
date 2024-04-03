@@ -267,6 +267,26 @@
 </section>
 
   <a id="withdraw" href="#" class="row justify-content-center" style="margin-top:50px; font-size:13px; color:black">회원탈퇴하기</a>
+<script>
+  document.getElementById("withdraw").addEventListener("click", function () {
+    const confirmation = confirm("정말 탈퇴하시겠습니까?");
+    if (confirmation) {
+        // 확인을 클릭한 경우
+        $.ajax({
+            url: "/user/deleteuser",
+            type: "POST",
+            success: function (data) {
+                alert("탈퇴되었습니다.");
+                window.location.href = "/";
+            },
+            error: function (xhr, status, error) {
+                // 오류 처리
+                alert("탈퇴에 실패했습니다.");
+            }
+        });
+      }
+  });
+</script>
 
   
 <!-- End Modify Section -->
@@ -302,5 +322,27 @@
     <script src="/static/assets/vendor/php-email-form/validate.js"></script>
 
     <script src="/static/assets/js/main.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#currentPassword").keyup(function () {
+            const passwordMatchMessage = document.getElementById("passwordMatchMessage");
+            const currentPassword = $(this).val();
+            $.ajax({
+                url: "/user/verify-password",
+                type: "POST",
+                data: { currentPassword: currentPassword },
+                success: function (data) {
+                    if (data) {
+                        passwordMatchMessage.innerHTML = "";
+                    } else {
+                        passwordMatchMessage.innerHTML = "현재 비밀번호가 일치하지 않습니다.";
+                        passwordMatchMessage.style.color = "red";
+                        submitButton.disabled = true;
+                    }
+                  }
+              });
+          });
+        });
+      </script>
   </body>
 </html>

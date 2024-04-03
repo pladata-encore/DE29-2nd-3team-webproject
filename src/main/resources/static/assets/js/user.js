@@ -162,46 +162,6 @@ function deleteAnswer(answerId, questionId) {
 
 // === pagesetting.html ===
 
-document.getElementById("withdraw").addEventListener("click", function () {
-    const confirmation = confirm("정말 탈퇴하시겠습니까?");
-    if (confirmation) {
-        // 확인을 클릭한 경우
-        $.ajax({
-            url: "/user/deleteuser",
-            type: "POST",
-            success: function (data) {
-                alert("탈퇴되었습니다.");
-                window.location.href = "/";
-            },
-            error: function (xhr, status, error) {
-                // 오류 처리
-                alert("탈퇴에 실패했습니다.");
-            }
-        });
-    }
-});
-
-$(document).ready(function () {
-    $("#currentPassword").keyup(function () {
-        const passwordMatchMessage = document.getElementById("passwordMatchMessage");
-        const currentPassword = $(this).val();
-        $.ajax({
-            url: "/user/verify-password",
-            type: "POST",
-            data: { currentPassword: currentPassword },
-            success: function (data) {
-                if (data) {
-                    passwordMatchMessage.innerHTML = "";
-                } else {
-                    passwordMatchMessage.innerHTML = "현재 비밀번호가 일치하지 않습니다.";
-                    passwordMatchMessage.style.color = "red";
-                    submitButton.disabled = true;
-                }
-            }
-        });
-    });
-});
-
 
 function checkPasswordMatch() {
     const currentPassword = document.getElementById("currentPassword").value;
