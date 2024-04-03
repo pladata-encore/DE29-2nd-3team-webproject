@@ -47,7 +47,7 @@ public class UserController {
     private UserServiceSecurity userServiceSecurity;
 
     @GetMapping("/main")
-    public String getMainPage(Model model, Authentication authentication) throws PageException, Exception{
+    public String getMainPage(Model model, Authentication authentication) throws Exception{
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("myId", userDetails.getUsername());
         model.addAttribute("Nickname", userService.findNicknameByUserId(userDetails.getUsername()));
@@ -63,7 +63,7 @@ public class UserController {
         return "user/main";
     }
 
-    private List<PageDTO> getRandomPages(List<PageDTO> allPages, int count) throws PageException, Exception{
+    private List<PageDTO> getRandomPages(List<PageDTO> allPages, int count) throws Exception{
         List<PageDTO> shuffledPages = new ArrayList<>(allPages);
         Collections.shuffle(shuffledPages);
 
@@ -73,14 +73,14 @@ public class UserController {
 
     @GetMapping("/search")
     @ResponseBody
-    public List<String> searchUsers(@RequestParam("query") String query) throws PageException, Exception{
+    public List<String> searchUsers(@RequestParam("query") String query) throws Exception{
         return pageService.findByPageIdContaining(query);
     }
 
     @GetMapping("/page")
-    public String getIndividualPage(@RequestParam String id, Model questionModel, Authentication authentication) throws PageException, Exception{
+    public String getIndividualPage(@RequestParam String id, Model questionModel, Authentication authentication) throws Exception{
         if (!userService.findAllUserId().contains(id)) {
-            throw new PageException("계정을 찾을 수 없음");
+            throw new UserException("계정을 찾을 수 없음");
         }
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         questionModel.addAttribute("Nickname", userService.findNicknameByUserId(userDetails.getUsername()));
@@ -106,7 +106,7 @@ public class UserController {
 
     @PostMapping("/sendq")
     public String postQuestion(@ModelAttribute QuestionDTO questionDTO, @RequestParam String id,
-            Authentication authentication) throws UserException, Exception{
+            Authentication authentication) throws Exception{
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         questionDTO.setQuestionTo(id);
         questionDTO.setQuestionFrom(userDetails.getUsername());
@@ -117,7 +117,7 @@ public class UserController {
     @PostMapping("/senda")
     public String postAnswer(@ModelAttribute AnswerDTO answerDTO, @RequestParam String pageid,
             @RequestParam("questionid") Long questionid, @RequestParam("from") String from,
-            Authentication authentication) throws UserException, Exception{
+            Authentication authentication) throws Exception{
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         answerDTO.setAnswerTo(from);
         answerDTO.setAnswerQuestionId(questionid);
@@ -129,7 +129,7 @@ public class UserController {
 
     @PostMapping("/deletea")
     public void deleteAnswer(@RequestParam Long answerId, @RequestParam Long questionId,
-            Authentication authentication) throws UserException, Exception{
+            Authentication authentication) throws Exception{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if (answerService.checkMyAnswer(userDetails.getUsername(), answerId)) {
@@ -141,7 +141,7 @@ public class UserController {
     }
 
     @PostMapping("/deleteq")
-    public void deleteQuestion(@RequestParam Long questionId, Authentication authentication) throws UserException, Exception{
+    public void deleteQuestion(@RequestParam Long questionId, Authentication authentication) throws Exception{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if (questionService.checkMyQuestion(userDetails.getUsername(), questionId)
@@ -155,7 +155,7 @@ public class UserController {
 
     @PostMapping("/updateq")
     public void updateQuestion(@RequestParam Long questionId, @RequestParam String updatedQuestion,
-            Authentication authentication) throws UserException, Exception{
+            Authentication authentication) throws Exception{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if (questionService.checkMyQuestion(userDetails.getUsername(), questionId)) {
@@ -167,7 +167,7 @@ public class UserController {
 
     @PostMapping("/updatea")
     public void updateAnswer(@RequestParam Long answerId, @RequestParam String updatedAnswer,
-            Authentication authentication) throws UserException, Exception{
+            Authentication authentication) throws Exception{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if (answerService.checkMyAnswer(userDetails.getUsername(), answerId)) {
@@ -178,7 +178,7 @@ public class UserController {
     }
 
     @GetMapping("/pagesetting")
-    public String getPageSetting(Model settingModel, Authentication authentication) throws PageException, Exception{
+    public String getPageSetting(Model settingModel, Authentication authentication) throws Exception{
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         settingModel.addAttribute("Nickname", userService.findNicknameByUserId(userDetails.getUsername()));
         settingModel.addAttribute("myId", userDetails.getUsername());
@@ -190,7 +190,7 @@ public class UserController {
     }
 
     @PostMapping("/pageupdate")
-    public String updatePageSetting(@ModelAttribute PageDTO pageDTO, Authentication authentication, Model model) throws UserException, Exception{
+    public String updatePageSetting(@ModelAttribute PageDTO pageDTO, Authentication authentication, Model model) throws Exception{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         pageDTO.setPageId(userDetails.getUsername()); // 세션id가 될 값입니다.
@@ -200,7 +200,7 @@ public class UserController {
     }
 
     @PostMapping("/updatepassword")
-    public String updatePassword(@ModelAttribute UserDTO userDTO, Authentication authentication, Model model) throws UserException, Exception{
+    public String updatePassword(@ModelAttribute UserDTO userDTO, Authentication authentication, Model model) throws Exception{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         userDTO.setUserId(userDetails.getUsername()); // 세션id가 될 값입니다.
@@ -210,7 +210,7 @@ public class UserController {
     }
 
     @PostMapping("/updatenickname")
-    public String updateNickname(@ModelAttribute UserDTO userDTO, Authentication authentication, Model model) throws UserException, Exception{
+    public String updateNickname(@ModelAttribute UserDTO userDTO, Authentication authentication, Model model) throws Exception{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         userDTO.setUserId(userDetails.getUsername()); // 세션id가 될 값입니다.
@@ -220,7 +220,7 @@ public class UserController {
     }
 
     @PostMapping("/deleteuser")
-    public String deleteUser(Authentication authentication) throws UserException, Exception{
+    public String deleteUser(Authentication authentication) throws Exception{
         // TODO: process POST request
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         userService.deleteUser(userDetails.getUsername());
@@ -235,7 +235,7 @@ public class UserController {
 
     @PostMapping("/verify-password")
     @ResponseBody
-    public boolean verifyPassword(@RequestParam String currentPassword, Authentication authentication) throws UserException, Exception{
+    public boolean verifyPassword(@RequestParam String currentPassword, Authentication authentication) throws Exception{
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return userServiceSecurity.verifyPassword(userDetails.getUsername(), currentPassword);
     }

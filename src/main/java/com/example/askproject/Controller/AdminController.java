@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.askproject.Exception.UserException;
 import com.example.askproject.Model.DTO.PageDTO;
 import com.example.askproject.Model.DTO.joindQnaDTO;
 import com.example.askproject.Service.AnswerService;
@@ -72,7 +73,7 @@ public class AdminController {
     @GetMapping("/page")
     public String getIndividualPage(@RequestParam String id, Model questionModel, Authentication authentication) throws Exception{
         if (!userService.findAllUserId().contains(id)) {
-            return "error";
+            throw new UserException("계정을 찾을 수 없음");
         }
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         questionModel.addAttribute("Nickname", userService.findNicknameByUserId(userDetails.getUsername()));

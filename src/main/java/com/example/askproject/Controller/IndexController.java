@@ -11,7 +11,7 @@ public class IndexController {
     // 인덱스 페이지
     @GetMapping("/")
     public String index(@RequestParam(value = "error", required = false) String error,
-    @RequestParam(value = "exception", required = false) String exception, Model model) {
+    @RequestParam(value = "exception", required = false) String exception, Model model) throws Exception{
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
         return "etc/index";
